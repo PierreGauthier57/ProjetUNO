@@ -1,6 +1,8 @@
 package UNO.Parser;
 
+import UNO.Carte.Cartes;
 import UNO.Exception.ParserManquantException;
+import UNO.Partie;
 
 public abstract class Parser {
 
@@ -8,6 +10,12 @@ public abstract class Parser {
     // Cette liste chainée représente une instruction "switch"
     // Chaque maillon représente un "case" du switch
     private Parser suivant = null;
+
+    private Partie partie = Partie.getInstance();
+
+    public Partie getPartie() {
+        return partie;
+    }
 
     public Parser(Parser suivant) {
         this.suivant = suivant;
@@ -19,13 +27,13 @@ public abstract class Parser {
      * @param ligne la ligne à parser
      * @exception lance une exception si quelque chose a mal tourné
      */
-    public void traiter(String ligne) throws Exception {
-        if (saitParser(ligne))
+    public void traiter(Cartes cartes) throws Exception {
+        if (saitParser(cartes))
             // Si le parser sait parser la ligne, il la parse
-            parser(ligne);
+            parser(cartes);
         else if (aUnSuivant())
             // S'il ne sait pas mais qu'il a un suivant dans la liste chaine, il lui repasse la ligne et qu'il se débrouille !
-            getSuivant().traiter(ligne);
+            getSuivant().traiter(cartes);
         else
             // Sinon, on est arrivé au bout sans trouver un parser
             // et on lance une exception ! Que le prog appelant se débrouille avec cette ligne !
@@ -43,10 +51,10 @@ public abstract class Parser {
 
     /**
      * Parse une ligne. Renvoie une Exception si quelque chose a mal tourné...
-     * @param ligne
+     * @param Cartes
      * @throws Exception
      */
-    public abstract void parser(String ligne) throws Exception;
+    public abstract void parser(Cartes cartes) throws Exception;
 
     /**
      * Renvoie true si le parser en question reconnait le type de ligne, c'est-à-dire
@@ -55,6 +63,6 @@ public abstract class Parser {
      * @param ligne
      * @return true si la ligne est reconnue
      */
-    public abstract boolean saitParser(String ligne);
+    public abstract boolean saitParser(Cartes cartes);
 
 }
