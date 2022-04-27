@@ -13,10 +13,14 @@ public class Partie {
     private ArrayList<Cartes> pioche = new ArrayList<Cartes>();
     private ArrayList<Cartes> tas = new ArrayList<Cartes>();
     private ArrayList<Joueur> listeDesJoueurs= new ArrayList<Joueur>();
+    private static  volatile Partie instance = null;
 
-    public Partie(int nbJoueur,Cartes carte){
+
+    public Partie(int nbJoueur){
         this.nbJoueur=nbJoueur;
-        pioche.add(carte);
+    }
+    public Cartes getHautTas(){
+        return tas.get(0);
     }
 
     public void piocher(Joueur joueur)throws valideException, tourException {
@@ -38,7 +42,13 @@ public class Partie {
     }
 
     public boolean EstValide(Cartes carte,Cartes tas){
-        Expert
+       // Expert
+    }
+
+    public static Partie getInstance() {
+        if(instance == null)
+            instance = new Partie(instance.nbJoueur);
+        return instance;
     }
 
     @Override
