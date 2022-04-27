@@ -1,21 +1,29 @@
+package UNO.Carte;
+
 import java.util.Objects;
 
 public class Cartes {
-    enum Color {BLEU,ROUGE,VERT,NOIR,JAUNE};
-    Color couleur;
-    int chiffre;
+    private enum Color {BLEU,ROUGE,VERT,NOIR,JAUNE};
+    private Color couleur;
+    private int chiffre;
 
-    public Cartes(int chiffre,Color couleur){
-        if (chiffre <0 || chiffre >9)
-            throw new IllegalArgumentException("Le chiffre doit être compris entre 0 et 9!");
-        this.chiffre=chiffre;
-        this.couleur= couleur;
+    public Cartes(Color couleur){
+        this.Color = setCouleur(couleur);
     }
     public boolean EstValide(Cartes carteTas,Cartes carteAPoser){
         if((carteTas.chiffre != carteAPoser.chiffre )&&( carteTas.couleur!=carteAPoser.couleur)&&(carteAPoser.couleur!=Color.NOIR))
             return false;
         return true;
     }
+
+    public Color getCouleur() {
+        return couleur;
+    }
+
+    public void setCouleur(Color couleur) {
+        this.couleur = couleur;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

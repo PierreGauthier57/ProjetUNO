@@ -1,3 +1,9 @@
+package UNO;
+
+import UNO.Carte.Cartes;
+import UNO.Exception.tourException;
+import UNO.Exception.valideException;
+
 import java.util.ArrayList;
 
 public class Partie {
@@ -13,7 +19,7 @@ public class Partie {
         pioche.add(carte);
     }
 
-    public void piocher(Joueur joueur)throws valideException,tourException{
+    public void piocher(Joueur joueur)throws valideException, tourException {
         if(!(listeDesJoueurs.get(numJoueurTour) == joueur))
             throw new tourException("Ce n'est pas ton tour");
 
