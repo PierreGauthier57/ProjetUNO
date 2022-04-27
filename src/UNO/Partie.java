@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class Partie {
     private int nbJoueur;
     private boolean sensHoraire = true;
-    private int numJoueurTour= 0;
+    private int numJoueurCourant= 0;
     private ArrayList<Cartes> pioche = new ArrayList<Cartes>();
     private ArrayList<Cartes> tas = new ArrayList<Cartes>();
     private ArrayList<Joueur> listeDesJoueurs= new ArrayList<Joueur>();
@@ -20,7 +20,7 @@ public class Partie {
     }
 
     public void piocher(Joueur joueur)throws valideException, tourException {
-        if(!(listeDesJoueurs.get(numJoueurTour) == joueur))
+        if(!(listeDesJoueurs.get(numJoueurCourant) == joueur))
             throw new tourException("Ce n'est pas ton tour");
 
         joueur.main.add(pioche.get(0));
@@ -28,7 +28,7 @@ public class Partie {
     }
 
     public void poser(Cartes carte,Joueur joueur ) throws valideException,tourException{
-        if(!(listeDesJoueurs.get(numJoueurTour) == joueur))
+        if(!(listeDesJoueurs.get(numJoueurCourant) == joueur))
             throw new tourException("Ce n'est pas ton tour");
 
         if(!EstValide(carte,tas.get(0))) ///  LES EFFETS DE CARTES ?----------------------------------------------
@@ -38,14 +38,14 @@ public class Partie {
     }
 
     public boolean EstValide(Cartes carte,Cartes tas){
-        
+        Expert
     }
 
     @Override
     public String toString() {
         return "nbJoueur=" + nbJoueur +
                 ", sensHoraire=" + sensHoraire +
-                ", numJoueurTour=" + numJoueurTour +
+                ", numJoueurTour=" + numJoueurCourant +
                 ", pioche=" + pioche +
                 ", tas=" + tas
                 ;
