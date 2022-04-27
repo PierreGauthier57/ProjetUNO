@@ -1,8 +1,15 @@
-module com.example.projet_uno {
+module application.projetuno {
     requires javafx.controls;
     requires javafx.fxml;
+    requires javafx.web;
 
+    requires org.controlsfx.controls;
+    requires com.dlsc.formsfx;
+    requires validatorfx;
+    requires org.kordamp.ikonli.javafx;
+    requires org.kordamp.bootstrapfx.core;
+    requires eu.hansolo.tilesfx;
 
-    opens com.example.projet_uno to javafx.fxml;
-    exports com.example.projet_uno;
+    opens application.projetuno to javafx.fxml;
+    exports application.projetuno;
 }
