@@ -8,7 +8,7 @@ public class Joueur {
     String nom ;
     ArrayList<Cartes> main = new ArrayList<Cartes>();
 
-    public Joueur(String nom,Cartes carte){
+    Joueur(String nom, Cartes carte){
         if(nom.trim().equals("")|| nom==null)
             throw new IllegalArgumentException("Le nom ne peut pas être vide");
         this.nom=nom;

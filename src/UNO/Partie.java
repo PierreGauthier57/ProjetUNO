@@ -31,10 +31,14 @@ public class Partie {
         if(!(listeDesJoueurs.get(numJoueurTour) == joueur))
             throw new tourException("Ce n'est pas ton tour");
 
-        if(!carte.EstValide(carte,tas.get(0)))
+        if(!EstValide(carte,tas.get(0))) ///  LES EFFETS DE CARTES ?----------------------------------------------
             throw new valideException("La carte n'est pas valide : PENALITE");
         joueur.main.remove(carte);
         tas.add(0,carte);
+    }
+
+    public boolean EstValide(Cartes carte,Cartes tas){
+        
     }
 
     @Override
