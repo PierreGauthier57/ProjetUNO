@@ -1,8 +1,8 @@
 package Uno;
 
 import Carte.Cartes;
-import Exception.tourException;
-import Exception.valideException;
+import Exception.*;
+import Parser.ExpertValide;
 
 import java.util.ArrayList;
 
@@ -14,12 +14,14 @@ public class Partie {
     private ArrayList<Cartes> tas = new ArrayList<Cartes>();
     private ArrayList<Joueur> listeDesJoueurs= new ArrayList<Joueur>();
     private static  volatile Partie instance = null;
+    private ExpertValide PremierExpert = null;
 
 
     public Partie(int nbJoueur)
     {
         this.nbJoueur=nbJoueur;
     }
+
     public Cartes getHautTas(){
         return tas.get(0);
     }
@@ -43,7 +45,18 @@ public class Partie {
     }
 
     public boolean EstValide(Cartes carte,Cartes tas){
-       // Expert
+
+        try {
+            return  PremierExpert.traiter(carte,tas);
+        }
+        catch (ExpertManquantException e)
+        {
+
+        }
+        catch (Exception e)
+        {
+            //e.printStackTrace();
+        }
         return true;
     }
 
