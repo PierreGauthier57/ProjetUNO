@@ -3,7 +3,7 @@ package Parser;
 import Carte.Cartes;
 import Carte.Normale;
 
-public class ParserChangeSensSurNormale extends Parser {
+public abstract class ParserChangeSensSurNormale extends Parser {
 
         public ParserChangeSensSurNormale(Parser suivant){
             super(suivant);
@@ -15,26 +15,14 @@ public class ParserChangeSensSurNormale extends Parser {
     }
 
     @Override
-    public boolean saitParser(Cartes cartes) {
-        return false;
-    }
-
-    @Override
-    public void parser(Normale cartes, Normale cartesTas) throws Exception {
+    public void parser(Cartes cartes, Cartes cartesTas) throws Exception {
 
     }
 
     @Override
-    public boolean saitParser(Normale cartes, Normale cartesTas) {
+    public boolean saitParser(Cartes cartes, Cartes cartesTas) {
         return false;
     }
-
-    public boolean saitParser(String ligne){
-            if(ligne.matches(".*CASE DEPART.*"))
-                return true;
-            return false;
-        }
-
 
     }
 
