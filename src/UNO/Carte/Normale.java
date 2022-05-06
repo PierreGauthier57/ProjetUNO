@@ -1,7 +1,5 @@
 package UNO.Carte;
 
-import javafx.scene.paint.Color;
-
 public class Normale extends Cartes{
     private int chiffre;
 

@@ -42,7 +42,11 @@ public class Partie {
     }
 
     public boolean EstValide(Cartes carte,Cartes tas){
+<<<<<<< Updated upstream:src/UNO/Partie.java
        // Expert
+=======
+        
+>>>>>>> Stashed changes:src/main/java/Uno/Partie.java
     }
 
     public static Partie getInstance() {

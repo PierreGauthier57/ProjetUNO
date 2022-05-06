@@ -1,7 +1,5 @@
 package UNO.Carte;
 
-import java.util.Objects;
-
 public class Cartes {
     public enum Color {BLEU,ROUGE,VERT,NOIR,JAUNE};
     private Color couleur;
