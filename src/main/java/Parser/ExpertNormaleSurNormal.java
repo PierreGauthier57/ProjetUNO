@@ -2,7 +2,7 @@ package Parser;
 import Carte.Cartes;
 import Carte.Normale;
 
-public abstract class ExpertNormaleSurNormal extends ExpertValide {
+public class ExpertNormaleSurNormal extends ExpertValide {
     public ExpertNormaleSurNormal(ExpertValide suivant) {
         super(suivant);
     }

@@ -16,7 +16,8 @@ public class Partie {
     private static  volatile Partie instance = null;
 
 
-    public Partie(int nbJoueur){
+    public Partie(int nbJoueur)
+    {
         this.nbJoueur=nbJoueur;
     }
     public Cartes getHautTas(){
