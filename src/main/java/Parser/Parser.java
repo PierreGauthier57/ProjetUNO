@@ -44,8 +44,12 @@ public abstract class Parser {
 
     /**
      * Parse une ligne. Renvoie une Exception si quelque chose a mal tourné...
+<<<<<<< Updated upstream
      *
      * @param ligne
+=======
+     * @param cartes
+>>>>>>> Stashed changes
      * @throws Exception
      */
     public abstract void parser(String ligne) throws Exception;
@@ -54,8 +58,12 @@ public abstract class Parser {
      * Renvoie true si le parser en question reconnait le type de ligne, c'est-à-dire
      * qu'il sait la "décortiquer", et créer le ou les objets qu'il faut. Il n'y a pas
      * d'exception. En cas de problème, on renvoie false !
+<<<<<<< Updated upstream
      *
      * @param ligne
+=======
+     * @param cartes
+>>>>>>> Stashed changes
      * @return true si la ligne est reconnue
      */
     public abstract boolean saitParser(String ligne);
