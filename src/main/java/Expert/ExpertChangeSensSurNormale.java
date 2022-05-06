@@ -1,10 +1,10 @@
-package Parser;
+package Expert;
 
 import Carte.Cartes;
 
-public class ExpertChangeSensSurNormale extends ExpertValide {
+public class ExpertChangeSensSurNormale extends Expert.ExpertValide {
 
-        public ExpertChangeSensSurNormale(ExpertValide suivant){
+        public ExpertChangeSensSurNormale(Expert.ExpertValide suivant){
             super(suivant);
         }
         

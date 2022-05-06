@@ -1,4 +1,4 @@
-package Parser;
+package Expert;
 
 import Carte.Cartes;
 import Exception.ExpertManquantException;
@@ -8,9 +8,9 @@ public abstract class ExpertValide {
     // Un parser est en fait un maillon dans une liste chainée...
     // Cette liste chainée représente une instruction "switch"
     // Chaque maillon représente un "case" du switch
-    private ExpertValide suivant = null;
+    private Expert.ExpertValide suivant = null;
 
-    public ExpertValide(ExpertValide suivant) {
+    public ExpertValide(Expert.ExpertValide suivant) {
         this.suivant = suivant;
     }
 
@@ -24,17 +24,17 @@ public abstract class ExpertValide {
     public boolean traiter(Cartes cartes, Cartes carteTas) throws Exception {
         if (saitParser(cartes,carteTas))
             // Si le parser sait parser la ligne, il la parse
-            return parser(cartes,carteTas);
+            parser(cartes,carteTas);
         else if (aUnSuivant())
             // S'il ne sait pas mais qu'il a un suivant dans la liste chaine, il lui repasse la ligne et qu'il se débrouille !
-            getSuivant().traiter(cartes,carteTas);
+            return getSuivant().traiter(cartes,carteTas);
         else
             // Sinon, on est arrivé au bout sans trouver un parser
             // et on lance une exception ! Que le prog appelant se débrouille avec cette ligne !
             throw new ExpertManquantException();
         return false;
     }
-    private ExpertValide getSuivant() {
+    private Expert.ExpertValide getSuivant() {
         return suivant;
     }
 
