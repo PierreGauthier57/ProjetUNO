@@ -9,7 +9,7 @@ public class main {
         Joueur joueur1 = new Joueur("anna",sixrouge);
         //Joueur joueur2 = new Joueur("luc",dixrouge);
 
-        Partie partie = new Partie(1,dixrouge);
-        System.out.println(partie.toString());
+      //  Partie partie = new Partie(2);
+        //System.out.println(partie.toString());
     }
 }
