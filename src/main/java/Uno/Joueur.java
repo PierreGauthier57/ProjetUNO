@@ -1,6 +1,6 @@
-package UNO;
+package Uno;
 
-import UNO.Carte.Cartes;
+import Carte.Cartes;
 
 import java.util.ArrayList;
 

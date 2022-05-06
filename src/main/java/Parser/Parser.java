@@ -1,8 +1,7 @@
-package UNO.Parser;
+package Parser;
 
-import UNO.Carte.Cartes;
-import UNO.Exception.ParserManquantException;
-import UNO.Partie;
+import Carte.Cartes;
+import Uno.Partie;
 
 public abstract class Parser {
 

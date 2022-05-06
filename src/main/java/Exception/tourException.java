@@ -1,4 +1,4 @@
-package UNO.Exception;
+package Exception;
 
 public class tourException extends Exception{
     public tourException(String msg){

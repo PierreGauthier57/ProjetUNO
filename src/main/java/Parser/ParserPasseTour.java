@@ -1,4 +1,4 @@
-package UNO.Parser;
+package Parser;
 
 public class ParserPasseTour {
 }

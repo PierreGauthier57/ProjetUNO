@@ -1,4 +1,4 @@
-package UNO.Parser;
+package Parser;
 
 public class ParserChangeSens extends Parser {
 
@@ -10,10 +10,7 @@ public class ParserChangeSens extends Parser {
                 return true;
             return false;
         }
-        public void parser(String ligne)throws Exception{
-            String tab[] = ligne.split(";");
-            System.out.println("La case départ est a la position" + tab[0]);
-        }
+
 
     }
 

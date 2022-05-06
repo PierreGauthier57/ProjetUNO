@@ -1,4 +1,4 @@
-package UNO.Carte;
+package Carte;
 
 import java.util.Objects;
 

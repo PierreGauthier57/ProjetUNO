@@ -1,6 +1,6 @@
-package UNO;
+package Uno;
 
-import UNO.Carte.Cartes;
+import Carte.Cartes;
 
 public class main {
     public static void main(String[] args) {

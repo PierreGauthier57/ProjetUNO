@@ -1,8 +1,8 @@
-package UNO;
+package Uno;
 
-import UNO.Carte.Cartes;
-import UNO.Exception.tourException;
-import UNO.Exception.valideException;
+import Carte.Cartes;
+import Exception.tourException;
+import Exception.valideException;
 
 import java.util.ArrayList;
 
