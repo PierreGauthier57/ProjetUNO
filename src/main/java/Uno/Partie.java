@@ -43,6 +43,7 @@ public class Partie {
 
     public boolean EstValide(Cartes carte,Cartes tas){
        // Expert
+        return true;
     }
 
     public static Partie getInstance() {

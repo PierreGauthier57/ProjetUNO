@@ -1,7 +1,9 @@
 package Parser;
 
 import Carte.Cartes;
+import Carte.Normale;
 import Uno.Partie;
+import Exception.ParserManquantException;
 
 public abstract class Parser {
 
@@ -64,4 +66,7 @@ public abstract class Parser {
      */
     public abstract boolean saitParser(Cartes cartes);
 
+    public abstract void parser(Normale cartes, Normale cartesTas) throws Exception;
+
+    public abstract boolean saitParser(Normale cartes, Normale cartesTas);
 }

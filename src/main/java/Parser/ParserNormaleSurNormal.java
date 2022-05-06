@@ -1,5 +1,4 @@
 package Parser;
-import Uno.Partie;
 import Carte.Cartes;
 import Carte.Normale;
 
@@ -10,16 +9,25 @@ public class ParserNormaleSurNormal extends Parser{
 
     @Override
     public void parser(Cartes cartes) throws Exception {
-        //if(cartes.getCouleur() == )
+
+    }
+
+    @Override
+    public boolean saitParser(Cartes cartes) {
+        return false;
+    }
+
+    @Override
+    public void parser(Normale cartes,Normale cartesTas) throws Exception {
+
     }
 
 
     @Override
-    public boolean saitParser(Cartes cartes) {
-        if(cartes instanceof Normale)
-            //if(super.getPartie().getHautTas() instanceof  Normale)
-            //return true;
-
+    public boolean saitParser(Cartes cartes,Cartes cartesTas) {
+        if(cartes instanceof Normale || cartesTas instanceof Normale)
+            if((cartes.getCouleur()==cartesTas.getCouleur()) ||(cartes.getChiffre()==cartesTas.getChiffre()))
+            return true;
         return false;
     }
 }
