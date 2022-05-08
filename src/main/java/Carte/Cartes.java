@@ -1,14 +1,15 @@
 package Carte;
 
-public class Cartes {
-    public enum Color {BLEU, ROUGE, VERT, NOIR, JAUNE}
+import java.util.Objects;
 
-    ;
+public class Cartes {
+    public enum Color {BLEU,ROUGE,VERT,NOIR,JAUNE};
     private Color couleur;
 
-    public Cartes(Color couleur) {
+    public Cartes(Color couleur){
         setCouleur(couleur);
     }
+
 
 
     public Color getCouleur() {
@@ -19,5 +20,9 @@ public class Cartes {
         this.couleur = couleur;
     }
 
-
+    @Override
+    public String toString() {
+        return "couleur=" + couleur +
+                '}';
+    }
 }

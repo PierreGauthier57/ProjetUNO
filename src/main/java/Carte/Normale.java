@@ -1,9 +1,10 @@
 package Carte;
 
-public class Normale extends Cartes {
+public class Normale extends Cartes{
     private int chiffre;
 
-    public Normale(int chiffre, Color couleur) {
+    public Normale(int chiffre,Color couleur) {
+
         super(couleur);
         setChiffre(chiffre);
     }
@@ -16,12 +17,19 @@ public class Normale extends Cartes {
         return chiffre;
     }
 
-    public boolean EstValide(int chiffre) {
+    public boolean EstValide(int chiffre){
         return true;
     }
-
     @Override
     public Color getCouleur() {
         return super.getCouleur();
+    }
+
+    @Override
+    public String toString() {
+        return "Normale{" +
+                "chiffre=" + chiffre +
+                ", couleur=" + super.getCouleur() +
+                '}';
     }
 }

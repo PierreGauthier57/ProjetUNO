@@ -3,9 +3,9 @@ package Parser;
 import Carte.*;
 import Exception.*;
 
-public class ParserChangeSens extends ParserValide
+public class ParserPasser extends ParserValide
 {
-    public ParserChangeSens(ParserValide suivant) {
+    public ParserPasser(ParserValide suivant) {
 
         super(suivant);
     }
@@ -13,15 +13,14 @@ public class ParserChangeSens extends ParserValide
     @Override
     public Cartes parser(String ligne) throws ColorException {
 
-        return new ChangeSens(FichierCarteCSV.getColor(ligne));
+        return new Passer(FichierCarteCSV.getColor(ligne));
     }
 
     @Override
     public boolean saitParser(String ligne) {
 
-        if(ligne.matches("^.*CarteChangeSens.*$"))
+        if (ligne.matches("^.*CartePasser.*$"))
             return true;
         return false;
     }
 }
-

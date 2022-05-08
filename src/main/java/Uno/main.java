@@ -1,15 +1,23 @@
 package Uno;
 
+import Carte.Cartes;
+import Parser.*;
+
+import java.util.ArrayList;
+
 public class main {
-    /*
-    public static void UNO.main(String[] args) {
+    public static void main(String[] args)
+    {
+        ArrayList<Cartes> pioche = FichierCarteCSV.getJeuCarte("jeux_test/JeuTest.csv",new ParserNormale( new ParserPlus2( new ParserChangeSens (new ParserPasser(null)))));
+        System.out.println("Pioche : " + pioche.toString());
+        /*
         Cartes sixrouge = new Cartes(Cartes.Color.ROUGE);
         Cartes dixrouge = new Cartes(Cartes.Color.ROUGE);
-        UNO.Joueur joueur1 = new UNO.Joueur("anna", sixrouge);
-        //UNO.Joueur joueur2 = new UNO.Joueur("luc",dixrouge);
+        Joueur joueur1 = new Joueur("anna",sixrouge);
+        //Joueur joueur2 = new Joueur("luc",dixrouge);
 
-        UNO.Partie partie = new UNO.Partie(1, dixrouge);
-        System.out.println(partie.toString());
+        //Partie partie = new Partie(1,dixrouge);
+        //System.out.println(partie.toString());
+        */
     }
-    */
 }
