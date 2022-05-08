@@ -23,4 +23,11 @@ public class Normale extends Cartes{
     public Color getCouleur() {
         return super.getCouleur();
     }
+
+    @Override
+    public String toString() {
+        return "Normale{" +
+                "chiffre=" + chiffre +" "+getCouleur()+
+                '}';
+    }
 }
