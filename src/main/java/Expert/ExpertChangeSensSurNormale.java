@@ -2,9 +2,9 @@ package Expert;
 
 import Carte.Cartes;
 
-public class ExpertChangeSensSurNormale extends Expert.ExpertValide {
+public class ExpertChangeSensSurNormale extends ExpertValide {
 
-        public ExpertChangeSensSurNormale(Expert.ExpertValide suivant){
+        public ExpertChangeSensSurNormale(ExpertValide suivant){
             super(suivant);
         }
         

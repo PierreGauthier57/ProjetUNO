@@ -79,6 +79,41 @@ public class Partie {
         return tas.get(tas.size() - 1);
     }
 
+    public Cartes getCarteTas(String typeCarte, Cartes.Color Couleur,int numero)
+    {
+        for (Cartes C : tas)
+        {
+            if (C.toString().matches("^.*"+ typeCarte +".*$"))
+            {
+                if (C.toString().matches("^.*"+ Couleur +".*$"))
+                {
+                    if (C.toString().matches("^.*"+ numero +".*$"))
+                    {
+                        return C;
+                    }
+                }
+            }
+
+        }
+        return null;
+    }
+
+    public Cartes getCarteTas(String typeCarte, Cartes.Color Couleur)
+    {
+        for (Cartes C : tas)
+        {
+            if (C.toString().matches("^.*"+ typeCarte +".*$"))
+            {
+                if (C.toString().matches("^.*"+ Couleur +".*$"))
+                {
+                    return C;
+                }
+            }
+
+        }
+        return null;
+    }
+
     public void distributionCartePioche(int nbCarteParJ) {
 
         if(pioche.size() < nbCarteParJ * listeDesJoueurs.size())
@@ -105,16 +140,18 @@ public class Partie {
         if(!(listeDesJoueurs.get(numJoueurCourant) == joueur))
             throw new tourException("Ce n'est pas ton tour");
 
-        if(!EstValide(carte,tas.get(0))) ///  LES EFFETS DE CARTES ?----------------------------------------------
-            throw new valideException("La carte n'est pas valide : PENALITE");
+        //if(!EstValide(carte,tas.get(0))) ///  LES EFFETS DE CARTES ?----------------------------------------------
+        //    throw new valideException("La carte n'est pas valide : PENALITE");
+        System.out.println(carte.toString());
         joueur.main.remove(carte);
         tas.add(0,carte);
     }
 
     public boolean EstValide(Cartes carte,Cartes tas){
 
+        /*
         try {
-            return  PremierExpert.traiter(carte,tas);
+            return PremierExpert.traiter(carte,tas);
         }
         catch (ExpertManquantException e)
         {
@@ -124,7 +161,11 @@ public class Partie {
         {
             //e.printStackTrace();
         }
+
+         */
         return true;
+
+
     }
 
     public static Partie getInstance() {
@@ -132,6 +173,41 @@ public class Partie {
             instance = new Partie();
         return instance;
     }
+
+    public void fini(Joueur joueur){
+        if(listeDesJoueurs.get(getNumJoueurCourant())==joueur){
+            prochainJoueur();
+        }
+    }
+
+    public int getNumCarteTas(){
+        return tas.size();
+    }
+
+    private int getNBCarteTas(ArrayList tas){
+        return tas.size();
+    }
+
+    public int getNBPioche() {
+        return pioche.size();
+    }
+
+    public int getNumJoueurCourant() {
+        return numJoueurCourant;
+    }
+
+    public void setNumJoueurCourant(int numJoueurCourant) {
+        this.numJoueurCourant = numJoueurCourant;
+    }
+
+    public void prochainJoueur(){
+        if(numJoueurCourant == listeDesJoueurs.size()-1)
+            setNumJoueurCourant(0);
+        else
+            setNumJoueurCourant(numJoueurCourant+1);
+    }
+
+
 
     @Override
     public String toString() {

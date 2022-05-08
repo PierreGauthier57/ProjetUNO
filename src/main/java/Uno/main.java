@@ -2,6 +2,7 @@ package Uno;
 
 import Carte.Cartes;
 import Parser.*;
+import Exception.*;
 
 import java.util.ArrayList;
 
@@ -10,7 +11,7 @@ public class main {
     {
         Partie Uno = Partie.getInstance();
 
-        Uno.ChoisirJeuDeCarte("jeux_test/JeuTest.csv",new ParserNormale(null));
+        Uno.ChoisirJeuDeCarte("jeux_test/JeuTestCarteSimple.csv",new ParserNormale(null));
 
         Joueur Alice = Uno.ajouterJoueur("Alice");
         Joueur Bob = Uno.ajouterJoueur("Bob");
@@ -24,19 +25,24 @@ public class main {
         if(3==Alice.main.size())
             System.out.println("elle a bien 3 carte");
         try{
-            Uno.poser(vert2,Alice);
-        }catch (tourException e) {
+            Uno.poser(Alice.getCarte("Normal", Cartes.Color.VERT, 2),Alice);
+        }
+        catch (tourException e)
+        {
             e.printStackTrace();
             System.exit(1);
-        }catch (valideException e) {
+        }
+        catch (valideException e)
+        {
             e.printStackTrace();
             System.exit(1);
         }
         if(2==Alice.main.size())
-            System.out.println("elle a bien une carte");
-        if(Alice.main.contains(jaune6)&&Alice.main.contains(rouge1))
+            System.out.println("elle a bien 2 carte");
+
+        if(Alice.main.contains(Alice.getCarte("Normal", Cartes.Color.JAUNE, 6))&&Alice.main.contains(Alice.getCarte("Normal", Cartes.Color.ROUGE, 1)))
             System.out.println("elle a bien les deux bonne cartes");
-        if(Uno.getHautTas()==vert2){
+        if(Uno.getHautTas()==Uno.getCarteTas("Normal", Cartes.Color.VERT, 2)){
             System.out.println("La carte en haut est bien celle d'Alice");
         }
         if(Uno.getNumCarteTas()==2)
@@ -44,6 +50,8 @@ public class main {
         Uno.fini(Alice);
         if(Bob==Uno.getJoueurCourant())
             System.out.println("C'est bien le tour de Bob");
+
+
 
     }
 }

@@ -10,8 +10,6 @@ public class Cartes {
         setCouleur(couleur);
     }
 
-
-
     public Color getCouleur() {
         return couleur;
     }
@@ -20,9 +18,12 @@ public class Cartes {
         this.couleur = couleur;
     }
 
+    public void getType(Color couleur) {
+        this.couleur = couleur;
+    }
+
     @Override
     public String toString() {
-        return "couleur=" + couleur +
-                '}';
+        return couleur + "}";
     }
 }

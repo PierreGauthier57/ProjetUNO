@@ -21,4 +21,39 @@ public class Joueur {
         main.add(carte);
     }
 
+    public Cartes getCarte(String typeCarte, Cartes.Color Couleur)
+    {
+        for (Cartes C : main)
+        {
+            if (C.toString().matches("^.*"+typeCarte+".*$"))
+            {
+                if (C.toString().matches("^.*"+Couleur+".*$"))
+                {
+                    return C;
+                }
+            }
+
+        }
+        return null;
+    }
+
+    public Cartes getCarte(String typeCarte, Cartes.Color Couleur,int numero)
+    {
+        for (Cartes C : main)
+        {
+            if (C.toString().matches("^.*"+ typeCarte +".*$"))
+            {
+                if (C.toString().matches("^.*"+ Couleur +".*$"))
+                {
+                    if (C.toString().matches("^.*"+ numero +".*$"))
+                    {
+                        return C;
+                    }
+                }
+            }
+
+        }
+        return null;
+    }
+
 }
