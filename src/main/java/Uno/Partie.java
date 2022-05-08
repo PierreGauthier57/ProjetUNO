@@ -3,27 +3,88 @@ package Uno;
 import Carte.Cartes;
 import Exception.*;
 import Expert.ExpertValide;
+import Parser.FichierCarteCSV;
+import Parser.ParserValide;
 
 import java.util.ArrayList;
 
 public class Partie {
-    private int nbJoueur;
     private boolean sensHoraire = true;
-    private int numJoueurCourant= 0;
+    private int numJoueurCourant = 0;
     private ArrayList<Cartes> pioche = new ArrayList<Cartes>();
     private ArrayList<Cartes> tas = new ArrayList<Cartes>();
-    private ArrayList<Joueur> listeDesJoueurs= new ArrayList<Joueur>();
-    private static  volatile Partie instance = null;
+    private ArrayList<Joueur> listeDesJoueurs = new ArrayList<Joueur>();
+    private static volatile Partie instance = null;
     private ExpertValide PremierExpert = null;
+    private ParserValide PremierParser = null;
 
-
-    public Partie(int nbJoueur)
+    private Partie()
     {
-        this.nbJoueur=nbJoueur;
+
     }
 
-    public Cartes getHautTas(){
-        return tas.get(0);
+    public void ChoisirJeuDeCarte(String nomFichier,ParserValide Parser)
+    {
+        FichierCarteCSV.initJeuCarte(nomFichier,pioche,Parser);
+    }
+
+    public void ajouterJoueur(String nom)
+    {
+        listeDesJoueurs.add(new Joueur(nom));
+    }
+
+    public void suprimerJoueur(Joueur J)
+    {
+        if (J == null)
+            throw new IllegalArgumentException("Erreur : Le joueur a supprimer est null");
+        if (!listeDesJoueurs.contains(J))
+            throw new IllegalArgumentException("Erreur : Le joueur a supprimer ne fait pas partie de la partie");
+        if (listeDesJoueurs.indexOf(J) - 1 < numJoueurCourant)
+        {
+            numJoueurCourant--;
+            if (numJoueurCourant < 0)
+                numJoueurCourant = listeDesJoueurs.size() - 1;
+        }
+        listeDesJoueurs.remove(J);
+    }
+
+    public void suprimerJoueur(int numJ)
+    {
+        if ((numJ < 0) || (numJ > (listeDesJoueurs.size() - 1)))
+            throw new IllegalArgumentException("Erreur : Le numero du joueur a supprimer n'est pas valide");
+
+        if (numJ < numJoueurCourant)
+        {
+            numJoueurCourant--;
+            if (numJoueurCourant < 0)
+                numJoueurCourant = listeDesJoueurs.size() - 1;
+        }
+        listeDesJoueurs.remove(numJ);
+    }
+
+    public void InitHautTas()
+    {
+        tas.add(pioche.get(0));
+        pioche.remove(0);
+    }
+
+    public Cartes getHautTas()
+    {
+        return tas.get(tas.size() - 1);
+    }
+
+    public void distributionCartePioche(int nbCarteParJ) {
+
+        if(pioche.size() < nbCarteParJ * listeDesJoueurs.size())
+            throw new IllegalArgumentException("Erreur : Il n'y a pas assez de cartes pour faire cette distribution");
+        for (int i = 0; i < nbCarteParJ ; i++)
+        {
+            for (Joueur J : listeDesJoueurs)
+            {
+                J.main.add(pioche.get(0));
+                pioche.remove(0);
+            }
+        }
     }
 
     public void piocher(Joueur joueur)throws valideException, tourException {
@@ -62,13 +123,13 @@ public class Partie {
 
     public static Partie getInstance() {
         if(instance == null)
-            instance = new Partie(instance.nbJoueur);
+            instance = new Partie();
         return instance;
     }
 
     @Override
     public String toString() {
-        return "nbJoueur=" + nbJoueur +
+        return "nbJoueur=" + listeDesJoueurs.size() +
                 ", sensHoraire=" + sensHoraire +
                 ", numJoueurTour=" + numJoueurCourant +
                 ", pioche=" + pioche +

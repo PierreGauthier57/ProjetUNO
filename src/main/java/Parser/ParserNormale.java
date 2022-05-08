@@ -13,7 +13,9 @@ public class ParserNormale extends ParserValide
     @Override
     public Cartes parser(String ligne) throws ColorException ,NumberException {
 
-        return new Normale(FichierCarteCSV.getNumber(ligne),FichierCarteCSV.getColor(ligne));
+        int i = FichierCarteCSV.getNumber(ligne);
+        Cartes.Color couleur = FichierCarteCSV.getColor(ligne);
+        return new Normale(i, couleur);
     }
 
     @Override
