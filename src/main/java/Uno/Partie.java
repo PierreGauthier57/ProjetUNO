@@ -122,7 +122,7 @@ public class Partie {
         {
             for (Joueur J : listeDesJoueurs)
             {
-                J.main.add(pioche.get(0));
+                J.ajouterMainCarte(pioche.get(0));
                 pioche.remove(0);
             }
         }
@@ -132,7 +132,7 @@ public class Partie {
         if(!(listeDesJoueurs.get(numJoueurCourant) == joueur))
             throw new tourException("Ce n'est pas ton tour");
 
-        joueur.main.add(pioche.get(0));
+        joueur.ajouterMainCarte(pioche.get(0));
         pioche.remove(0);
     }
 
@@ -142,9 +142,8 @@ public class Partie {
 
         //if(!EstValide(carte,tas.get(0))) ///  LES EFFETS DE CARTES ?----------------------------------------------
         //    throw new valideException("La carte n'est pas valide : PENALITE");
-        System.out.println(carte.toString());
-        joueur.main.remove(carte);
-        tas.add(0,carte);
+        joueur.poseMainCarte(carte);
+        tas.add(carte);
     }
 
     public boolean EstValide(Cartes carte,Cartes tas){
@@ -180,11 +179,7 @@ public class Partie {
         }
     }
 
-    public int getNumCarteTas(){
-        return tas.size();
-    }
-
-    private int getNBCarteTas(ArrayList tas){
+    public int getNbTas(){
         return tas.size();
     }
 

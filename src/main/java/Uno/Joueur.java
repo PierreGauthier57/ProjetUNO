@@ -5,13 +5,27 @@ import Carte.Cartes;
 import java.util.ArrayList;
 
 public class Joueur {
-    String nom ;
-    ArrayList<Cartes> main = new ArrayList<Cartes>();
+    private String nom ;
+    private ArrayList<Cartes> main = new ArrayList<Cartes>();
 
     public Joueur(String nom){
         if(nom.trim().equals("")|| nom==null)
             throw new IllegalArgumentException("Le nom ne peut pas être vide");
         this.nom=nom;
+    }
+
+    public void ajouterMainCarte(Cartes carte)
+    {
+        main.add(carte);
+    }
+
+    public void poseMainCarte(Cartes carte)
+    {
+        main.remove(carte);
+    }
+
+    public int getNbCarte() {
+        return main.size();
     }
 
     public Joueur(String nom, Cartes carte){
@@ -32,7 +46,6 @@ public class Joueur {
                     return C;
                 }
             }
-
         }
         return null;
     }
@@ -51,7 +64,6 @@ public class Joueur {
                     }
                 }
             }
-
         }
         return null;
     }
