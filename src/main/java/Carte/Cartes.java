@@ -20,6 +20,9 @@ public class Cartes {
         this.couleur = couleur;
     }
 
-
-
+    @Override
+    public String toString() {
+        return "couleur=" + couleur +
+                '}';
+    }
 }

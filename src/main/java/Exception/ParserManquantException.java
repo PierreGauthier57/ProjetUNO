@@ -1,8 +1,7 @@
 package Exception;
 
 //@SuppressWarnings("serial")
-public class ParserManquantException extends Exception {
-	public ParserManquantException() {
-	}
-
+public class ParserManquantException extends Exception
+{
+	public ParserManquantException() {}
 }

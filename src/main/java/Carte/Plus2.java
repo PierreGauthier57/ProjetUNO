@@ -13,4 +13,10 @@ public class Plus2 extends Cartes {
     public void donne2(Joueur joueur, Partie pioche){
 
     }
+
+    @Override
+    public String toString() {
+
+        return "Plus2{" + super.toString();
+    }
 }

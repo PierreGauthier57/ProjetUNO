@@ -1,11 +1,10 @@
 package Carte;
 
-import javafx.scene.paint.Color;
-
 public class Normale extends Cartes{
     private int chiffre;
 
-    public Normale(int chiffre,Color couleur){
+    public Normale(int chiffre,Color couleur) {
+
         super(couleur);
         setChiffre(chiffre);
     }
@@ -24,5 +23,13 @@ public class Normale extends Cartes{
     @Override
     public Color getCouleur() {
         return super.getCouleur();
+    }
+
+    @Override
+    public String toString() {
+        return "Normale{" +
+                "chiffre=" + chiffre +
+                ", couleur=" + super.getCouleur() +
+                '}';
     }
 }
