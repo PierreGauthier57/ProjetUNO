@@ -11,7 +11,7 @@ import Exception.*;
 
 public class FichierCarteCSV {
 
-    public static ArrayList<Cartes> getJeuCarte(String nomFichier, ParserValide parser)
+    public static void initJeuCarte(String nomFichier, ArrayList<Cartes> cartes, ParserValide parser)
     {
         if (nomFichier == null)
             throw new IllegalArgumentException("Erreur : Le fichier est null");
@@ -25,16 +25,14 @@ public class FichierCarteCSV {
 
         String ligne;
 
-        ArrayList<Cartes> cartes = new ArrayList<Cartes>();
-
         try
         {
             reader = new BufferedReader(new FileReader(fichier));
-
+            int i = 1;
             while ((ligne = reader.readLine()) != null)
             {
                 if (parser == null)
-                    System.out.println("Ligne n'est pas gerer par les parsers : "+ligne);
+                    System.out.println("Ligne n'est pas gerer par les parsers : " + i + " | " + ligne);
                 else
                     try
                     {
@@ -42,20 +40,21 @@ public class FichierCarteCSV {
                     }
                     catch (ParserManquantException e)
                     {
-                        System.err.println("Erreur : Aucun parser n'existe pour la ligne : "+ligne);
+                        System.err.println("Erreur : Aucun parser n'existe pour la ligne : " + i + " | " + ligne);
                     }
                     catch (ColorException e)
                     {
-                        System.err.println("Erreur : Il n'y a pas de couleur pour la carte a la ligne : "+ligne);
+                        System.err.println("Erreur : Impossible de charger la couleur pour la carte a la ligne : " + i + " | " + ligne);
                     }
                     catch (NumberException e)
                     {
-                        System.err.println("Erreur : Il n'y a pas de numero pour la carte a la ligne : "+ligne);
+                        System.err.println("Erreur : Impossible de charger le numero pour la carte a la ligne : " + i + " | " + ligne);
                     }
                     catch (Exception e)
                     {
                         e.printStackTrace();
                     }
+                i++;
             }
             reader.close();
         }
@@ -63,40 +62,51 @@ public class FichierCarteCSV {
         {
             e.printStackTrace();
         }
-        return cartes;
+
     }
 
     public static Cartes.Color getColor(String ligne) throws ColorException
     {
-        String buffer = ligne.split(";")[1];
-        Cartes.Color couleur;
-        switch (buffer)
-        {
-            case "Bleu" :
-                couleur = Cartes.Color.BLEU;
-                break;
-            case "Jaune" :
-                couleur = Cartes.Color.JAUNE;
-                break;
-            case "Rouge" :
-                couleur = Cartes.Color.ROUGE;
-                break;
-            case "Vert" :
-                couleur = Cartes.Color.VERT;
-                break;
-            default:
-                throw new ColorException();
+        try {
+            String buffer = ligne.split(";")[1];
+            Cartes.Color couleur;
+            switch (buffer) {
+                case "Bleu":
+                    couleur = Cartes.Color.BLEU;
+                    break;
+                case "Jaune":
+                    couleur = Cartes.Color.JAUNE;
+                    break;
+                case "Rouge":
+                    couleur = Cartes.Color.ROUGE;
+                    break;
+                case "Vert":
+                    couleur = Cartes.Color.VERT;
+                    break;
+                default:
+                    throw new ColorException();
+            }
+            return couleur;
         }
-        return couleur;
+        catch (Exception e) {
+            throw new ColorException();
+        }
     }
 
     public static int getNumber(String ligne) throws NumberException
     {
-        String buffer = ligne.split(";")[2];
-        int i = Integer.parseInt(buffer);
-        if((i < 0) || (i > 9))
+        try
+        {
+            String buffer = ligne.split(";")[2];
+            int i = Integer.parseInt(buffer);
+            if((i < 0) || (i > 9))
+                throw new NumberException();
+            return i;
+        }
+        catch (Exception e) {
             throw new NumberException();
-        return i;
+        }
+
     }
 
 }
