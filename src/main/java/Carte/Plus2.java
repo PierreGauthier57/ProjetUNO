@@ -1,7 +1,5 @@
 package Carte;
-
-import Uno.Joueur;
-import Uno.Partie;
+import Uno.*;
 public class Plus2 extends Cartes {
 
     public Plus2(Color couleur) {
@@ -14,5 +12,11 @@ public class Plus2 extends Cartes {
 
     public void donne2(Joueur joueur, Partie pioche){
 
+    }
+
+    @Override
+    public String toString() {
+
+        return "Plus2{" + super.toString();
     }
 }
