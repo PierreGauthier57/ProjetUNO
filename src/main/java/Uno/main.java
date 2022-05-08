@@ -12,20 +12,38 @@ public class main {
 
         Uno.ChoisirJeuDeCarte("jeux_test/JeuTest.csv",new ParserNormale(null));
 
-        Uno.ajouterJoueur("Alice");
-        Uno.ajouterJoueur("Bob");
-        Uno.ajouterJoueur("Charles");
+        Joueur Alice = Uno.ajouterJoueur("Alice");
+        Joueur Bob = Uno.ajouterJoueur("Bob");
+        Joueur Charles = Uno.ajouterJoueur("Charles");
 
         Uno.distributionCartePioche(3);
-        
-        /*
-        Cartes sixrouge = new Cartes(Cartes.Color.ROUGE);
-        Cartes dixrouge = new Cartes(Cartes.Color.ROUGE);
-        Joueur joueur1 = new Joueur("anna",sixrouge);
-        //Joueur joueur2 = new Joueur("luc",dixrouge);
 
-        //Partie partie = new Partie(1,dixrouge);
-        //System.out.println(partie.toString());
-        */
+        System.out.println(Uno.toString()) ;
+        if(Alice == Uno.getJoueurCourant())
+            System.out.println("C'est le tour d'Alice");
+        if(3==Alice.main.size())
+            System.out.println("elle a bien 3 carte");
+        try{
+            Uno.poser(vert2,Alice);
+        }catch (tourException e) {
+            e.printStackTrace();
+            System.exit(1);
+        }catch (valideException e) {
+            e.printStackTrace();
+            System.exit(1);
+        }
+        if(2==Alice.main.size())
+            System.out.println("elle a bien une carte");
+        if(Alice.main.contains(jaune6)&&Alice.main.contains(rouge1))
+            System.out.println("elle a bien les deux bonne cartes");
+        if(Uno.getHautTas()==vert2){
+            System.out.println("La carte en haut est bien celle d'Alice");
+        }
+        if(Uno.getNumCarteTas()==2)
+            System.out.println("il y a bien deux cartes dans le tas");
+        Uno.fini(Alice);
+        if(Bob==Uno.getJoueurCourant())
+            System.out.println("C'est bien le tour de Bob");
+
     }
 }

@@ -28,9 +28,15 @@ public class Partie {
         FichierCarteCSV.initJeuCarte(nomFichier,pioche,Parser);
     }
 
-    public void ajouterJoueur(String nom)
+    public Joueur ajouterJoueur(String nom)
     {
         listeDesJoueurs.add(new Joueur(nom));
+        return listeDesJoueurs.get(listeDesJoueurs.size() - 1);
+    }
+
+    public Joueur getJoueurCourant()
+    {
+        return listeDesJoueurs.get(numJoueurCourant);
     }
 
     public void suprimerJoueur(Joueur J)
