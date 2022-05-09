@@ -1,17 +1,31 @@
 package application.projetuno;
 
 import javafx.application.Application;
-import javafx.geometry.Pos;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.image.Image;
-import javafx.scene.layout.HBox;
-import javafx.scene.text.Font;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.ArrayList;
+
+/**
+ * Pour iMac :
+ * Le chemin des modules FX sont là :
+ * /Users/dordal/cdt-master/javafx-sdk-11.0.2/lib
+ * Il faut ajouter les arguments :
+ *  --module-path /Users/dordal/cdt-master/javafx-sdk-11.0.2/lib --add-modules javafx.controls,javafx.fxml
+ * et décocher la case ...Xstart....
+ */
+
+import javafx.geometry.Pos;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.image.Image;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 
 public class Uno extends Application {
 
