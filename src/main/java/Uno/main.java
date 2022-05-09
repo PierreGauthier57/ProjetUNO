@@ -7,6 +7,9 @@ import Exception.*;
 public class main {
     public static void main(String[] args){
         Partie partie = new Partie(3);
+        int  test1 = 0;
+        int  test2 = 0;
+        int  test3 = 0;
 
         Normale vert2 = new Normale(2,Cartes.Color.VERT); //ALICE
         Normale jaune6 = new Normale(6,Cartes.Color.JAUNE);
@@ -37,33 +40,85 @@ public class main {
 
         partie.tas.add(vert8);
 
-//-------------------TEST 1
-            System.out.println(partie.toString()) ;
-            if(Alice==partie.listeDesJoueurs.get(partie.getNumJoueurCourant()))
-                System.out.println("C'est le tour d'Alice");
-            if(3==Alice.main.size())
-                System.out.println("elle a bien 3 carte");
+//-------------------TEST 1------------------------------------------------------------
+        System.out.println("-----------------------------------------------");
+        System.out.println("Test1 : Alice joue une carte de même couleur");
+        System.out.println("-----------------------------------------------");
+
+        if(Alice!=partie.listeDesJoueurs.get(partie.getNumJoueurCourant())){
+                System.out.println("Test 1.1 = Ce n'est pas le tour d'Alice");
+        test1++;}
+            if(3!=Alice.main.size()){
+                System.out.println("Test 1.2  =elle n'a pas 3 carte");
+            test1++;}
             try{
                 partie.poser(vert2,Alice);
-            }catch (tourException e) {
-                e.printStackTrace();
-                System.exit(1);
             }catch (valideException e) {
                 e.printStackTrace();
                 System.exit(1);
+            }catch (tourException e) {
+                e.printStackTrace();
+                System.exit(1);
             }
-            if(2==Alice.main.size())
-                System.out.println("elle a bien une carte");
-            if(Alice.main.contains(jaune6)&&Alice.main.contains(rouge1))
-                System.out.println("elle a bien les deux bonne cartes");
-            if(partie.getHautTas()==vert2){
-                System.out.println("La carte en haut est bien celle d'Alice");
+            if(2!=Alice.main.size()){
+                System.out.println("Test 1.3 = Elle n'a pas deux cartes");
+                test1++;}
+            if(!Alice.main.contains(jaune6)||!Alice.main.contains(rouge1)){
+                System.out.println("Test 1.4 = Elle n'a pas les bonnes cartes");
+        test1++;}
+            if(partie.getHautTas()!=vert2){
+                System.out.println("Test 1.5 =La carte en haut n'est pas celle d'Alice");
+                test1++;
             }
-            if(partie.getNumCarteTas()==2)
-                System.out.println("il y a bien deux cartes dans le tas");
+            if(partie.getNumCarteTas()!=2){
+                System.out.println("Test 1.6 = il n'y a pas deux cartes dans le tas");
+        test1++;}
             partie.fini(Alice);
-            if(Bob==partie.listeDesJoueurs.get(partie.getNumJoueurCourant()))
-                System.out.println("C'est bien le tour de Bob");
+            if(Bob!=partie.listeDesJoueurs.get(partie.getNumJoueurCourant())){
+                System.out.println("Test 1.7 = Ce n'est pas le tour de Bob");
+        test1++;}
+
+        System.out.println(7-test1+"/7 Test reussi pour le test 1");
+
+
+//-------------FIN TEST 1---------------------------------------------------
+// ---------------TEST2-----------------------------------------------------
+        System.out.println(" ");
+        System.out.println("-----------------------------------------------");
+        System.out.println("Test2 : Bob joue une carte differente mais de même valeur");
+        System.out.println("-----------------------------------------------");
+        if(3!=Bob.main.size()){
+            System.out.println("Test 2.1  =Bob n'a pas 3 carte");
+            test2++;}
+        try{
+            partie.poser(bleu2,Bob);
+        }catch (valideException e) {
+            e.printStackTrace();
+            System.exit(1);
+        }catch (tourException e) {
+            e.printStackTrace();
+            System.exit(1);
+        }
+        if(2!=Bob.main.size()){
+            System.out.println("Test 2.2 = Bob n'a pas deux cartes");
+            test2++;}
+        if(!Bob.main.contains(jaune4)||!Bob.main.contains(rouge9)){
+            System.out.println("Test 2.3 = Bob n'a pas les bonnes cartes");
+            test2++;}
+        if(partie.getHautTas()!=bleu2){
+            System.out.println("Test 2.4 =La carte en haut n'est pas celle de Bob");
+            test2++;
+        }
+        if(partie.getNumCarteTas()!=3){
+            System.out.println("Test 2.5 = il n'y a pas trois cartes dans le tas");
+            test2++;}
+        partie.fini(Bob);
+        if(Charles!=partie.listeDesJoueurs.get(partie.getNumJoueurCourant())){
+            System.out.println("Test 2.6 = Ce n'est pas le tour de Charles");
+            test1++;}
+
+        System.out.println(6-test2+"/6 Test reussi pour le test 2");
+//---------------TEST3--------------------------------------------------------
 
 
 

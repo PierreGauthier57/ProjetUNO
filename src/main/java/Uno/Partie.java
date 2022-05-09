@@ -33,9 +33,10 @@ public class Partie {
     }
 
     public void fini(Joueur joueur){
-        if(listeDesJoueurs.get(getNumJoueurCourant())==joueur){
-            prochainJoueur();
+        if(listeDesJoueurs.get(getNumJoueurCourant())!=joueur){
+            System.out.println("Punition c'est pas le bon joueur ( a coder )");
         }
+        prochainJoueur();
     }
     public void poser(Cartes carte,Joueur joueur ) throws valideException,tourException{
         if(!(listeDesJoueurs.get(numJoueurCourant) == joueur))
@@ -49,9 +50,11 @@ public class Partie {
     public int getNumCarteTas(){
         return tas.size();
     }
+
+
     public boolean EstValide(Cartes carte,Cartes tas){
 
-       // Expert
+
         return true;
     }
 
