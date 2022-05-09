@@ -24,17 +24,17 @@ public class Partie {
         return tas.get(0);
     }
 
-    public void piocher(Joueur joueur)throws valideException, tourException {
+    public void piocher(Joueur joueur)throws tourException {
         if(!(listeDesJoueurs.get(numJoueurCourant) == joueur))
-            throw new tourException("Ce n'est pas ton tour");
+            throw new tourException("Ce n'est pas ton tour (PUNITION)");
 
         joueur.main.add(pioche.get(0));
         pioche.remove(0);
     }
 
-    public void fini(Joueur joueur){
+    public void fini(Joueur joueur)throws tourException {
         if(listeDesJoueurs.get(getNumJoueurCourant())!=joueur){
-            System.out.println("Punition c'est pas le bon joueur ( a coder )");
+            throw new tourException("Ce n'est pas ton tour");
         }
         prochainJoueur();
     }
@@ -47,10 +47,22 @@ public class Partie {
         joueur.main.remove(carte);
         tas.add(0,carte);
     }
+
+    public void punition(Joueur joueur){
+        joueur.main.add(pioche.get(0));
+        pioche.remove(0);
+        VerifierTas();
+        joueur.main.add(pioche.get(0));
+        pioche.remove(0);
+
+    }
     public int getNumCarteTas(){
         return tas.size();
     }
-
+    public void VerifierTas(){
+        if(getNumCarteTas()==0){}
+            //-----------------------------------------------------------------------code a finir car pas utile pour la soutenance
+    }
 
     public boolean EstValide(Cartes carte,Cartes tas){
 
