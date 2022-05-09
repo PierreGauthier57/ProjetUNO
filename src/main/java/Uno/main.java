@@ -4,26 +4,33 @@ import Carte.Cartes;
 import Carte.Normale;
 import Exception.*;
 
+import javax.xml.catalog.Catalog;
+
 public class main {
     public static void main(String[] args){
         Partie partie = new Partie(3);
         int  test1 = 0;
         int  test2 = 0;
         int  test3 = 0;
+        int test4 = 0;
 
         Normale vert2 = new Normale(2,Cartes.Color.VERT); //ALICE
         Normale jaune6 = new Normale(6,Cartes.Color.JAUNE);
+        Normale rouge1 = new Normale(1,Cartes.Color.ROUGE);
 
         Normale bleu2 = new Normale(2,Cartes.Color.BLEU); // BOB
         Normale jaune4 = new Normale(4,Cartes.Color.JAUNE);
+        Normale rouge9 = new Normale(0,Cartes.Color.BLEU);
 
         Normale bleu9 = new Normale(9,Cartes.Color.BLEU);//CHARLES
         Normale bleu7 = new Normale(7,Cartes.Color.BLEU);
+        Normale bleu6 = new Normale(6,Cartes.Color.BLEU);
 
         Normale vert8 = new Normale(8,Cartes.Color.VERT); // TAS
 
-        Normale rouge1 = new Normale(1,Cartes.Color.ROUGE);
-        Normale rouge9 = new Normale(0,Cartes.Color.BLEU);
+        Normale rouge4 = new Normale(4,Cartes.Color.ROUGE); // PIOCHE
+
+
         /*Normale bleu7 = new Normale(7,Cartes.Color.BLEU);
         Normale bleu7 = new Normale(7,Cartes.Color.BLEU);*/
 
@@ -37,6 +44,10 @@ public class main {
         Alice.main.add(vert2);
         Alice.main.add(jaune6);
         Alice.main.add(rouge1);
+        Charles.main.add(bleu9);
+        Charles.main.add(bleu7);
+        Charles.main.add(bleu6);
+
 
         partie.tas.add(vert8);
 
@@ -54,10 +65,10 @@ public class main {
                 partie.poser(vert2,Alice);
             }catch (valideException e) {
                 e.printStackTrace();
-                System.exit(1);
+
             }catch (tourException e) {
                 e.printStackTrace();
-                System.exit(1);
+
             }
             if(2!=Alice.main.size()){
                 System.out.println("Test 1.3 = Elle n'a pas deux cartes");
@@ -98,11 +109,9 @@ public class main {
         try{
             partie.poser(bleu2,Bob);
         }catch (valideException e) {
-            e.printStackTrace();
-            partie.punition(Bob);
+
         }catch (tourException e) {
             e.printStackTrace();
-            partie.punition(Bob);
         }
         if(2!=Bob.main.size()){
             System.out.println("Test 2.2 = Bob n'a pas deux cartes");
@@ -121,7 +130,6 @@ public class main {
         try{
             partie.fini(Bob);
         }catch (tourException e) {
-        e.printStackTrace();
         partie.punition(Bob);
     }
         if(Charles!=partie.listeDesJoueurs.get(partie.getNumJoueurCourant())){
@@ -130,15 +138,66 @@ public class main {
         System.out.println("-----------------------------------------------");
         System.out.println(6-test2+"/6 Test reussi pour le test 2");
         System.out.println("-----------------------------------------------");
-//---------------TEST3--------------------------------------------------------
+
+//---------------TEST3---INITIALISATION-----------------------------------------------------
+        partie.tas.remove(bleu2);Bob.main.add(bleu2);
+        partie.tas.remove(vert2);Alice.main.add(vert2);
+        partie.setNumJoueurCourant(0);
+        System.out.println(partie.toString());
+// ---------------TEST3--------------------------------------------------------
+        System.out.println(" ");
+        System.out.println("Test3 : Test d'une carte Illegale");
+
+        try{
+            partie.poser(jaune6,Alice);
+        }catch (tourException e){
 
 
+        }catch (valideException e){
+
+
+        }
+        if(3!=Alice.main.size()){
+            System.out.println("Test 3.1 = Elle n'a pas 3 cartes");
+            test3++;}
+        if(!Alice.main.contains(jaune6)){
+            System.out.println("Test 3.2 = Elle n'a pas le six jaune");
+            test3++;}
+
+        System.out.println("-----------------------------------------------");
+        System.out.println(2-test3+"/2 Test reussi pour le test 2");
+        System.out.println("-----------------------------------------------");
+
+//---------------TEST4---INITIALISATION-----------------------------------------------------
+        partie.tas.remove(vert2);Alice.main.add(jaune6);
+        partie.setNumJoueurCourant(0);
+        System.out.println(partie.toString());
+        System.out.println(Alice.main.toString());
+        System.out.println(Bob.main.toString());
+//---------------TEST4--------------------------------------------------------
+        System.out.println(" ");
+        System.out.println("Test4 : Test d'un Joueur qui pose deux cartes légales de suite");
+    try {
+        partie.poser(vert2,Alice);
+        partie.fini(Alice);
+        partie.poser(bleu2,Bob);
+        partie.fini(Bob);
+        partie.poser(bleu6,Charles);
+        System.out.println(Charles.toString());
+        partie.poser(bleu7,Charles);
+        System.out.println(Charles.toString());
+
+    }catch (tourException e){
+        System.out.println("Ce n'est pas ton tour");
+    }catch (valideException e){
+        System.out.println("Carte pas valide");
+    }
 
 // ---------------TEST FINAL-------------------------------------------------------
         System.out.println(" ");
         System.out.println(" ");
         System.out.println("-----------------------------------------------");
-        System.out.println(13-(test2+test3+test2)+"/13 Test reussi Dans le projet uno");
+        System.out.println(15-(test1+test3+test2+test4)+"/15 Test reussi Dans le projet uno");
         System.out.println("-----------------------------------------------");
 
 

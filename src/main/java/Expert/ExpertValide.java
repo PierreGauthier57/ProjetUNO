@@ -20,7 +20,7 @@ public abstract class ExpertValide {
      /** @param ligne la ligne à parser
      /** @exception lance une exception si quelque chose a mal tourné
      */
-    public void traiter(Cartes cartes,Cartes carteTas) throws Exception {
+    public void traiter(Cartes cartes, Cartes carteTas) throws Exception {
         if (saitParser(cartes,carteTas))
             // Si le parser sait parser la ligne, il la parse
             parser(cartes,carteTas);
