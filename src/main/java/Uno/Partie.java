@@ -5,7 +5,6 @@ import Exception.tourException;
 import Exception.valideException;
 import Expert.ExpertValide;
 
-
 import java.util.ArrayList;
 
 public class Partie {
@@ -44,10 +43,11 @@ public class Partie {
         if(!(listeDesJoueurs.get(numJoueurCourant) == joueur))
             throw new tourException("Ce n'est pas ton tour");
 
-        if(!EstValide(carte,getHautTas())) ///  LES EFFETS DE CARTES ?----------------------------------------------
+        if(!EstValide(carte,tas.get(0))) ///  LES EFFETS DE CARTES ?----------------------------------------------
             throw new valideException("La carte n'est pas valide : PENALITE");
-        joueur.poseMainCarte(carte);
-        tas.add(carte);
+        joueur.main.remove(carte);
+        tas.add(0,carte);
+
     }
 
     public void punition(Joueur joueur){
@@ -68,21 +68,8 @@ public class Partie {
 
     public boolean EstValide(Cartes carte,Cartes tas){
 
-        try
-        {
-            return PremierExpert.traiter(carte,tas);
-        }
-        catch (ExpertManquantException e)
-        {
-            System.err.println("La carte " + carte.toString() + " n'est pas reconu part les Expert");
-            System.exit(1);
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-            System.exit(1);
-        }
-        return true;
+return true;
+       // return ExpertValide.traiter(carte,tas);
     }
 
     private int getNBCarteTas(ArrayList tas){
