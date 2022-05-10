@@ -29,6 +29,9 @@ public class main {
         int  test2 = 0;
         int  test3 = 0;
         int test4 = 0;
+        int test5 = 0;
+        int test6 = 0;
+        int test7 = 0;
 
 //-------------------TEST 1------------------------------------------------------------
         System.out.println("Test1 : Alice joue une carte de même couleur");
@@ -54,6 +57,7 @@ public class main {
             if(!((Alice.getCarte("Normale", Cartes.Color.JAUNE, 6) != null) && (Alice.getCarte("Normale", Cartes.Color.ROUGE, 1) != null))){
                 System.out.println("Test 1.4 = Elle n'a pas les bonnes cartes");
         test1++;}
+            System.out.println(partie.toString());
             if(partie.getHautTas()!= partie.getCarteTas("Normale", Cartes.Color.VERT, 2)){
                 System.out.println("Test 1.5 =La carte en haut n'est pas celle d'Alice");
                 test1++;
@@ -112,7 +116,7 @@ public class main {
     }
         if(Charles != partie.getJoueurCourant()){
             System.out.println("Test 2.6 = Ce n'est pas le tour de Charles");
-            test1++;}
+            test2++;}
         System.out.println("-----------------------------------------------");
         System.out.println(6-test2+"/6 Test reussi pour le test 2");
         System.out.println("-----------------------------------------------");
@@ -143,7 +147,7 @@ public class main {
             test3++;}
 
         System.out.println("-----------------------------------------------");
-        System.out.println(2-test3+"/2 Test reussi pour le test 2");
+        System.out.println(2-test3+"/2 Test reussi pour le test 3");
         System.out.println("-----------------------------------------------");
 
 //---------------TEST4---INITIALISATION-----------------------------------------------------
@@ -152,10 +156,6 @@ public class main {
         partie.distributionCartePioche(3);
         partie.InitHautTas();
 
-        System.out.println(partie.toString());
-        System.out.println(Alice.getMain().toString());
-        System.out.println(Bob.getMain().toString());
-        System.out.println(Charles.getMain().toString());
 //---------------TEST4--------------------------------------------------------
         System.out.println(" ");
         System.out.println("Test4 : Test d'un Joueur qui pose deux cartes légales de suite");
@@ -165,21 +165,105 @@ public class main {
         partie.poser(Bob.getCarte("Normale", Cartes.Color.BLEU, 2),Bob);
         partie.fini(Bob);
         partie.poser(Charles.getCarte("Normale", Cartes.Color.BLEU, 9),Charles);
-        System.out.println(Charles.toString());
+        if(Charles.getNbCarte()!=2){
+            System.out.println("Charle n'a pas 2 cartes");
+            test4++;
+        }
         partie.poser(Charles.getCarte("Normale", Cartes.Color.BLEU, 7),Charles);
-        System.out.println(Charles.toString());
 
-    }catch (tourException e){
+
+    }catch (tourException e) {
         System.out.println(e);
+        if (Charles.getNbCarte() != 2) {
+            System.out.println("Charle n'a pas 2 cartes");
+            test4++;
+        }
+        if(Charles.getCarte("Normale",Cartes.Color.BLEU,2)!=null){
+            System.out.println("Charle n'a pas le 2 bleu");
+            test4++;
+        }
     }catch (valideException e){
         System.out.println(e);
     }
+        System.out.println("-----------------------------------------------");
+        System.out.println(3-test4+"/3 Test reussi pour le test 4");
+        System.out.println("-----------------------------------------------");
+        //------------------------TEST5--INITIALISATION--------------------------------------------------------------------
+        partie.reinitialiseCarte();
+        partie.ChoisirJeuDeCarte("jeux_test/JeuTestCarteSimple.csv",new ParserNormale(null));
+        partie.distributionCartePioche(3);
+        partie.InitHautTas();
+        //------------------------TEST5----------------------------------------------------------------------
+        System.out.println(" ");
+        System.out.println("Test5 : Test d’un joueur qui finit son tour sans rien faire");
+        try{
+            partie.fini(Alice);
+        }catch (tourException e){
+            System.out.println(e);
+            if(3!=Alice.getNbCarte()){
+                System.out.println("Test 5.1 = Elle n'a pas 3 cartes");
+                test5++;}
+        }
+        System.out.println("-----------------------------------------------");
+        System.out.println(1-test5+"/1 Test reussi pour le test 5");
+        System.out.println("-----------------------------------------------");
+
+//------------------------TEST6--INITIALISATION--------------------------------------------------------------------
+        partie.reinitialiseCarte();
+        partie.ChoisirJeuDeCarte("jeux_test/JeuTestCarteSimple.csv",new ParserNormale(null));
+        partie.distributionCartePioche(3);
+        partie.InitHautTas();
+//------------------------TEST6----------------------------------------------------------------------
+        System.out.println(" ");
+        System.out.println("Test 6 : Test d’un joueur qui joue puis pioche");
+
+        try{
+            partie.poser(Alice.getCarte("Normale", Cartes.Color.VERT, 2),Alice);
+            partie.piocher(Alice);
+        }catch(valideException e){
+            System.out.println(e);
+        }catch(tourException e){
+            System.out.println(e);
+            if(2!=Alice.getNbCarte()){
+                System.out.println("Test 6.1 = Elle n'a pas 2 cartes");
+                test6++;}
+        }
+       if(partie.getHautpioche()!= partie.getCartePioche("Normale", Cartes.Color.JAUNE,6)){
+            System.out.println("Test 6.2 :Ce n'est pas une carte jaune 6 en haut de la pioche" );
+            test6++;
+        }
+        System.out.println("-----------------------------------------------");
+        System.out.println(2-test6+"/2 Test reussi pour le test 6");
+        System.out.println("-----------------------------------------------");
+
+//------------------------TEST7--INITIALISATION--------------------------------------------------------------------
+        partie.reinitialiseCarte();
+        partie.ChoisirJeuDeCarte("jeux_test/JeuTestCarteSimple.csv",new ParserNormale(null));
+        partie.distributionCartePioche(3);
+        partie.InitHautTas();
+//------------------------TEST7----------------------------------------------------------------------
+        System.out.println(" ");
+        System.out.println("Test 7 : Test de la punition pour un coup illégal d’Alice (joueur courant)");
+
+        if(Alice!=partie.getJoueurCourant()){
+            System.out.println("Alice n'est pas la joueur courant");
+            test7++;
+        }
+        try{
+            partie.poser(Alice.getCarte("Normale", Cartes.Color.JAUNE,6),Alice);
+        }catch(valideException e){
+            System.out.println(e);
+        }catch(tourException e){
+            System.out.println(e);
+        }
+
+
 
 // ---------------TEST FINAL-------------------------------------------------------
         System.out.println(" ");
         System.out.println(" ");
         System.out.println("-----------------------------------------------");
-        System.out.println(15-(test1+test3+test2+test4)+"/15 Test reussi Dans le projet uno");
+        System.out.println(21-(test1+test3+test2+test4+test5+test6)+"/21 Test reussi Dans le projet uno");
         System.out.println("-----------------------------------------------");
 
 

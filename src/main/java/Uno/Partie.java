@@ -10,6 +10,7 @@ public class Partie {
     private boolean sensHoraire = true;
     private int numJoueurCourant = 0;
     private int cartePoser = 0;
+    private int cartePiocher = 0;
     private ArrayList<Cartes> pioche = new ArrayList<Cartes>();
     private ArrayList<Cartes> tas = new ArrayList<Cartes>();
     private ArrayList<Joueur> listeDesJoueurs = new ArrayList<Joueur>();
@@ -118,6 +119,10 @@ public class Partie {
     {
         return tas.get(tas.size() - 1);
     }
+    public Cartes getHautpioche()
+    {
+        return pioche.get(0);
+    }
 
     public Cartes getCarteTas(String typeCarte, Cartes.Color Couleur,int numero)
     {
@@ -152,6 +157,39 @@ public class Partie {
         }
         return null;
     }
+    public Cartes getCartePioche(String typeCarte, Cartes.Color Couleur,int numero)
+    {
+        for (Cartes C : pioche)
+        {
+            if (C.toString().matches("^.*"+ typeCarte +".*$"))
+            {
+                if (C.toString().matches("^.*"+ Couleur +".*$"))
+                {
+                    if (C.toString().matches("^.*"+ numero +".*$"))
+                    {
+                        return C;
+                    }
+                }
+            }
+
+        }
+        return null;
+    }
+
+    public Cartes getCartePioche(String typeCarte, Cartes.Color Couleur)
+    {
+        for (Cartes C : pioche)
+        {
+            if (C.toString().matches("^.*"+ typeCarte +".*$"))
+            {
+                if (C.toString().matches("^.*"+ Couleur +".*$"))
+                {
+                    return C;
+                }
+            }
+        }
+        return null;
+    }
 
     public void distributionCartePioche(int nbCarteParJ) {
 
@@ -171,7 +209,8 @@ public class Partie {
     {
         if(!(listeDesJoueurs.get(numJoueurCourant) == joueur))
             throw new tourException("Ce n'est pas ton tour");
-
+        if(cartePoser > 0 || cartePiocher>0)
+            throw new tourException("Tu a deja jouer");
         joueur.ajouterMainCarte(pioche.get(0));
         pioche.remove(0);
     }
@@ -184,8 +223,8 @@ public class Partie {
     public void poser(Cartes carte,Joueur joueur ) throws valideException,tourException{
         if(!(listeDesJoueurs.get(numJoueurCourant) == joueur))
             throw new tourException("Ce n'est pas ton tour");
-        if(cartePoser > 0)
-            throw new tourException("Tu a deja jouer une carte");
+        if(cartePoser > 0 || cartePiocher>0)
+            throw new tourException("Tu a deja jouer");
         if(carte == null)
             throw new IllegalArgumentException("il ne possede pas la carte");
         if(!EstValide(carte,getHautTas())) ///  LES EFFETS DE CARTES ?----------------------------------------------
@@ -248,8 +287,8 @@ public class Partie {
         return "nbJoueur=" + listeDesJoueurs.size() +
                 ", sensHoraire=" + sensHoraire +
                 ", numJoueurTour=" + numJoueurCourant +
-                ", pioche=" + pioche +
-                ", tas=" + tas
+
+                ", tas=" + tas+", pioche=" + pioche
                 ;
     }
 
