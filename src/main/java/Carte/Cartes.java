@@ -1,7 +1,7 @@
 package Carte;
 
-import java.util.ArrayList;
 import java.util.Objects;
+import java.util.ArrayList;
 
 public class Cartes {
     public enum Color {BLEU,ROUGE,VERT,NOIR,JAUNE};

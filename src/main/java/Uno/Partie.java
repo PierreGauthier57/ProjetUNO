@@ -1,27 +1,67 @@
 package Uno;
 
-import Carte.Cartes;
+import Carte.*;
 import Exception.*;
-import Expert.ExpertValide;
-import Parser.FichierCarteCSV;
-import Parser.ParserValide;
-
+import Expert.*;
+import Parser.*;
 import java.util.ArrayList;
 
 public class Partie {
     private boolean sensHoraire = true;
     private int numJoueurCourant = 0;
+    private int cartePoser = 0;
+    private int cartePiocher = 0;
     private ArrayList<Cartes> pioche = new ArrayList<Cartes>();
     private ArrayList<Cartes> tas = new ArrayList<Cartes>();
     private ArrayList<Joueur> listeDesJoueurs = new ArrayList<Joueur>();
     private static volatile Partie instance = null;
     private ExpertValide PremierExpert = null;
-    private ParserValide PremierParser = null;
 
     private Partie()
     {
 
     }
+
+    public void reinitialiseCarte()
+    {
+        numJoueurCourant = 0;
+        pioche.clear();
+        tas.clear();
+        for (Joueur J : listeDesJoueurs)
+        {
+            J.getMain().clear();
+        }
+    }
+
+    public void fini(Joueur joueur)throws tourException {
+        if(listeDesJoueurs.get(getNumJoueurCourant())!=joueur){
+            throw new tourException("Ce n'est pas ton tour");
+        }
+        cartePoser = 0;
+        prochainJoueur();
+    }
+
+    public void punition(Joueur joueur){
+        joueur.ajouterMainCarte(pioche.get(0));
+        pioche.remove(0);
+        VerifierTas();
+        joueur.ajouterMainCarte(pioche.get(0));
+        pioche.remove(0);
+    }
+
+    public int getNumCarteTas(){
+        return tas.size();
+    }
+    public void VerifierTas() {
+        if(getNumCarteTas() == 0){}
+            //-----------------------------------------------------------------------code a finir car pas utile pour la soutenance
+    }
+
+    private int getNBCarteTas(ArrayList tas){
+        return tas.size();
+    }
+
+
 
     public void ChoisirJeuDeCarte(String nomFichier,ParserValide Parser)
     {
@@ -78,6 +118,10 @@ public class Partie {
     {
         return tas.get(tas.size() - 1);
     }
+    public Cartes getHautpioche()
+    {
+        return pioche.get(0);
+    }
 
     public Cartes getCarteTas(String typeCarte, Cartes.Color Couleur,int numero)
     {
@@ -87,6 +131,16 @@ public class Partie {
     public Cartes getCarteTas(String typeCarte, Cartes.Color Couleur)
     {
         return Cartes.getCarteInList(tas,typeCarte,Couleur);
+    }
+
+    public Cartes getCartePioche(String typeCarte, Cartes.Color Couleur,int numero)
+    {
+        return Cartes.getCarteInList(pioche,typeCarte,Couleur,numero);
+    }
+
+    public Cartes getCartePioche(String typeCarte, Cartes.Color Couleur)
+    {
+        return Cartes.getCarteInList(pioche,typeCarte,Couleur);
     }
 
     public void distributionCartePioche(int nbCarteParJ) {
@@ -103,55 +157,63 @@ public class Partie {
         }
     }
 
-    public void piocher(Joueur joueur)throws valideException, tourException {
+    public void piocher(Joueur joueur)throws valideException, tourException
+    {
         if(!(listeDesJoueurs.get(numJoueurCourant) == joueur))
             throw new tourException("Ce n'est pas ton tour");
-
+        if(cartePoser > 0 || cartePiocher >  0)
+            throw new tourException("Tu a deja jouer");
         joueur.ajouterMainCarte(pioche.get(0));
         pioche.remove(0);
+    }
+
+    public void initExpert(ExpertValide Expert )
+    {
+        PremierExpert = Expert;
+    }
+
+    public void inverseSens()
+    {
+        sensHoraire = !sensHoraire;
     }
 
     public void poser(Cartes carte,Joueur joueur ) throws valideException,tourException{
         if(!(listeDesJoueurs.get(numJoueurCourant) == joueur))
             throw new tourException("Ce n'est pas ton tour");
-
-        //if(!EstValide(carte,tas.get(0))) ///  LES EFFETS DE CARTES ?----------------------------------------------
-        //    throw new valideException("La carte n'est pas valide : PENALITE");
+        if(cartePoser > 0 || cartePiocher>0)
+            throw new tourException("Tu a deja jouer");
+        if(carte == null)
+            throw new IllegalArgumentException("il ne possede pas la carte");
+        if(!EstValide(carte,getHautTas())) ///  LES EFFETS DE CARTES ?----------------------------------------------
+            throw new valideException("La carte n'est pas valide : PENALITE");
         joueur.poseMainCarte(carte);
+        cartePoser++;
         tas.add(carte);
     }
 
     public boolean EstValide(Cartes carte,Cartes tas){
 
-        /*
-        try {
+        try
+        {
             return PremierExpert.traiter(carte,tas);
         }
         catch (ExpertManquantException e)
         {
-
+            System.err.println("La carte " + carte.toString() + " n'est pas reconu part les Expert");
+            System.exit(1);
         }
         catch (Exception e)
         {
-            //e.printStackTrace();
+            e.printStackTrace();
+            System.exit(1);
         }
-
-         */
         return true;
-
-
     }
 
     public static Partie getInstance() {
         if(instance == null)
             instance = new Partie();
         return instance;
-    }
-
-    public void fini(Joueur joueur){
-        if(listeDesJoueurs.get(getNumJoueurCourant())==joueur){
-            prochainJoueur();
-        }
     }
 
     public int getNbTas(){
@@ -177,15 +239,13 @@ public class Partie {
             setNumJoueurCourant(numJoueurCourant+1);
     }
 
-
-
     @Override
     public String toString() {
         return "nbJoueur=" + listeDesJoueurs.size() +
                 ", sensHoraire=" + sensHoraire +
                 ", numJoueurTour=" + numJoueurCourant +
-                ", pioche=" + pioche +
-                ", tas=" + tas
+
+                ", tas=" + tas+", pioche=" + pioche
                 ;
     }
 }

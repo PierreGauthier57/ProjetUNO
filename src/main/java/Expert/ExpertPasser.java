@@ -2,8 +2,8 @@ package Expert;
 
 import Carte.*;
 
-public class ExpertPlus2  extends ExpertValide {
-    public ExpertPlus2(ExpertValide suivant) {
+public class ExpertPasser extends ExpertValide {
+    public ExpertPasser(ExpertValide suivant) {
         super(suivant);
     }
 
@@ -17,6 +17,6 @@ public class ExpertPlus2  extends ExpertValide {
     @Override
     public boolean saitParser(Cartes carte,Cartes carteTas) {
 
-        return carte instanceof Plus2;
+        return carte instanceof Passer;
     }
 }
