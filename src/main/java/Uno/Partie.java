@@ -77,7 +77,10 @@ public class Partie {
     private int getNBCarteTas(ArrayList tas){
         return tas.size();
     }
-
+    public void inverseSens()
+    {
+        sensHoraire = !sensHoraire;
+    }
     private Partie()
     {
 
