@@ -4,7 +4,7 @@ import Carte.Cartes;
 
 import java.util.ArrayList;
 
-public class  Joueur {
+public class   Joueur {
     String nom ;
     ArrayList<Cartes> main = new ArrayList<Cartes>();
 

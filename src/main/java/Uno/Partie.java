@@ -11,9 +11,9 @@ public class Partie {
     private int nbJoueur;
     private boolean sensHoraire = true;
     private int numJoueurCourant= 0;
-    public ArrayList<Cartes> pioche = new ArrayList<Cartes>();
-    public ArrayList<Cartes> tas = new ArrayList<Cartes>();
-    public ArrayList<Joueur> listeDesJoueurs= new ArrayList<Joueur>();
+    private ArrayList<Cartes> pioche = new ArrayList<Cartes>();
+    private ArrayList<Cartes> tas = new ArrayList<Cartes>();
+    private ArrayList<Joueur> listeDesJoueurs= new ArrayList<Joueur>();
     private static  volatile Partie instance = null;
 
 
