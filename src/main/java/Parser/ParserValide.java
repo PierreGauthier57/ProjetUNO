@@ -16,16 +16,15 @@ public abstract class ParserValide
         if (saitParser(ligne)) {
 
             return parser(ligne);
-
         }
         else if (aUnSuivant()) {
 
             return getSuivant().traiter(ligne);
         }
         else
-
             throw new ParserManquantException();
     }
+
 
     private ParserValide getSuivant()
     {
@@ -37,7 +36,7 @@ public abstract class ParserValide
         return suivant != null;
     }
 
-    public abstract Cartes parser(String ligne) throws Exception;
+    public abstract Cartes parser(String ligne) throws ColorException,NumberException;
 
     public abstract boolean saitParser(String ligne);
 
