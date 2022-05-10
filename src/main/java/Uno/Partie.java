@@ -81,37 +81,12 @@ public class Partie {
 
     public Cartes getCarteTas(String typeCarte, Cartes.Color Couleur,int numero)
     {
-        for (Cartes C : tas)
-        {
-            if (C.toString().matches("^.*"+ typeCarte +".*$"))
-            {
-                if (C.toString().matches("^.*"+ Couleur +".*$"))
-                {
-                    if (C.toString().matches("^.*"+ numero +".*$"))
-                    {
-                        return C;
-                    }
-                }
-            }
-
-        }
-        return null;
+        return Cartes.getCarteInList(tas,typeCarte,Couleur,numero);
     }
 
     public Cartes getCarteTas(String typeCarte, Cartes.Color Couleur)
     {
-        for (Cartes C : tas)
-        {
-            if (C.toString().matches("^.*"+ typeCarte +".*$"))
-            {
-                if (C.toString().matches("^.*"+ Couleur +".*$"))
-                {
-                    return C;
-                }
-            }
-
-        }
-        return null;
+        return Cartes.getCarteInList(tas,typeCarte,Couleur);
     }
 
     public void distributionCartePioche(int nbCarteParJ) {
