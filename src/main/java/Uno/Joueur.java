@@ -5,7 +5,7 @@ import Carte.Cartes;
 import java.util.ArrayList;
 
 public class  Joueur {
-
+    private boolean uno = false;
     private String nom ;
     private ArrayList<Cartes> main = new ArrayList<Cartes>();
 
@@ -29,6 +29,12 @@ public class  Joueur {
         return main.size();
     }
 
+    public void setUno(boolean uno) {
+        this.uno = uno;
+    }
+    public boolean getUno(){
+        return uno;
+    }
     public Cartes getCarte(String typeCarte, Cartes.Color Couleur)
     {
         for (Cartes C : main)

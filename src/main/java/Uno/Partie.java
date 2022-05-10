@@ -17,10 +17,19 @@ public class Partie {
     private static volatile Partie instance = null;
     private ExpertValide PremierExpert = null;
 
+    public void setCartePiocher(int cartePiocher) {
+        this.cartePiocher = cartePiocher;
+    }
 
+    public void setCartePoser(int cartePoser) {
+        this.cartePoser = cartePoser;
+    }
 
     public void reinitialiseCarte()
     {
+
+        setCartePiocher(0);
+        setCartePoser(0);
         numJoueurCourant = 0;
         pioche.clear();
         tas.clear();
@@ -30,23 +39,33 @@ public class Partie {
         }
     }
 
-    public void fini(Joueur joueur)throws tourException {
+    public void fini(Joueur joueur) throws tourException, unoException {
         if(listeDesJoueurs.get(getNumJoueurCourant())!=joueur){
             throw new tourException("Ce n'est pas ton tour");
         }
+        if(joueur.getNbCarte()==1 && joueur.getUno()==false){
+            throw new unoException("Le joueur n'a pas dit uno : PENALITE");
+
+        }
         cartePoser = 0;
+        cartePiocher=0;
         prochainJoueur();
     }
 
-    public void punition(Joueur joueur){
-        joueur.getMain().add(pioche.get(0));
-        pioche.remove(0);
-        VerifierTas();
-        joueur.getMain().add(pioche.get(0));
-        pioche.remove(0);
+    public void punition(Joueur joueur,boolean passeTour,int nbCarte){
 
+            for(int i =0;i<nbCarte;i++) {
+                joueur.ajouterMainCarte(pioche.get(0));
+                pioche.remove(0);
+            }
+            if(passeTour == true){
+               prochainJoueur();
+            }
     }
-
+    public void uno(Joueur joueur){
+        if(joueur.getNbCarte()==1)
+        joueur.setUno(true);
+    }
     public int getNumCarteTas(){
         return tas.size();
     }
@@ -209,8 +228,9 @@ public class Partie {
     {
         if(!(listeDesJoueurs.get(numJoueurCourant) == joueur))
             throw new tourException("Ce n'est pas ton tour");
-        if(cartePoser > 0 || cartePiocher>0)
-            throw new tourException("Tu a deja jouer");
+
+            if (cartePoser > 0 || cartePiocher > 0)
+                throw new tourException("Tu a deja jouer");
         joueur.ajouterMainCarte(pioche.get(0));
         pioche.remove(0);
     }
@@ -227,8 +247,10 @@ public class Partie {
             throw new tourException("Tu a deja jouer");
         if(carte == null)
             throw new IllegalArgumentException("il ne possede pas la carte");
-        if(!EstValide(carte,getHautTas())) ///  LES EFFETS DE CARTES ?----------------------------------------------
+        if(!EstValide(carte,getHautTas())) { ///  LES EFFETS DE CARTES ?----------------------------------------------
+
             throw new valideException("La carte n'est pas valide : PENALITE");
+        }
         joueur.poseMainCarte(carte);
         cartePoser++;
         tas.add(carte);
