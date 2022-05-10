@@ -6,12 +6,9 @@ public class Plus2 extends Cartes {
         super(couleur);
     }
 
-    public void Plus2(Color couleur){
-        this.setCouleur(couleur);
-    }
-
-    public void donne2(Joueur joueur, Partie pioche){
-
+    public void effet()
+    {
+        Partie.getInstance().setCumulEffet(Partie.getInstance().getCumulEffet() + 2);
     }
 
     @Override

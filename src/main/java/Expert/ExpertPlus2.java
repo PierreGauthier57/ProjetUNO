@@ -1,6 +1,7 @@
 package Expert;
 
 import Carte.*;
+import Uno.Partie;
 
 public class ExpertPlus2  extends ExpertValide {
     public ExpertPlus2(ExpertValide suivant) {
@@ -10,7 +11,10 @@ public class ExpertPlus2  extends ExpertValide {
     @Override
     public boolean parser(Cartes cartes, Cartes cartesTas) throws Exception {
         if((cartes.getCouleur() == cartesTas.getCouleur()))
+        {
+            Partie.getInstance().setEffet(true);
             return true;
+        }
         return false;
     }
 

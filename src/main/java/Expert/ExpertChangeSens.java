@@ -13,7 +13,7 @@ public class ExpertChangeSens extends ExpertValide
     public boolean parser(Cartes cartes, Cartes cartesTas) throws Exception {
         if((cartes.getCouleur() == cartesTas.getCouleur()))
         {
-            Partie.getInstance().inverseSens();
+            Partie.getInstance().setEffet(true);
             return true;
         }
 

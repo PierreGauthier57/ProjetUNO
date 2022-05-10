@@ -31,10 +31,4 @@ public abstract class ExpertValide {
 
     public abstract boolean saitParser(Cartes cartes, Cartes carteTas);
 
-
-
-
-
-
-
 }

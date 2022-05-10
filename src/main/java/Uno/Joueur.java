@@ -4,15 +4,24 @@ import Carte.Cartes;
 
 import java.util.ArrayList;
 
-public class  Joueur {
-    private boolean uno = false;
+public class Joueur
+{
     private String nom ;
     private ArrayList<Cartes> main = new ArrayList<Cartes>();
+    private boolean uno = false;
 
     public Joueur(String nom){
         if(nom.trim().equals("")|| nom == null)
             throw new IllegalArgumentException("Le nom ne peut pas être vide");
         this.nom=nom;
+    }
+
+    public void setUno(boolean uno) {
+        this.uno = uno;
+    }
+
+    public boolean getUno(){
+        return uno;
     }
 
     public void ajouterMainCarte(Cartes carte)
@@ -29,43 +38,14 @@ public class  Joueur {
         return main.size();
     }
 
-    public void setUno(boolean uno) {
-        this.uno = uno;
-    }
-    public boolean getUno(){
-        return uno;
-    }
     public Cartes getCarte(String typeCarte, Cartes.Color Couleur)
     {
-        for (Cartes C : main)
-        {
-            if (C.toString().matches("^.*"+typeCarte+".*$"))
-            {
-                if (C.toString().matches("^.*"+Couleur+".*$"))
-                {
-                    return C;
-                }
-            }
-        }
-        return null;
+        return Cartes.getCarteInList(main,typeCarte,Couleur);
     }
 
     public Cartes getCarte(String typeCarte, Cartes.Color Couleur,int numero)
     {
-        for (Cartes C : main)
-        {
-            if (C.toString().matches("^.*"+ typeCarte +".*$"))
-            {
-                if (C.toString().matches("^.*"+ Couleur +".*$"))
-                {
-                    if (C.toString().matches("^.*"+ numero +".*$"))
-                    {
-                        return C;
-                    }
-                }
-            }
-        }
-        return null;
+        return Cartes.getCarteInList(main,typeCarte,Couleur,numero);
     }
 
     public String getNom() {
@@ -75,13 +55,6 @@ public class  Joueur {
     public ArrayList<Cartes> getMain() {
         return main;
     }
-
-    /*
-    private int getNBCarte(ArrayList main){
-        return main.size();
-    }
-
-    */
 
     private boolean carteDansMain(Cartes carte,ArrayList main){
         return main.contains(carte);

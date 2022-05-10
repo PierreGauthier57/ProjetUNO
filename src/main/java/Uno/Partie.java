@@ -16,6 +16,25 @@ public class Partie {
     private ArrayList<Joueur> listeDesJoueurs = new ArrayList<Joueur>();
     private static volatile Partie instance = null;
     private ExpertValide PremierExpert = null;
+    private int cumulEffet = 0;
+    private boolean effet = false;
+
+    private Partie() {}
+
+    public boolean getEffet() {
+        return effet;
+    }
+    public void setEffet(boolean effet) {
+        this.effet = effet;
+    }
+
+    public int getCumulEffet() {
+        return cumulEffet;
+    }
+
+    public void setCumulEffet(int cumulEffet) {
+        this.cumulEffet = cumulEffet;
+    }
 
     public void setCartePiocher(int cartePiocher) {
         this.cartePiocher = cartePiocher;
@@ -27,7 +46,6 @@ public class Partie {
 
     public void reinitialiseCarte()
     {
-
         setCartePiocher(0);
         setCartePoser(0);
         numJoueurCourant = 0;
@@ -40,50 +58,82 @@ public class Partie {
     }
 
     public void fini(Joueur joueur) throws tourException, unoException {
-        if(listeDesJoueurs.get(getNumJoueurCourant())!=joueur){
-            throw new tourException("Ce n'est pas ton tour");
-        }
-        if(joueur.getNbCarte()==1 && joueur.getUno()==false){
-            throw new unoException("Le joueur n'a pas dit uno : PENALITE");
 
+        if(listeDesJoueurs.get(getNumJoueurCourant()) != joueur)
+            throw new tourException("Ce n'est pas ton tour");
+        if(joueur.getNbCarte()==1 && joueur.getUno()==false)
+            throw new unoException("Le joueur n'a pas dit uno : PENALITE");
+        if(getEffet())
+        {
+            getHautTas().effet();
         }
+        effet = false;
         cartePoser = 0;
-        cartePiocher=0;
+        cartePiocher = 0;
         prochainJoueur();
     }
 
     public void punition(Joueur joueur,boolean passeTour,int nbCarte){
 
-            for(int i =0;i<nbCarte;i++) {
-                joueur.ajouterMainCarte(pioche.get(0));
-                pioche.remove(0);
-            }
-            if(passeTour == true){
-               prochainJoueur();
-            }
+        for(int i = 0 ; i < (nbCarte + cumulEffet) ; i++) {
+            joueur.ajouterMainCarte(pioche.get(0));
+            pioche.remove(0);
+        }
+        if( passeTour == true){
+            prochainJoueur();
+        }
     }
+
     public void uno(Joueur joueur){
         if(joueur.getNbCarte()==1)
-        joueur.setUno(true);
-    }
-    public int getNumCarteTas(){
-        return tas.size();
-    }
-    public void VerifierTas(){
-        if(getNumCarteTas()==0){}
-            //-----------------------------------------------------------------------code a finir car pas utile pour la soutenance
+            joueur.setUno(true);
     }
 
-    private int getNBCarteTas(ArrayList tas){
-        return tas.size();
-    }
-    public void inverseSens()
-    {
-        sensHoraire = !sensHoraire;
-    }
-    private Partie()
-    {
+    public boolean PiocheVide() {
 
+        if(getNbPioche() == 0)
+        {
+            return true;
+        }
+        return false;
+    }
+
+    public boolean TasVide() {
+
+        if(getNbTas() == 0)
+        {
+            return true;
+        }
+        return false;
+    }
+
+    public boolean verifierPioche(){
+
+        if(PiocheVide())
+        {
+            if(!TasVide())
+            {
+                for (Cartes C : tas)
+                {
+                    pioche.add(C);
+                    tas.remove(C);
+                }
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public void verifierTas() throws TasException {
+        if(TasVide())
+        {
+            InitHautTas();
+        }
+        //-----------------------------------------------------------------------code a finir car pas utile pour la soutenance
     }
 
     public void ChoisirJeuDeCarte(String nomFichier,ParserValide Parser)
@@ -131,10 +181,13 @@ public class Partie {
         listeDesJoueurs.remove(numJ);
     }
 
-    public void InitHautTas()
-    {
-        tas.add(pioche.get(0));
-        pioche.remove(0);
+    public void InitHautTas() {
+
+        if (!PiocheVide())
+        {
+            tas.add(getHautpioche());
+            pioche.remove(getHautpioche());
+        }
     }
 
     public Cartes getHautTas()
@@ -148,94 +201,56 @@ public class Partie {
 
     public Cartes getCarteTas(String typeCarte, Cartes.Color Couleur,int numero)
     {
-        for (Cartes C : tas)
-        {
-            if (C.toString().matches("^.*"+ typeCarte +".*$"))
-            {
-                if (C.toString().matches("^.*"+ Couleur +".*$"))
-                {
-                    if (C.toString().matches("^.*"+ numero +".*$"))
-                    {
-                        return C;
-                    }
-                }
-            }
-
-        }
-        return null;
+        return Cartes.getCarteInList(tas,typeCarte,Couleur,numero);
     }
 
     public Cartes getCarteTas(String typeCarte, Cartes.Color Couleur)
     {
-        for (Cartes C : tas)
-        {
-            if (C.toString().matches("^.*"+ typeCarte +".*$"))
-            {
-                if (C.toString().matches("^.*"+ Couleur +".*$"))
-                {
-                    return C;
-                }
-            }
-        }
-        return null;
+        return Cartes.getCarteInList(tas,typeCarte,Couleur);
     }
+
     public Cartes getCartePioche(String typeCarte, Cartes.Color Couleur,int numero)
     {
-        for (Cartes C : pioche)
-        {
-            if (C.toString().matches("^.*"+ typeCarte +".*$"))
-            {
-                if (C.toString().matches("^.*"+ Couleur +".*$"))
-                {
-                    if (C.toString().matches("^.*"+ numero +".*$"))
-                    {
-                        return C;
-                    }
-                }
-            }
-
-        }
-        return null;
+        return Cartes.getCarteInList(pioche,typeCarte,Couleur,numero);
     }
 
     public Cartes getCartePioche(String typeCarte, Cartes.Color Couleur)
     {
-        for (Cartes C : pioche)
-        {
-            if (C.toString().matches("^.*"+ typeCarte +".*$"))
-            {
-                if (C.toString().matches("^.*"+ Couleur +".*$"))
-                {
-                    return C;
-                }
-            }
-        }
-        return null;
+        return Cartes.getCarteInList(pioche,typeCarte,Couleur);
     }
 
-    public void distributionCartePioche(int nbCarteParJ) {
+    public void distributionCartePioche(int nbCarteParJ)throws PiocheException {
 
+        if(nbCarteParJ <= 0)
+            throw new PiocheException("Il est impossible de distribuer " + nbCarteParJ + " Carte par joueur");
         if(pioche.size() < nbCarteParJ * listeDesJoueurs.size())
-            throw new IllegalArgumentException("Erreur : Il n'y a pas assez de cartes pour faire cette distribution");
+            throw new PiocheException("Il n'y a pas assez de cartes dans la pioche pour faire cette distribution");
         for (int i = 0; i < nbCarteParJ ; i++)
         {
             for (Joueur J : listeDesJoueurs)
             {
-                J.ajouterMainCarte(pioche.get(0));
-                pioche.remove(0);
+                piocheCarte(J);
             }
         }
     }
 
-    public void piocher(Joueur joueur)throws valideException, tourException
+    private void piocheCarte(Joueur joueur)
+    {
+        if(verifierPioche())
+        {
+            joueur.ajouterMainCarte(getHautpioche());
+            pioche.remove(getHautpioche());
+        }
+    }
+
+    public void piocher(Joueur joueur) throws valideException, tourException
     {
         if(!(listeDesJoueurs.get(numJoueurCourant) == joueur))
             throw new tourException("Ce n'est pas ton tour");
-
-            if (cartePoser > 0 || cartePiocher > 0)
-                throw new tourException("Tu a deja jouer");
-        joueur.ajouterMainCarte(pioche.get(0));
-        pioche.remove(0);
+        if(cartePoser > 0 || cartePiocher >  0)
+            throw new tourException("Tu a deja jouer");
+        cartePiocher++;
+        piocheCarte(joueur);
     }
 
     public void initExpert(ExpertValide Expert )
@@ -243,17 +258,35 @@ public class Partie {
         PremierExpert = Expert;
     }
 
+    public void inverseSens()
+    {
+        sensHoraire = !sensHoraire;
+    }
+
+    public boolean peutJouer(Joueur joueur )
+    {
+        for (Cartes C : joueur.getMain())
+        {
+            if(EstValide(C,getHautTas()))
+                return true;
+        }
+        if (cumulEffet != 0)
+        {
+            punition(joueur,true,cumulEffet);
+            cumulEffet = 0;
+        }
+        return false;
+    }
+
     public void poser(Cartes carte,Joueur joueur ) throws valideException,tourException{
         if(!(listeDesJoueurs.get(numJoueurCourant) == joueur))
             throw new tourException("Ce n'est pas ton tour");
-        if(cartePoser > 0 || cartePiocher>0)
+        if(cartePoser > 0 || cartePiocher > 0)
             throw new tourException("Tu a deja jouer");
         if(carte == null)
             throw new IllegalArgumentException("il ne possede pas la carte");
-        if(!EstValide(carte,getHautTas())) { ///  LES EFFETS DE CARTES ?----------------------------------------------
-
+        if(!EstValide(carte,getHautTas()))
             throw new valideException("La carte n'est pas valide : PENALITE");
-        }
         joueur.poseMainCarte(carte);
         cartePoser++;
         tas.add(carte);
@@ -288,7 +321,7 @@ public class Partie {
         return tas.size();
     }
 
-    public int getNBPioche() {
+    public int getNbPioche() {
         return pioche.size();
     }
 
@@ -300,24 +333,51 @@ public class Partie {
         this.numJoueurCourant = numJoueurCourant;
     }
 
-    public void prochainJoueur(){
-        if(numJoueurCourant == listeDesJoueurs.size()-1)
-            setNumJoueurCourant(0);
+    public void prochainJoueur()
+    {
+        if(sensHoraire)
+            numJoueurCourant++;
         else
-            setNumJoueurCourant(numJoueurCourant+1);
+            numJoueurCourant--;
+
+        if(numJoueurCourant > (listeDesJoueurs.size() - 1))
+        {
+            setNumJoueurCourant(0);
+        }
+        else if(numJoueurCourant < 0)
+        {
+            setNumJoueurCourant(listeDesJoueurs.size() - 1);
+        }
     }
+
+    public Joueur getProchainJoueur()
+    {
+        int prochain = numJoueurCourant;
+        if(sensHoraire)
+            prochain++;
+        else
+            prochain--;
+
+        if(prochain > (listeDesJoueurs.size() - 1))
+        {
+            setNumJoueurCourant(0);
+        }
+        else if(prochain < 0)
+        {
+            setNumJoueurCourant(listeDesJoueurs.size() - 1);
+        }
+        return listeDesJoueurs.get(prochain);
+    }
+
+
 
     @Override
     public String toString() {
         return "nbJoueur=" + listeDesJoueurs.size() +
                 ", sensHoraire=" + sensHoraire +
                 ", numJoueurTour=" + numJoueurCourant +
-
                 ", tas=" + tas+", pioche=" + pioche
                 ;
     }
-
-
-
 }
 

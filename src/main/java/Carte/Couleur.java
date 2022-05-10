@@ -7,6 +7,11 @@ public class Couleur extends Cartes
         super(couleur);
     }
 
+    public void effet()
+    {
+
+    }
+
     @Override
     public String toString() {
         return "Couleur{" + super.toString();
