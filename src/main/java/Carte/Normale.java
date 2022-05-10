@@ -25,6 +25,8 @@ public class Normale extends Cartes{
         return super.getCouleur();
     }
 
+    public void effet() {}
+
     @Override
     public String toString() {
         return "Normale{" +

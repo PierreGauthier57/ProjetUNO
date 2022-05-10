@@ -16,8 +16,7 @@ public class Partie {
     private ArrayList<Joueur> listeDesJoueurs = new ArrayList<Joueur>();
     private static volatile Partie instance = null;
     private ExpertValide PremierExpert = null;
-    private int cumulPlus = 0;
-    private int numJoueurEffet = 0;
+    private int cumulEffet = 0;
     private boolean effet = false;
 
     private Partie() {}
@@ -25,55 +24,30 @@ public class Partie {
     public boolean getEffet() {
         return effet;
     }
-
     public void setEffet(boolean effet) {
         this.effet = effet;
     }
 
-    public void CumulCartePlus(int plus)
-    {
-        cumulPlus += plus;
-
-        effet = true;
-
-        if(sensHoraire)
-            numJoueurEffet = numJoueurCourant + 1;
-        else
-            numJoueurEffet = numJoueurCourant - 1;
-
-        if(numJoueurEffet > (listeDesJoueurs.size() - 1))
-        {
-            numJoueurEffet = 0;
-        }
-        else if(numJoueurEffet < 0)
-        {
-            numJoueurEffet = listeDesJoueurs.size() - 1;
-        }
+    public int getCumulEffet() {
+        return cumulEffet;
     }
 
-    public void passeTour(int plus)
-    {
-        cumulPlus += plus;
+    public void setCumulEffet(int cumulEffet) {
+        this.cumulEffet = cumulEffet;
+    }
 
-        effet = true;
+    public void setCartePiocher(int cartePiocher) {
+        this.cartePiocher = cartePiocher;
+    }
 
-        if(sensHoraire)
-            numJoueurEffet = numJoueurCourant + 1;
-        else
-            numJoueurEffet = numJoueurCourant - 1;
-
-        if(numJoueurEffet > (listeDesJoueurs.size() - 1))
-        {
-            numJoueurEffet = 0;
-        }
-        else if(numJoueurEffet < 0)
-        {
-            numJoueurEffet = listeDesJoueurs.size() - 1;
-        }
+    public void setCartePoser(int cartePoser) {
+        this.cartePoser = cartePoser;
     }
 
     public void reinitialiseCarte()
     {
+        setCartePiocher(0);
+        setCartePoser(0);
         numJoueurCourant = 0;
         pioche.clear();
         tas.clear();
@@ -83,20 +57,36 @@ public class Partie {
         }
     }
 
-    public void fini(Joueur joueur)throws tourException {
-        if(listeDesJoueurs.get(getNumJoueurCourant())!=joueur)
-        {
+    public void fini(Joueur joueur) throws tourException, unoException {
+
+        if(listeDesJoueurs.get(getNumJoueurCourant()) != joueur)
             throw new tourException("Ce n'est pas ton tour");
+        if(joueur.getNbCarte()==1 && joueur.getUno()==false)
+            throw new unoException("Le joueur n'a pas dit uno : PENALITE");
+        if(getEffet())
+        {
+            getHautTas().effet();
         }
+        effet = false;
         cartePoser = 0;
-        joueur.setUNO(false);
+        cartePiocher = 0;
         prochainJoueur();
     }
 
-    public void punition(Joueur joueur){
+    public void punition(Joueur joueur,boolean passeTour,int nbCarte){
 
-        piocheCarte(joueur);
-        piocheCarte(joueur);
+        for(int i = 0 ; i < (nbCarte + cumulEffet) ; i++) {
+            joueur.ajouterMainCarte(pioche.get(0));
+            pioche.remove(0);
+        }
+        if( passeTour == true){
+            prochainJoueur();
+        }
+    }
+
+    public void uno(Joueur joueur){
+        if(joueur.getNbCarte()==1)
+            joueur.setUno(true);
     }
 
     public boolean PiocheVide() {
@@ -273,6 +263,21 @@ public class Partie {
         sensHoraire = !sensHoraire;
     }
 
+    public boolean peutJouer(Joueur joueur )
+    {
+        for (Cartes C : joueur.getMain())
+        {
+            if(EstValide(C,getHautTas()))
+                return true;
+        }
+        if (cumulEffet != 0)
+        {
+            punition(joueur,true,cumulEffet);
+            cumulEffet = 0;
+        }
+        return false;
+    }
+
     public void poser(Cartes carte,Joueur joueur ) throws valideException,tourException{
         if(!(listeDesJoueurs.get(numJoueurCourant) == joueur))
             throw new tourException("Ce n'est pas ton tour");
@@ -344,6 +349,27 @@ public class Partie {
             setNumJoueurCourant(listeDesJoueurs.size() - 1);
         }
     }
+
+    public Joueur getProchainJoueur()
+    {
+        int prochain = numJoueurCourant;
+        if(sensHoraire)
+            prochain++;
+        else
+            prochain--;
+
+        if(prochain > (listeDesJoueurs.size() - 1))
+        {
+            setNumJoueurCourant(0);
+        }
+        else if(prochain < 0)
+        {
+            setNumJoueurCourant(listeDesJoueurs.size() - 1);
+        }
+        return listeDesJoueurs.get(prochain);
+    }
+
+
 
     @Override
     public String toString() {
