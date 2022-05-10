@@ -1,10 +1,9 @@
 package Expert;
 
-import Carte.Cartes;
-import Carte.Normale;
+import Carte.*;
 
-public class ExpertColor extends ExpertValide {
-    public ExpertColor(ExpertValide suivant) {
+public class ExpertPasser extends ExpertValide {
+    public ExpertPasser(ExpertValide suivant) {
         super(suivant);
     }
 
@@ -18,6 +17,6 @@ public class ExpertColor extends ExpertValide {
     @Override
     public boolean saitParser(Cartes carte,Cartes carteTas) {
 
-        return ! (carte instanceof Normale);
+        return carte instanceof Passer;
     }
 }
