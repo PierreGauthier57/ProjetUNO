@@ -40,7 +40,7 @@ public class Uno extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        /*
+
         try {
             BorderPane root = new BorderPane();
 
@@ -79,14 +79,14 @@ public class Uno extends Application {
         vBox.setAlignment(Pos.CENTER);
 
         Label nomNord = initLabelNom(nom);
-        */
 
-       // Canvas canMainNord = initMain(listeCartes/* paramètres ?*/);
 
-       // HBox unoNord = initBoutonUno(canMainNord /* et d'autres paramètres ? */);
+        Canvas canMainNord = initMain(listeCartes/* paramètres ?*/);
 
-        // vBox.getChildren().addAll(nomNord, canMainNord, unoNord);
-        // return vBox;
+        HBox unoNord = initBoutonUno(canMainNord /* et d'autres paramètres ? */);
+
+        vBox.getChildren().addAll(nomNord, canMainNord, unoNord);
+        return vBox;
 
     }
 

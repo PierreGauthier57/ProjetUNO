@@ -8,11 +8,22 @@ public class Joueur
 {
     private String nom ;
     private ArrayList<Cartes> main = new ArrayList<Cartes>();
+    private boolean UNO = false;
 
     public Joueur(String nom){
         if(nom.trim().equals("")|| nom == null)
             throw new IllegalArgumentException("Le nom ne peut pas être vide");
         this.nom=nom;
+    }
+
+    public void ditUNO()
+    {
+        UNO = true;
+    }
+
+    public void setUNO(boolean UNO)
+    {
+        this.UNO = UNO;
     }
 
     public void ajouterMainCarte(Cartes carte)

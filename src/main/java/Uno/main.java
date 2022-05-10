@@ -12,19 +12,23 @@ public class main {
 
         partie.initExpert(new ExpertCouleur(new ExpertNormale(new ExpertChangeSens(new ExpertPlus2(new ExpertPasser(null))))));
 
-        partie.ChoisirJeuDeCarte("jeux_test/JeuTestCarteSimple.csv",new ParserNormale(null));
-
         Joueur Alice = partie.ajouterJoueur("Alice");
         Joueur Bob = partie.ajouterJoueur("Bob");
         Joueur Charles = partie.ajouterJoueur("Charles");
 
-        partie.distributionCartePioche(3);
-
+        partie.ChoisirJeuDeCarte("jeux_test/JeuTestCarteSimple.csv",new ParserNormale(null));
+        try {
+            partie.distributionCartePioche(3);
+        }
+        catch (PiocheException e) {
+            System.out.println(e);
+            System.exit(1);
+        }
         partie.InitHautTas();
 
-        int  test1 = 0;
-        int  test2 = 0;
-        int  test3 = 0;
+        int test1 = 0;
+        int test2 = 0;
+        int test3 = 0;
         int test4 = 0;
         int test5 = 0;
         int test6 = 0;
@@ -59,7 +63,7 @@ public class main {
                 System.out.println("Test 1.5 =La carte en haut n'est pas celle d'Alice");
                 test1++;
             }
-            if(partie.getNumCarteTas()!=2){
+            if(partie.getNbTas()!=2){
                 System.out.println("Test 1.6 = il n'y a pas deux cartes dans le tas");
         test1++;}
             try {
@@ -102,13 +106,14 @@ public class main {
             System.out.println("Test 2.4 =La carte en haut n'est pas celle de Bob");
             test2++;
         }
-        if(partie.getNumCarteTas()!=3){
+        if(partie.getNbTas()!=3){
             System.out.println("Test 2.5 = il n'y a pas trois cartes dans le tas");
             test2++;}
 
         try{
             partie.fini(Bob);
-        }catch (tourException e) {
+        }
+        catch (tourException e) {
         partie.punition(Bob);
     }
         if(Charles != partie.getJoueurCourant()){
@@ -122,8 +127,15 @@ public class main {
 
         partie.reinitialiseCarte();
         partie.ChoisirJeuDeCarte("jeux_test/JeuTestCarteSimple.csv",new ParserNormale(null));
-        partie.distributionCartePioche(3);
+        try {
+            partie.distributionCartePioche(3);
+        }
+        catch (PiocheException e) {
+            System.out.println(e);
+            System.exit(1);
+        }
         partie.InitHautTas();
+
         System.out.println(partie.toString());
 // ---------------TEST3--------------------------------------------------------
         System.out.println(" ");
@@ -150,7 +162,13 @@ public class main {
 //---------------TEST4---INITIALISATION-----------------------------------------------------
         partie.reinitialiseCarte();
         partie.ChoisirJeuDeCarte("jeux_test/JeuTestCarteSimple.csv",new ParserNormale(null));
-        partie.distributionCartePioche(3);
+        try {
+            partie.distributionCartePioche(3);
+        }
+        catch (PiocheException e) {
+            System.out.println(e);
+            System.exit(1);
+        }
         partie.InitHautTas();
 
 //---------------TEST4--------------------------------------------------------
@@ -188,7 +206,13 @@ public class main {
         //------------------------TEST5--INITIALISATION--------------------------------------------------------------------
         partie.reinitialiseCarte();
         partie.ChoisirJeuDeCarte("jeux_test/JeuTestCarteSimple.csv",new ParserNormale(null));
-        partie.distributionCartePioche(3);
+        try {
+            partie.distributionCartePioche(3);
+        }
+        catch (PiocheException e) {
+            System.out.println(e);
+            System.exit(1);
+        }
         partie.InitHautTas();
         //------------------------TEST5----------------------------------------------------------------------
         System.out.println(" ");
@@ -208,7 +232,13 @@ public class main {
 //------------------------TEST6--INITIALISATION--------------------------------------------------------------------
         partie.reinitialiseCarte();
         partie.ChoisirJeuDeCarte("jeux_test/JeuTestCarteSimple.csv",new ParserNormale(null));
-        partie.distributionCartePioche(3);
+        try {
+            partie.distributionCartePioche(3);
+        }
+        catch (PiocheException e) {
+            System.out.println(e);
+            System.exit(1);
+        }
         partie.InitHautTas();
 //------------------------TEST6----------------------------------------------------------------------
         System.out.println(" ");
@@ -236,7 +266,13 @@ public class main {
 //------------------------TEST7--INITIALISATION--------------------------------------------------------------------
         partie.reinitialiseCarte();
         partie.ChoisirJeuDeCarte("jeux_test/JeuTestCarteSimple.csv",new ParserNormale(null));
-        partie.distributionCartePioche(3);
+        try {
+            partie.distributionCartePioche(3);
+        }
+        catch (PiocheException e) {
+            System.out.println(e);
+            System.exit(1);
+        }
         partie.InitHautTas();
 //------------------------TEST7----------------------------------------------------------------------
         System.out.println(" ");

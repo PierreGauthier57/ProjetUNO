@@ -54,6 +54,10 @@ public class Cartes {
         return null;
     }
 
+    public void abstracteffet() {
+
+    }
+
     public void getType(Color couleur) {
         this.couleur = couleur;
     }
