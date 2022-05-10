@@ -17,7 +17,10 @@ public class Partie {
     private static volatile Partie instance = null;
     private ExpertValide PremierExpert = null;
 
+    private Partie()
+    {
 
+    }
 
     public void reinitialiseCarte()
     {
@@ -39,19 +42,18 @@ public class Partie {
     }
 
     public void punition(Joueur joueur){
-        joueur.getMain().add(pioche.get(0));
+        joueur.ajouterMainCarte(pioche.get(0));
         pioche.remove(0);
         VerifierTas();
-        joueur.getMain().add(pioche.get(0));
+        joueur.ajouterMainCarte(pioche.get(0));
         pioche.remove(0);
-
     }
 
     public int getNumCarteTas(){
         return tas.size();
     }
-    public void VerifierTas(){
-        if(getNumCarteTas()==0){}
+    public void VerifierTas() {
+        if(getNumCarteTas() == 0){}
             //-----------------------------------------------------------------------code a finir car pas utile pour la soutenance
     }
 
@@ -59,10 +61,7 @@ public class Partie {
         return tas.size();
     }
 
-    private Partie()
-    {
 
-    }
 
     public void ChoisirJeuDeCarte(String nomFichier,ParserValide Parser)
     {
@@ -126,69 +125,22 @@ public class Partie {
 
     public Cartes getCarteTas(String typeCarte, Cartes.Color Couleur,int numero)
     {
-        for (Cartes C : tas)
-        {
-            if (C.toString().matches("^.*"+ typeCarte +".*$"))
-            {
-                if (C.toString().matches("^.*"+ Couleur +".*$"))
-                {
-                    if (C.toString().matches("^.*"+ numero +".*$"))
-                    {
-                        return C;
-                    }
-                }
-            }
-
-        }
-        return null;
+        return Cartes.getCarteInList(tas,typeCarte,Couleur,numero);
     }
 
     public Cartes getCarteTas(String typeCarte, Cartes.Color Couleur)
     {
-        for (Cartes C : tas)
-        {
-            if (C.toString().matches("^.*"+ typeCarte +".*$"))
-            {
-                if (C.toString().matches("^.*"+ Couleur +".*$"))
-                {
-                    return C;
-                }
-            }
-        }
-        return null;
+        return Cartes.getCarteInList(tas,typeCarte,Couleur);
     }
+
     public Cartes getCartePioche(String typeCarte, Cartes.Color Couleur,int numero)
     {
-        for (Cartes C : pioche)
-        {
-            if (C.toString().matches("^.*"+ typeCarte +".*$"))
-            {
-                if (C.toString().matches("^.*"+ Couleur +".*$"))
-                {
-                    if (C.toString().matches("^.*"+ numero +".*$"))
-                    {
-                        return C;
-                    }
-                }
-            }
-
-        }
-        return null;
+        return Cartes.getCarteInList(pioche,typeCarte,Couleur,numero);
     }
 
     public Cartes getCartePioche(String typeCarte, Cartes.Color Couleur)
     {
-        for (Cartes C : pioche)
-        {
-            if (C.toString().matches("^.*"+ typeCarte +".*$"))
-            {
-                if (C.toString().matches("^.*"+ Couleur +".*$"))
-                {
-                    return C;
-                }
-            }
-        }
-        return null;
+        return Cartes.getCarteInList(pioche,typeCarte,Couleur);
     }
 
     public void distributionCartePioche(int nbCarteParJ) {
@@ -209,7 +161,7 @@ public class Partie {
     {
         if(!(listeDesJoueurs.get(numJoueurCourant) == joueur))
             throw new tourException("Ce n'est pas ton tour");
-        if(cartePoser > 0 || cartePiocher>0)
+        if(cartePoser > 0 || cartePiocher >  0)
             throw new tourException("Tu a deja jouer");
         joueur.ajouterMainCarte(pioche.get(0));
         pioche.remove(0);
@@ -218,6 +170,11 @@ public class Partie {
     public void initExpert(ExpertValide Expert )
     {
         PremierExpert = Expert;
+    }
+
+    public void inverseSens()
+    {
+        sensHoraire = !sensHoraire;
     }
 
     public void poser(Cartes carte,Joueur joueur ) throws valideException,tourException{
@@ -291,8 +248,5 @@ public class Partie {
                 ", tas=" + tas+", pioche=" + pioche
                 ;
     }
-
-
-
 }
 

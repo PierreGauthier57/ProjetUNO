@@ -4,8 +4,8 @@ import Carte.Cartes;
 
 import java.util.ArrayList;
 
-public class  Joueur {
-
+public class Joueur
+{
     private String nom ;
     private ArrayList<Cartes> main = new ArrayList<Cartes>();
 
@@ -31,35 +31,12 @@ public class  Joueur {
 
     public Cartes getCarte(String typeCarte, Cartes.Color Couleur)
     {
-        for (Cartes C : main)
-        {
-            if (C.toString().matches("^.*"+typeCarte+".*$"))
-            {
-                if (C.toString().matches("^.*"+Couleur+".*$"))
-                {
-                    return C;
-                }
-            }
-        }
-        return null;
+        return Cartes.getCarteInList(main,typeCarte,Couleur);
     }
 
     public Cartes getCarte(String typeCarte, Cartes.Color Couleur,int numero)
     {
-        for (Cartes C : main)
-        {
-            if (C.toString().matches("^.*"+ typeCarte +".*$"))
-            {
-                if (C.toString().matches("^.*"+ Couleur +".*$"))
-                {
-                    if (C.toString().matches("^.*"+ numero +".*$"))
-                    {
-                        return C;
-                    }
-                }
-            }
-        }
-        return null;
+        return Cartes.getCarteInList(main,typeCarte,Couleur,numero);
     }
 
     public String getNom() {
@@ -69,13 +46,6 @@ public class  Joueur {
     public ArrayList<Cartes> getMain() {
         return main;
     }
-
-    /*
-    private int getNBCarte(ArrayList main){
-        return main.size();
-    }
-
-    */
 
     private boolean carteDansMain(Cartes carte,ArrayList main){
         return main.contains(carte);

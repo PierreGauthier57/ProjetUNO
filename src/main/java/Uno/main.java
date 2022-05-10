@@ -1,19 +1,16 @@
 package Uno;
 
 import Carte.Cartes;
-import Carte.Normale;
 import Exception.*;
 import Expert.*;
 import Parser.*;
-
-import javax.xml.catalog.Catalog;
 
 public class main {
     public static void main(String[] args){
 
         Partie partie = Partie.getInstance();
 
-        partie.initExpert(new ExpertColor(new ExpertSimple(null)));
+        partie.initExpert(new ExpertCouleur(new ExpertNormale(new ExpertChangeSens(new ExpertPlus2(new ExpertPasser(null))))));
 
         partie.ChoisirJeuDeCarte("jeux_test/JeuTestCarteSimple.csv",new ParserNormale(null));
 

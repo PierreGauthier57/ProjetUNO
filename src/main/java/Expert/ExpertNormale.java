@@ -1,10 +1,9 @@
 package Expert;
 
-import Carte.Cartes;
-import Carte.Normale;
+import Carte.*;
 
-public class ExpertSimple extends ExpertValide {
-    public ExpertSimple(ExpertValide suivant) {
+public class ExpertNormale extends ExpertValide {
+    public ExpertNormale(ExpertValide suivant) {
         super(suivant);
     }
 
