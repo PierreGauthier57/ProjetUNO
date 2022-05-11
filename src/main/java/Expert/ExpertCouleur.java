@@ -8,7 +8,7 @@ public class ExpertCouleur extends ExpertValide {
     }
 
     @Override
-    public boolean parser(Cartes cartes, Cartes cartesTas) throws Exception {
+    public boolean expert(Cartes cartes, Cartes cartesTas) throws Exception {
         if((cartes.getCouleur() == cartesTas.getCouleur()))
         {
 
@@ -18,7 +18,7 @@ public class ExpertCouleur extends ExpertValide {
     }
 
     @Override
-    public boolean saitParser(Cartes carte,Cartes carteTas) {
+    public boolean saitExpertiser(Cartes carte, Cartes carteTas) {
 
         return carte instanceof Couleur;
     }

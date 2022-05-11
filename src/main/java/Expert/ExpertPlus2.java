@@ -9,7 +9,7 @@ public class ExpertPlus2  extends ExpertValide {
     }
 
     @Override
-    public boolean parser(Cartes cartes, Cartes cartesTas) throws Exception {
+    public boolean expert(Cartes cartes, Cartes cartesTas) throws Exception {
 
         if (Partie.getInstance().getCumulEffet() > 0)
         {
@@ -30,7 +30,7 @@ public class ExpertPlus2  extends ExpertValide {
     }
 
     @Override
-    public boolean saitParser(Cartes carte,Cartes carteTas) {
+    public boolean saitExpertiser(Cartes carte, Cartes carteTas) {
 
         return carte instanceof Plus2;
     }
