@@ -6,7 +6,7 @@ import Uno.Joueur;
 import Uno.Partie;
 import Exception.*;
 
-public class Test5 {
+public class TestJoueurFiniSansRienFaire {
     public static void main(String[] args) {
 
         Partie partie = Partie.getInstance();

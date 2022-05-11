@@ -7,7 +7,7 @@ import Uno.Joueur;
 import Uno.Partie;
 import Exception.*;
 
-public class Test6 {
+public class TestCarteIllégale {
     public static void main(String[] args) {
 
         Partie partie = Partie.getInstance();
@@ -27,28 +27,26 @@ public class Test6 {
         }
         partie.InitHautTas();
 
-        int test6 = 0;
+        int test3 = 0;
 
         System.out.println(" ");
-        System.out.println("Test 6 : Test d’un joueur qui joue puis pioche");
+        System.out.println("Test3 : Test d'une carte Illegale");
 
         try{
-            partie.poser(Alice.getCarte("Normale", Cartes.Color.VERT, 2),Alice);
-            partie.piocher(Alice);
-        }catch(valideException e){
+            partie.poser(Alice.getCarte("Normale", Cartes.Color.JAUNE, 6),Alice);
+        }catch (tourException e){
             System.out.println(e);
-        }catch(tourException e){
-            System.out.println(e);
-            if(2!=Alice.getNbCarte()){
-                System.out.println("Test 6.1 = Elle n'a pas 2 cartes");
-                test6++;}
+        }catch (valideException e){
         }
-        if(partie.getHautpioche()!= partie.getCartePioche("Normale", Cartes.Color.JAUNE,6)){
-            System.out.println("Test 6.2 :Ce n'est pas une carte jaune 6 en haut de la pioche" );
-            test6++;
-        }
+        if(3!=Alice.getNbCarte()){
+            System.out.println("Test 3.1 = Elle n'a pas 3 cartes");
+            test3++;}
+        if(!(Alice.getCarte("Normale", Cartes.Color.JAUNE, 6) != null)){
+            System.out.println("Test 3.2 = Elle n'a pas le six jaune");
+            test3++;}
+
         System.out.println("-----------------------------------------------");
-        System.out.println(2-test6+"/2 Test reussi pour le test 6");
+        System.out.println(2-test3+"/2 Test reussi pour le test 3");
         System.out.println("-----------------------------------------------");
     }
 }

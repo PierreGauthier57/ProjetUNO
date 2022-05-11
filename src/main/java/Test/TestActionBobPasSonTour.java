@@ -7,7 +7,7 @@ import Uno.Joueur;
 import Uno.Partie;
 import Exception.*;
 
-public class Test8 {
+public class TestActionBobPasSonTour {
     public static void main(String[] args) {
 
         Partie partie = Partie.getInstance();
@@ -41,7 +41,6 @@ public class Test8 {
         }catch(valideException e){
             System.out.println(e);
         }catch(tourException e) {
-            System.out.println(e);
             partie.punition(Bob,false,2);
             if(Alice!=partie.getJoueurCourant()){
                 System.out.println("Test 8.2 :Alice n'est pas la joueur courant");

@@ -6,7 +6,7 @@ import Parser.*;
 import Uno.Joueur;
 import Uno.Partie;
 
-public class Test12 {
+public class TestCoupLegauxAvecPasseTour {
     public static void main(String[] args) {
         int test12 = 0;
         Partie partie = Partie.getInstance();

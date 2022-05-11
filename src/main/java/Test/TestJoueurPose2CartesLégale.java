@@ -7,7 +7,7 @@ import Uno.Joueur;
 import Uno.Partie;
 import Exception.*;
 
-public class Test4 {
+public class TestJoueurPose2CartesLégale {
     public static void main(String[] args) {
 
         Partie partie = Partie.getInstance();
@@ -45,7 +45,6 @@ public class Test4 {
 
 
         }catch (tourException e) {
-            System.out.println(e);
             if (Charles.getNbCarte() != 2) {
                 System.out.println("Charle n'a pas 2 cartes");
                 test4++;

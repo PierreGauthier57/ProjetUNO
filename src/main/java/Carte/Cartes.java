@@ -18,17 +18,6 @@ public class Cartes {
         this.couleur = couleur;
     }
 
-    public boolean containsCarteInList(ArrayList<Cartes> cartes, String typeCarte)
-    {
-        for (Cartes C : cartes)
-        {
-            if (C.toString().matches("^.*"+ typeCarte +".*$"))
-            {
-                return true;
-            }
-        }
-        return false;
-    }
 
     public static Cartes getCarteInList(ArrayList<Cartes> cartes, String typeCarte, Cartes.Color Couleur)
     {
@@ -66,10 +55,6 @@ public class Cartes {
     }
 
     public void effet() {}
-
-    public void getType(Color couleur) {
-        this.couleur = couleur;
-    }
 
     @Override
     public String toString() {

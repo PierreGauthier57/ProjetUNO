@@ -8,7 +8,7 @@ import Uno.Joueur;
 import Uno.Partie;
 
 
-public class Test16 {
+public class TestCoupLégalCumulCartesPlus2 {
     public static void main(String[] args) {
         int test16 = 0;
         Partie partie = Partie.getInstance();

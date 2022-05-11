@@ -7,7 +7,7 @@ import Uno.Joueur;
 import Uno.Partie;
 import Exception.*;
 
-public class Test3 {
+public class TestJoueurJoueEtPioche {
     public static void main(String[] args) {
 
         Partie partie = Partie.getInstance();
@@ -23,31 +23,30 @@ public class Test3 {
             partie.distributionCartePioche(3);
         } catch (PiocheException e) {
             System.out.println(e);
-            System.exit(1);
         }
         partie.InitHautTas();
 
-        int test3 = 0;
+        int test6 = 0;
 
         System.out.println(" ");
-        System.out.println("Test3 : Test d'une carte Illegale");
+        System.out.println("Test 6 : Test d’un joueur qui joue puis pioche");
 
         try{
-            partie.poser(Alice.getCarte("Normale", Cartes.Color.JAUNE, 6),Alice);
-        }catch (tourException e){
+            partie.poser(Alice.getCarte("Normale", Cartes.Color.VERT, 2),Alice);
+            partie.piocher(Alice);
+        }catch(valideException e){
             System.out.println(e);
-        }catch (valideException e){
-            System.out.println(e);
+        }catch(tourException e){
+            if(2!=Alice.getNbCarte()){
+                System.out.println("Test 6.1 = Elle n'a pas 2 cartes");
+                test6++;}
         }
-        if(3!=Alice.getNbCarte()){
-            System.out.println("Test 3.1 = Elle n'a pas 3 cartes");
-            test3++;}
-        if(!(Alice.getCarte("Normale", Cartes.Color.JAUNE, 6) != null)){
-            System.out.println("Test 3.2 = Elle n'a pas le six jaune");
-            test3++;}
-
+        if(partie.getHautpioche()!= partie.getCartePioche("Normale", Cartes.Color.JAUNE,6)){
+            System.out.println("Test 6.2 :Ce n'est pas une carte jaune 6 en haut de la pioche" );
+            test6++;
+        }
         System.out.println("-----------------------------------------------");
-        System.out.println(2-test3+"/2 Test reussi pour le test 3");
+        System.out.println(2-test6+"/2 Test reussi pour le test 6");
         System.out.println("-----------------------------------------------");
     }
 }

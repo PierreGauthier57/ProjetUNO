@@ -7,7 +7,7 @@ import Uno.Joueur;
 import Uno.Partie;
 import Exception.*;
 
-public class Test7 {
+public class TestPunitionCoupIllegalAlice {
     public static void main(String[] args) {
 
         Partie partie = Partie.getInstance();
@@ -39,7 +39,6 @@ public class Test7 {
             partie.poser(Alice.getCarte("Normale", Cartes.Color.JAUNE,6),Alice);
         }catch(valideException e){
             partie.punition(Alice,true,2);
-            System.out.println(e);
             if(Bob!=partie.getJoueurCourant()){
                 System.out.println(" Test 7.2 : Bob n'est pas la joueur courant");
                 test7++;

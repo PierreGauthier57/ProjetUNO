@@ -131,13 +131,13 @@ public class Partie {
         return true;
     }
 
-    public void verifierTas() throws TasException {
-        if(TasVide())
-        {
-            InitHautTas();
-        }
-        //-----------------------------------------------------------------------code a finir car pas utile pour la soutenance
-    }
+//    public void verifierTas() throws TasException {
+//        if(TasVide())
+//        {
+//            InitHautTas();
+//        }
+//        //-----------------------------------------------------------------------code a finir car pas utile pour la soutenance
+//    }
 
     public void ChoisirJeuDeCarte(String nomFichier,ParserValide Parser)
     {
@@ -353,24 +353,24 @@ public class Partie {
         }
     }
 
-    public Joueur getProchainJoueur()
-    {
-        int prochain = numJoueurCourant;
-        if(sensHoraire)
-            prochain++;
-        else
-            prochain--;
-
-        if(prochain > (listeDesJoueurs.size() - 1))
-        {
-            setNumJoueurCourant(0);
-        }
-        else if(prochain < 0)
-        {
-            setNumJoueurCourant(listeDesJoueurs.size() - 1);
-        }
-        return listeDesJoueurs.get(prochain);
-    }
+//    public Joueur getProchainJoueur()
+//    {
+//        int prochain = numJoueurCourant;
+//        if(sensHoraire)
+//            prochain++;
+//        else
+//            prochain--;
+//
+//        if(prochain > (listeDesJoueurs.size() - 1))
+//        {
+//            setNumJoueurCourant(0);
+//        }
+//        else if(prochain < 0)
+//        {
+//            setNumJoueurCourant(listeDesJoueurs.size() - 1);
+//        }
+//        return listeDesJoueurs.get(prochain);
+//    }
 
 
 

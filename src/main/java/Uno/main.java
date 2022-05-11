@@ -166,7 +166,6 @@ public class main {
         } catch (tourException e) {
             System.out.println(e);
         } catch (valideException e) {
-            System.out.println(e);
         }
         if (3 != Alice.getNbCarte()) {
             System.out.println("Test 3.1 = Elle n'a pas 3 cartes");
@@ -209,7 +208,6 @@ public class main {
 
 
         } catch (tourException e) {
-            System.out.println(e);
             if (Charles.getNbCarte() != 2) {
                 System.out.println("Charle n'a pas 2 cartes");
                 test4++;
@@ -274,7 +272,6 @@ public class main {
         } catch (valideException e) {
             System.out.println(e);
         } catch (tourException e) {
-            System.out.println(e);
             if (2 != Alice.getNbCarte()) {
                 System.out.println("Test 6.1 = Elle n'a pas 2 cartes");
                 test6++;
@@ -320,7 +317,6 @@ public class main {
             partie.poser(Alice.getCarte("Normale", Cartes.Color.JAUNE, 6), Alice);
         } catch (valideException e) {
             partie.punition(Alice, true, 2);
-            System.out.println(e);
             if (Bob != partie.getJoueurCourant()) {
                 System.out.println(" Test 7.2 : Bob n'est pas la joueur courant");
                 test7++;
@@ -368,7 +364,6 @@ public class main {
         } catch (valideException e) {
             System.out.println(e);
         } catch (tourException e) {
-            System.out.println(e);
             partie.punition(Bob, false, 2);
             if (Alice != partie.getJoueurCourant()) {
                 System.out.println("Test 8.2 :Alice n'est pas la joueur courant");
@@ -468,7 +463,6 @@ public class main {
                 System.out.println("Test 9.3 :le haut du tas n'est pas le 2 vert");
                 test10++;
             }
-            System.out.println(e);
         }
         System.out.println("-----------------------------------------------");
         System.out.println(5 - test10 + "/5 Test reussi pour le test 10");
@@ -630,7 +624,6 @@ public class main {
                 System.out.println("Test 13.3 :Charles n'a pas 3 cartes");
                 test13++;
             }
-        System.out.println(e);
         } catch (unoException e) {
         System.out.println(e);
         }
@@ -682,7 +675,6 @@ public class main {
                 System.out.println("Test 14.2 :Charles n'a pas 3 cartes");
                 test14++;
             }
-            System.out.println(e);
         }
         System.out.println("-----------------------------------------------");
         System.out.println(4-test14+"/4 Test reussi pour le test 14");
