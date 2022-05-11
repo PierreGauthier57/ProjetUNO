@@ -10,7 +10,18 @@ public class ExpertPlus2  extends ExpertValide {
 
     @Override
     public boolean parser(Cartes cartes, Cartes cartesTas) throws Exception {
-        if((cartes.getCouleur() == cartesTas.getCouleur()))
+
+        if (Partie.getInstance().getCumulEffet() > 0)
+        {
+            if ((cartesTas instanceof Plus2))
+            {
+                Partie.getInstance().setEffet(true);
+                return true;
+            }
+            else
+                return false;
+        }
+        else if((cartes.getCouleur() == cartesTas.getCouleur()))
         {
             Partie.getInstance().setEffet(true);
             return true;

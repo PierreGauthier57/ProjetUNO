@@ -1,6 +1,7 @@
 package Expert;
 
 import Carte.*;
+import Uno.Partie;
 
 public class ExpertNormale extends ExpertValide {
     public ExpertNormale(ExpertValide suivant) {
@@ -9,6 +10,11 @@ public class ExpertNormale extends ExpertValide {
 
     @Override
     public boolean parser(Cartes cartes, Cartes cartesTas) throws Exception {
+
+        if (Partie.getInstance().getCumulEffet() > 0)
+        {
+            return false;
+        }
 
         if (cartesTas instanceof Normale)
         {

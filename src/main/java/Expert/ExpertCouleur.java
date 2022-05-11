@@ -11,7 +11,6 @@ public class ExpertCouleur extends ExpertValide {
     public boolean parser(Cartes cartes, Cartes cartesTas) throws Exception {
         if((cartes.getCouleur() == cartesTas.getCouleur()))
         {
-
             return true;
         }
         return false;

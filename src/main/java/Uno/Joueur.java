@@ -10,7 +10,8 @@ public class Joueur
     private ArrayList<Cartes> main = new ArrayList<Cartes>();
     private boolean uno = false;
 
-    public Joueur(String nom){
+    public Joueur(String nom)
+    {
         if(nom.trim().equals("")|| nom == null)
             throw new IllegalArgumentException("Le nom ne peut pas être vide");
         this.nom=nom;
@@ -54,10 +55,6 @@ public class Joueur
 
     public ArrayList<Cartes> getMain() {
         return main;
-    }
-
-    private boolean carteDansMain(Cartes carte,ArrayList main){
-        return main.contains(carte);
     }
 
     @Override
