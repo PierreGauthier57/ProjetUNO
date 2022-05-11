@@ -10,6 +10,11 @@ public class ExpertPasser extends ExpertValide {
 
     @Override
     public boolean parser(Cartes cartes, Cartes cartesTas) throws Exception {
+        if((cartesTas instanceof Passer))
+        {
+            Partie.getInstance().setEffet(true);
+            return true;
+        }
         if((cartes.getCouleur() == cartesTas.getCouleur()))
         {
             Partie.getInstance().setEffet(true);

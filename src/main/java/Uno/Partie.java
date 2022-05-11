@@ -75,7 +75,7 @@ public class Partie {
 
     public void punition(Joueur joueur,boolean passeTour,int nbCarte){
 
-        for(int i = 0 ; i < (nbCarte + cumulEffet) ; i++) {
+        for(int i = 0 ; i < (nbCarte) ; i++) {
             joueur.ajouterMainCarte(pioche.get(0));
             pioche.remove(0);
         }
@@ -84,7 +84,10 @@ public class Partie {
         }
     }
 
-    public void uno(Joueur joueur){
+    public void uno(Joueur joueur) throws unoException {
+        if(joueur != getJoueurCourant()){
+            throw new unoException("Ce n'est pas ton tour ! PUNITION");
+        }
         if(joueur.getNbCarte()==1)
             joueur.setUno(true);
     }
