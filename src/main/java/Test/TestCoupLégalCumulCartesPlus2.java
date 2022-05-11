@@ -47,13 +47,13 @@ public class TestCoupLégalCumulCartesPlus2 {
                 System.out.println("Test 16.3 :Charles n'est pas la joueur courant");
                 test16++;
             }
-            partie.poser(Charles.getCarte("Plus2", Cartes.Color.VERT), Charles);
+            Charles.poser(Charles.getCarte("Plus2", Cartes.Color.VERT));
             partie.fini(Charles);
             if (Alice != partie.getJoueurCourant()) {
                 System.out.println("Test 16.4 :Alice n'est pas la joueur courant");
                 test16++;
             }
-            partie.poser(Alice.getCarte("Plus2", Cartes.Color.VERT), Alice);
+            Alice.poser(Alice.getCarte("Plus2", Cartes.Color.VERT));
             partie.fini(Alice);
             if (Bob != partie.getJoueurCourant()) {
                 System.out.println("Test 16.5 :Bob n'est pas la joueur courant");

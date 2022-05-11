@@ -32,7 +32,7 @@ public class TestJoueurJoueEtPioche {
         System.out.println("Test 6 : Test d’un joueur qui joue puis pioche");
 
         try{
-            partie.poser(Alice.getCarte("Normale", Cartes.Color.VERT, 2),Alice);
+            Alice.poser(Alice.getCarte("Normale", Cartes.Color.VERT, 2));
             partie.piocher(Alice);
         }catch(valideException e){
             System.out.println(e);

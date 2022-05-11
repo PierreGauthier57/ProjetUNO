@@ -1,8 +1,10 @@
 package Uno;
 
 import Carte.Cartes;
+import Exception.*;
 
 import java.util.ArrayList;
+import Uno.Partie;
 
 public class Joueur
 {
@@ -15,7 +17,6 @@ public class Joueur
             throw new IllegalArgumentException("Le nom ne peut pas être vide");
         this.nom=nom;
     }
-
     public void setUno(boolean uno) {
         this.uno = uno;
     }
@@ -42,7 +43,10 @@ public class Joueur
     {
         return Cartes.getCarteInList(main,typeCarte,Couleur);
     }
-
+    public void poser(Cartes carte) throws tourException, valideException {
+        Partie partie = Partie.getInstance();
+        partie.poser(carte, this);
+    }
     public Cartes getCarte(String typeCarte, Cartes.Color Couleur,int numero)
     {
         return Cartes.getCarteInList(main,typeCarte,Couleur,numero);

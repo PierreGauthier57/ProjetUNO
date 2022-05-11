@@ -39,7 +39,7 @@ public class AliceJoueCarteBonneCouleur {
             System.out.println("Test 1.2  =elle n'a pas 3 carte");
             test1++;}
         try{
-            partie.poser(Alice.getCarte("Normale", Cartes.Color.VERT, 2),Alice);
+            Alice.poser(Alice.getCarte("Normale", Cartes.Color.VERT, 2));
         }catch (valideException e) {
             e.printStackTrace();
 

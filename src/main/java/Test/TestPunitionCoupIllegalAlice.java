@@ -36,7 +36,7 @@ public class TestPunitionCoupIllegalAlice {
             test7++;
         }
         try{
-            partie.poser(Alice.getCarte("Normale", Cartes.Color.JAUNE,6),Alice);
+            Alice.poser(Alice.getCarte("Normale", Cartes.Color.JAUNE, 6));
         }catch(valideException e){
             partie.punition(Alice,true,2);
             if(Bob!=partie.getJoueurCourant()){

@@ -33,7 +33,7 @@ public class TestAliceUnoBonMoment {
             test9++;
         }
         try{
-            partie.poser(Alice.getCarte("Normale", Cartes.Color.VERT,2),Alice);
+            Alice.poser(Alice.getCarte("Normale", Cartes.Color.VERT, 2));
             partie.uno(Alice);
             partie.fini(Alice);
         }catch(valideException e){

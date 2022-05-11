@@ -32,7 +32,7 @@ public class TestBobDitUnoPasSonTour {
             test11++;
         }
         try {
-            partie.poser(Alice.getCarte("Normale", Cartes.Color.VERT, 2), Alice);
+            Alice.poser(Alice.getCarte("Normale", Cartes.Color.VERT, 2));
             partie.uno(Bob);
         } catch (valideException e) {
             System.out.println(e);

@@ -57,7 +57,10 @@ public class main {
             test1++;
         }
         try {
-            partie.poser(Alice.getCarte("Normale", Cartes.Color.VERT, 2), Alice);
+            //partie.poser(Alice.getCarte("Normale", Cartes.Color.VERT, 2), Alice);
+
+            Alice.poser(Alice.getCarte("Normale", Cartes.Color.VERT,2));
+
         } catch (valideException e) {
             e.printStackTrace();
 
@@ -107,7 +110,10 @@ public class main {
             test2++;
         }
         try {
-            partie.poser(Bob.getCarte("Normale", Cartes.Color.BLEU, 2), Bob);
+
+            //partie.poser(Bob.getCarte("Normale", Cartes.Color.BLEU, 2), Bob);
+            Bob.poser(Bob.getCarte("Normale", Cartes.Color.BLEU, 2));
+
         } catch (valideException e) {
 
         } catch (tourException e) {
@@ -162,7 +168,8 @@ public class main {
         System.out.println("Test3 : Test d'une carte Illegale");
 
         try {
-            partie.poser(Alice.getCarte("Normale", Cartes.Color.JAUNE, 6), Alice);
+           // partie.poser(Alice.getCarte("Normale", Cartes.Color.JAUNE, 6), Alice);
+            Alice.poser(Alice.getCarte("Normale", Cartes.Color.JAUNE, 6));
         } catch (tourException e) {
             System.out.println(e);
         } catch (valideException e) {
@@ -195,17 +202,20 @@ public class main {
         System.out.println(" ");
         System.out.println("Test4 : Test d'un Joueur qui pose deux cartes légales de suite");
         try {
-            partie.poser(Alice.getCarte("Normale", Cartes.Color.VERT, 2), Alice);
+           // partie.poser(Alice.getCarte("Normale", Cartes.Color.VERT, 2), Alice);
+            Alice.poser(Alice.getCarte("Normale", Cartes.Color.VERT, 2));
             partie.fini(Alice);
-            partie.poser(Bob.getCarte("Normale", Cartes.Color.BLEU, 2), Bob);
+         //   partie.poser(Bob.getCarte("Normale", Cartes.Color.BLEU, 2), Bob);
+            Bob.poser(Bob.getCarte("Normale", Cartes.Color.BLEU, 2));
             partie.fini(Bob);
-            partie.poser(Charles.getCarte("Normale", Cartes.Color.BLEU, 9), Charles);
+          //  partie.poser(Charles.getCarte("Normale", Cartes.Color.BLEU, 9), Charles);
+            Charles.poser(Charles.getCarte("Normale", Cartes.Color.BLEU, 9));
             if (Charles.getNbCarte() != 2) {
                 System.out.println("Charle n'a pas 2 cartes");
                 test4++;
             }
-            partie.poser(Charles.getCarte("Normale", Cartes.Color.BLEU, 7), Charles);
-
+            //partie.poser(Charles.getCarte("Normale", Cartes.Color.BLEU, 7), Charles);
+            Charles.poser(Charles.getCarte("Normale", Cartes.Color.BLEU, 7));
 
         } catch (tourException e) {
             if (Charles.getNbCarte() != 2) {
@@ -267,7 +277,8 @@ public class main {
         System.out.println("Test 6 : Test d’un joueur qui joue puis pioche");
 
         try {
-            partie.poser(Alice.getCarte("Normale", Cartes.Color.VERT, 2), Alice);
+            //partie.poser(Alice.getCarte("Normale", Cartes.Color.VERT, 2), Alice);
+            Alice.poser(Alice.getCarte("Normale", Cartes.Color.VERT, 2));
             partie.piocher(Alice);
         } catch (valideException e) {
             System.out.println(e);
@@ -314,7 +325,8 @@ public class main {
             test7++;
         }
         try {
-            partie.poser(Alice.getCarte("Normale", Cartes.Color.JAUNE, 6), Alice);
+            //partie.poser(Alice.getCarte("Normale", Cartes.Color.JAUNE, 6), Alice);
+            Alice.poser(Alice.getCarte("Normale", Cartes.Color.JAUNE, 6));
         } catch (valideException e) {
             partie.punition(Alice, true, 2);
             if (Bob != partie.getJoueurCourant()) {
@@ -405,7 +417,8 @@ public class main {
             test9++;
         }
         try {
-            partie.poser(Alice.getCarte("Normale", Cartes.Color.VERT, 2), Alice);
+            Alice.poser(Alice.getCarte("Normale", Cartes.Color.VERT, 2));
+            //partie.poser(Alice.getCarte("Normale", Cartes.Color.VERT, 2), Alice);
             partie.uno(Alice);
             partie.fini(Alice);
         } catch (valideException e) {
@@ -447,7 +460,8 @@ public class main {
         System.out.println(" ");
         System.out.println("Test 10 : Test lorsqu’Alice oubli de dire Uno!");
         try {
-            partie.poser(Alice.getCarte("Normale", Cartes.Color.VERT, 2), Alice);
+            //partie.poser(Alice.getCarte("Normale", Cartes.Color.VERT, 2), Alice);
+            Alice.poser(Alice.getCarte("Normale", Cartes.Color.VERT, 2));
             partie.fini(Alice);
         } catch (valideException e) {
             System.out.println(e);
@@ -488,7 +502,8 @@ public class main {
             test11++;
         }
         try{
-            partie.poser(Alice.getCarte("Normale", Cartes.Color.VERT,2),Alice);
+            //partie.poser(Alice.getCarte("Normale", Cartes.Color.VERT,2),Alice);
+            Alice.poser(Alice.getCarte("Normale", Cartes.Color.VERT,2));
             partie.uno(Bob);
         }catch(valideException e){
             System.out.println(e);
@@ -538,7 +553,8 @@ public class main {
             test12++;
         }
         try {
-            partie.poser(Alice.getCarte("Passer", Cartes.Color.ROUGE),Alice);
+            //partie.poser(Alice.getCarte("Passer", Cartes.Color.ROUGE),Alice);
+            Alice.poser(Alice.getCarte("Passer", Cartes.Color.ROUGE));
             partie.fini(Alice);
 
 
@@ -551,7 +567,8 @@ public class main {
                 test12++;
             }
 
-            partie.poser(Charles.getCarte("Passer", Cartes.Color.VERT),Charles);
+            //partie.poser(Charles.getCarte("Passer", Cartes.Color.VERT),Charles);
+            Charles.poser(Charles.getCarte("Passer", Cartes.Color.VERT));
             partie.fini(Charles);
             if(Bob!=partie.getJoueurCourant()){
                 System.out.println("Test 12.4 :Bob n'est pas la joueur courant");
@@ -561,7 +578,8 @@ public class main {
                 System.out.println("Test 12.5 :le haut du tas n'est pas le passer Vert");
                 test12++;
             }
-            partie.poser(Bob.getCarte("Normale", Cartes.Color.VERT,6),Bob);
+            //partie.poser(Bob.getCarte("Normale", Cartes.Color.VERT,6),Bob);
+            Bob.poser(Bob.getCarte("Normale", Cartes.Color.VERT,6));
             partie.fini(Bob);
             if(Charles!=partie.getJoueurCourant()){
                 System.out.println("Test 12.6 :Charles n'est pas la joueur courant");
@@ -605,7 +623,8 @@ public class main {
             test13++;
         }
         try {
-            partie.poser(Alice.getCarte("Passer", Cartes.Color.ROUGE), Alice);
+            Alice.poser(Alice.getCarte("Passer", Cartes.Color.ROUGE));
+            //partie.poser(Alice.getCarte("Passer", Cartes.Color.ROUGE), Alice);
             partie.fini(Alice);
             if(Charles!=partie.getJoueurCourant()){
                 System.out.println("Test 13.2 :Charles n'est pas la joueur courant");
@@ -615,7 +634,8 @@ public class main {
                 System.out.println("Test 13.3 :Charles n'a pas 3 cartes");
                 test13++;
             }
-            partie.poser(Charles.getCarte("Normale", Cartes.Color.BLEU,1), Charles);
+            Charles.poser(Charles.getCarte("Normale", Cartes.Color.BLEU,1));
+            //partie.poser(Charles.getCarte("Normale", Cartes.Color.BLEU,1), Charles);
             partie.fini(Charles);
         }catch(tourException e){
         System.out.println(e);
@@ -652,9 +672,11 @@ public class main {
             test14++;
         }
         try{
-            partie.poser(Alice.getCarte("Normale", Cartes.Color.BLEU,9),Alice);
+            Alice.poser(Alice.getCarte("Normale", Cartes.Color.BLEU,9));
+            //partie.poser(Alice.getCarte("Normale", Cartes.Color.BLEU,9),Alice);
             partie.fini(Alice);
-            partie.poser(Bob.getCarte("Normale", Cartes.Color.BLEU,7),Bob);
+            Bob.poser(Bob.getCarte("Normale", Cartes.Color.BLEU,7));
+            //partie.poser(Bob.getCarte("Normale", Cartes.Color.BLEU,7),Bob);
             partie.fini(Bob);
             if(Charles!=partie.getJoueurCourant()){
                 System.out.println("Test 14.1 :Charles n'est pas la joueur courant");
@@ -664,7 +686,8 @@ public class main {
                 System.out.println("Test 14.2 :Charles n'a pas 3 cartes");
                 test14++;
             }
-            partie.poser(Charles.getCarte("Passer", Cartes.Color.VERT),Charles);
+            Charles.poser(Charles.getCarte("Passer", Cartes.Color.VERT));
+            //partie.poser(Charles.getCarte("Passer", Cartes.Color.VERT),Charles);
             partie.fini(Charles);
         } catch (tourException e) {
             System.out.println(e);
@@ -701,7 +724,8 @@ public class main {
             test15++;
         }
         try{
-            partie.poser(Alice.getCarte("Plus2", Cartes.Color.VERT),Alice);
+            Alice.poser(Alice.getCarte("Plus2", Cartes.Color.VERT));
+           // partie.poser(Alice.getCarte("Plus2", Cartes.Color.VERT),Alice);
             partie.fini(Alice);
 
             if(Bob!=partie.getJoueurCourant()){
@@ -721,7 +745,8 @@ public class main {
                 System.out.println("Test 15.4 :Charles n'est pas la joueur courant");
                 test15++;
             }
-            partie.poser(Charles.getCarte("Normale", Cartes.Color.VERT,1),Charles);
+            Charles.poser(Charles.getCarte("Normale", Cartes.Color.VERT,1));
+           // partie.poser(Charles.getCarte("Normale", Cartes.Color.VERT,1),Charles);
             partie.fini(Charles);
             if(Charles.getNbCarte()!=2){
                 System.out.println("Test 15.5 :Charles n'a pas 2 cartes");
@@ -773,13 +798,15 @@ public class main {
                 System.out.println("Test 16.3 :Charles n'est pas la joueur courant");
                 test16++;
             }
-            partie.poser(Charles.getCarte("Plus2", Cartes.Color.VERT),Charles);
+            Charles.poser(Charles.getCarte("Plus2", Cartes.Color.VERT));
+            //partie.poser(Charles.getCarte("Plus2", Cartes.Color.VERT),Charles);
             partie.fini(Charles);
             if(Alice!=partie.getJoueurCourant()){
                 System.out.println("Test 16.4 :Alice n'est pas la joueur courant");
                 test16++;
             }
-            partie.poser(Alice.getCarte("Plus2", Cartes.Color.VERT),Alice);
+            //partie.poser(Alice.getCarte("Plus2", Cartes.Color.VERT),Alice);
+            Alice.poser(Alice.getCarte("Plus2", Cartes.Color.VERT));
             partie.fini(Alice);
             if(Bob!=partie.getJoueurCourant()){
                 System.out.println("Test 16.5 :Bob n'est pas la joueur courant");

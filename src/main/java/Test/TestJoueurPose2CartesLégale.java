@@ -32,16 +32,16 @@ public class TestJoueurPose2CartesLégale {
         System.out.println(" ");
         System.out.println("Test4 : Test d'un Joueur qui pose deux cartes légales de suite");
         try {
-            partie.poser(Alice.getCarte("Normale", Cartes.Color.VERT, 2),Alice);
+            Alice.poser(Alice.getCarte("Normale", Cartes.Color.VERT, 2));
             partie.fini(Alice);
-            partie.poser(Bob.getCarte("Normale", Cartes.Color.BLEU, 2),Bob);
+            Bob.poser(Bob.getCarte("Normale", Cartes.Color.BLEU, 2));
             partie.fini(Bob);
-            partie.poser(Charles.getCarte("Normale", Cartes.Color.BLEU, 9),Charles);
+            Charles.poser(Charles.getCarte("Normale", Cartes.Color.BLEU, 9));
             if(Charles.getNbCarte()!=2){
                 System.out.println("Charle n'a pas 2 cartes");
                 test4++;
             }
-            partie.poser(Charles.getCarte("Normale", Cartes.Color.BLEU, 7),Charles);
+            Charles.poser(Charles.getCarte("Normale", Cartes.Color.BLEU, 7));
 
 
         }catch (tourException e) {

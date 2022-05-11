@@ -39,7 +39,7 @@ public class BobJoueCarteCouleurDiffMaisMêmeValeur {
             System.out.println("Test 1.2  =elle n'a pas 3 carte");
             test1++;}
         try{
-            partie.poser(Alice.getCarte("Normale", Cartes.Color.VERT, 2),Alice);
+           Alice.poser(Alice.getCarte("Normale", Cartes.Color.VERT, 2));
         }catch (valideException e) {
             e.printStackTrace();
 
@@ -81,7 +81,7 @@ public class BobJoueCarteCouleurDiffMaisMêmeValeur {
             System.out.println("Test 2.1  = Bob n'a pas 3 carte");
             test2++;}
         try{
-            partie.poser(Bob.getCarte("Normale", Cartes.Color.BLEU, 2),Bob);
+            Bob.poser(Bob.getCarte("Normale", Cartes.Color.BLEU, 2));
         }catch (valideException e) {
 
         }catch (tourException e) {

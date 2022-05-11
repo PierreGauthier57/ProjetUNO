@@ -33,7 +33,7 @@ public class TestCarteSimpleIllegaleSurPAsseTour {
             test13++;
         }
         try {
-            partie.poser(Alice.getCarte("Passer", Cartes.Color.ROUGE), Alice);
+            Alice.poser(Alice.getCarte("Passer", Cartes.Color.ROUGE));
             partie.fini(Alice);
             if (Charles != partie.getJoueurCourant()) {
                 System.out.println("Test 13.2 :Charles n'est pas la joueur courant");
@@ -43,7 +43,7 @@ public class TestCarteSimpleIllegaleSurPAsseTour {
                 System.out.println("Test 13.3 :Charles n'a pas 3 cartes");
                 test13++;
             }
-            partie.poser(Charles.getCarte("Normale", Cartes.Color.BLEU, 1), Charles);
+            Charles.poser(Charles.getCarte("Normale", Cartes.Color.BLEU, 1));
             partie.fini(Charles);
         } catch (tourException e) {
             System.out.println(e);

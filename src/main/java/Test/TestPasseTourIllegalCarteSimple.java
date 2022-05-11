@@ -32,9 +32,9 @@ public class TestPasseTourIllegalCarteSimple {
             test14++;
         }
         try {
-            partie.poser(Alice.getCarte("Normale", Cartes.Color.BLEU, 9), Alice);
+            Alice.poser(Alice.getCarte("Normale", Cartes.Color.BLEU, 9));
             partie.fini(Alice);
-            partie.poser(Bob.getCarte("Normale", Cartes.Color.BLEU, 7), Bob);
+            Bob.poser(Bob.getCarte("Normale", Cartes.Color.BLEU, 7));
             partie.fini(Bob);
             if (Charles != partie.getJoueurCourant()) {
                 System.out.println("Test 14.1 :Charles n'est pas la joueur courant");
@@ -44,7 +44,7 @@ public class TestPasseTourIllegalCarteSimple {
                 System.out.println("Test 14.2 :Charles n'a pas 3 cartes");
                 test14++;
             }
-            partie.poser(Charles.getCarte("Passer", Cartes.Color.VERT), Charles);
+            Charles.poser(Charles.getCarte("Passer", Cartes.Color.VERT));
             partie.fini(Charles);
         } catch (tourException e) {
             System.out.println(e);

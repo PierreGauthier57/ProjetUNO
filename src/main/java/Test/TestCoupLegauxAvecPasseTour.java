@@ -32,7 +32,7 @@ public class TestCoupLegauxAvecPasseTour {
             test12++;
         }
         try {
-            partie.poser(Alice.getCarte("Passer", Cartes.Color.ROUGE), Alice);
+            Alice.poser(Alice.getCarte("Passer", Cartes.Color.ROUGE));
             partie.fini(Alice);
 
 
@@ -44,8 +44,7 @@ public class TestCoupLegauxAvecPasseTour {
                 System.out.println("Test 12.3 :le haut du tas n'est pas le passer rouge");
                 test12++;
             }
-
-            partie.poser(Charles.getCarte("Passer", Cartes.Color.VERT), Charles);
+            Charles.poser(Charles.getCarte("Passer", Cartes.Color.VERT));
             partie.fini(Charles);
             if (Bob != partie.getJoueurCourant()) {
                 System.out.println("Test 12.4 :Bob n'est pas la joueur courant");
@@ -55,7 +54,7 @@ public class TestCoupLegauxAvecPasseTour {
                 System.out.println("Test 12.5 :le haut du tas n'est pas le passer Vert");
                 test12++;
             }
-            partie.poser(Bob.getCarte("Normale", Cartes.Color.VERT, 6), Bob);
+            Bob.poser(Bob.getCarte("Normale", Cartes.Color.VERT, 6));
             partie.fini(Bob);
             if (Charles != partie.getJoueurCourant()) {
                 System.out.println("Test 12.6 :Charles n'est pas la joueur courant");

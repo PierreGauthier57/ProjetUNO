@@ -34,7 +34,7 @@ public class TestCoupLegalPlus2 {
             test15++;
         }
         try {
-            partie.poser(Alice.getCarte("Plus2", Cartes.Color.VERT), Alice);
+            Alice.poser(Alice.getCarte("Plus2", Cartes.Color.VERT));
             partie.fini(Alice);
 
             if (Bob != partie.getJoueurCourant()) {
@@ -54,7 +54,7 @@ public class TestCoupLegalPlus2 {
                 System.out.println("Test 15.4 :Charles n'est pas la joueur courant");
                 test15++;
             }
-            partie.poser(Charles.getCarte("Normale", Cartes.Color.VERT, 1), Charles);
+            Charles.poser(Charles.getCarte("Normale", Cartes.Color.VERT, 1));
             partie.fini(Charles);
             if (Charles.getNbCarte() != 2) {
                 System.out.println("Test 15.5 :Charles n'a pas 2 cartes");

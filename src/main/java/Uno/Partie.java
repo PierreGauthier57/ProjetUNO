@@ -287,7 +287,7 @@ public class Partie {
         if(cartePoser > 0 || cartePiocher > 0)
             throw new tourException("Tu a deja jouer");
         if(carte == null)
-            throw new IllegalArgumentException("il ne possede pas la carte");
+            throw new IllegalArgumentException("il ne possede pas la carte( carte == null");
         if(!EstValide(carte,getHautTas()))
             throw new valideException("La carte n'est pas valide : PENALITE");
         joueur.poseMainCarte(carte);

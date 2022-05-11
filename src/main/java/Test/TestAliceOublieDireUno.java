@@ -28,7 +28,7 @@ public class TestAliceOublieDireUno {
         System.out.println(" ");
         System.out.println("Test 10 : Test lorsqu’Alice oubli de dire Uno!");
         try {
-            partie.poser(Alice.getCarte("Normale", Cartes.Color.VERT, 2), Alice);
+            Alice.poser(Alice.getCarte("Normale", Cartes.Color.VERT, 2));
             partie.fini(Alice);
         } catch (valideException e) {
             System.out.println(e);

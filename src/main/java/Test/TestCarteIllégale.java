@@ -33,7 +33,7 @@ public class TestCarteIllégale {
         System.out.println("Test3 : Test d'une carte Illegale");
 
         try{
-            partie.poser(Alice.getCarte("Normale", Cartes.Color.JAUNE, 6),Alice);
+            Alice.poser(Alice.getCarte("Normale", Cartes.Color.JAUNE, 6));
         }catch (tourException e){
             System.out.println(e);
         }catch (valideException e){
