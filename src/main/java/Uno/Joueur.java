@@ -1,8 +1,10 @@
 package Uno;
 
 import Carte.Cartes;
+import Exception.*;
 
 import java.util.ArrayList;
+import Uno.Partie;
 
 public class Joueur
 {
@@ -10,13 +12,11 @@ public class Joueur
     private ArrayList<Cartes> main = new ArrayList<Cartes>();
     private boolean uno = false;
 
-    public Joueur(String nom)
-    {
+    public Joueur(String nom){
         if(nom.trim().equals("")|| nom == null)
             throw new IllegalArgumentException("Le nom ne peut pas être vide");
         this.nom=nom;
     }
-
     public void setUno(boolean uno) {
         this.uno = uno;
     }
@@ -43,7 +43,10 @@ public class Joueur
     {
         return Cartes.getCarteInList(main,typeCarte,Couleur);
     }
-
+    public void poser(Cartes carte) throws tourException, valideException {
+        Partie partie = Partie.getInstance();
+        partie.poser(carte, this);
+    }
     public Cartes getCarte(String typeCarte, Cartes.Color Couleur,int numero)
     {
         return Cartes.getCarteInList(main,typeCarte,Couleur,numero);
@@ -55,6 +58,10 @@ public class Joueur
 
     public ArrayList<Cartes> getMain() {
         return main;
+    }
+
+    private boolean carteDansMain(Cartes carte,ArrayList main){
+        return main.contains(carte);
     }
 
     @Override

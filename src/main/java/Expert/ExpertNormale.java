@@ -9,13 +9,11 @@ public class ExpertNormale extends ExpertValide {
     }
 
     @Override
-    public boolean parser(Cartes cartes, Cartes cartesTas) throws Exception {
-
+    public boolean expert(Cartes cartes, Cartes cartesTas) throws Exception {
         if (Partie.getInstance().getCumulEffet() > 0)
         {
             return false;
         }
-
         if (cartesTas instanceof Normale)
         {
             Normale cs = (Normale)cartes;
@@ -29,7 +27,7 @@ public class ExpertNormale extends ExpertValide {
     }
 
     @Override
-    public boolean saitParser(Cartes carte,Cartes carteTas) {
+    public boolean saitExpertiser(Cartes carte, Cartes carteTas) {
 
         return carte instanceof Normale;
     }

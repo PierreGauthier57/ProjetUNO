@@ -18,7 +18,8 @@ public class Cartes {
         this.couleur = couleur;
     }
 
-    public static Cartes getCarteInList(ArrayList<Cartes> cartes, String typeCarte, Color Couleur)
+
+    public static Cartes getCarteInList(ArrayList<Cartes> cartes, String typeCarte, Cartes.Color Couleur)
     {
         for (Cartes C : cartes)
         {
@@ -54,10 +55,6 @@ public class Cartes {
     }
 
     public void effet() {}
-
-    public void getType(Color couleur) {
-        this.couleur = couleur;
-    }
 
     @Override
     public String toString() {

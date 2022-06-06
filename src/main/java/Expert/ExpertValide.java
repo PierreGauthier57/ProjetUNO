@@ -12,8 +12,8 @@ public abstract class ExpertValide {
     }
 
     public boolean traiter(Cartes cartes,Cartes carteTas) throws Exception {
-        if (saitParser(cartes,carteTas))
-            return parser(cartes,carteTas);
+        if (saitExpertiser(cartes,carteTas))
+            return expert(cartes,carteTas);
         else if (aUnSuivant())
             return getSuivant().traiter(cartes,carteTas);
         else
@@ -27,8 +27,8 @@ public abstract class ExpertValide {
         return suivant != null;
     }
 
-    public abstract boolean parser(Cartes cartes, Cartes cartesTas) throws Exception;
+    public abstract boolean expert(Cartes cartes, Cartes cartesTas) throws Exception;
 
-    public abstract boolean saitParser(Cartes cartes, Cartes carteTas);
+    public abstract boolean saitExpertiser(Cartes cartes, Cartes carteTas);
 
 }

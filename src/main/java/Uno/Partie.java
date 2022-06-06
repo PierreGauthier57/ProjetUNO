@@ -75,7 +75,7 @@ public class Partie {
 
     public void punition(Joueur joueur,boolean passeTour,int nbCarte){
 
-        for(int i = 0 ; i < (nbCarte + cumulEffet) ; i++) {
+        for(int i = 0 ; i < (nbCarte) ; i++) {
             joueur.ajouterMainCarte(pioche.get(0));
             pioche.remove(0);
         }
@@ -84,7 +84,10 @@ public class Partie {
         }
     }
 
-    public void uno(Joueur joueur){
+    public void uno(Joueur joueur) throws unoException {
+        if(joueur != getJoueurCourant()){
+            throw new unoException("Ce n'est pas ton tour ! PUNITION");
+        }
         if(joueur.getNbCarte()==1)
             joueur.setUno(true);
     }
@@ -128,13 +131,13 @@ public class Partie {
         return true;
     }
 
-    public void verifierTas() throws TasException {
-        if(TasVide())
-        {
-            InitHautTas();
-        }
-        //-----------------------------------------------------------------------code a finir car pas utile pour la soutenance
-    }
+//    public void verifierTas() throws TasException {
+//        if(TasVide())
+//        {
+//            InitHautTas();
+//        }
+//        //-----------------------------------------------------------------------code a finir car pas utile pour la soutenance
+//    }
 
     public void ChoisirJeuDeCarte(String nomFichier,ParserValide Parser)
     {
@@ -284,7 +287,7 @@ public class Partie {
         if(cartePoser > 0 || cartePiocher > 0)
             throw new tourException("Tu a deja jouer");
         if(carte == null)
-            throw new IllegalArgumentException("il ne possede pas la carte");
+            throw new IllegalArgumentException("il ne possede pas la carte( carte == null");
         if(!EstValide(carte,getHautTas()))
             throw new valideException("La carte n'est pas valide : PENALITE");
         joueur.poseMainCarte(carte);
@@ -350,24 +353,24 @@ public class Partie {
         }
     }
 
-    public Joueur getProchainJoueur()
-    {
-        int prochain = numJoueurCourant;
-        if(sensHoraire)
-            prochain++;
-        else
-            prochain--;
-
-        if(prochain > (listeDesJoueurs.size() - 1))
-        {
-            setNumJoueurCourant(0);
-        }
-        else if(prochain < 0)
-        {
-            setNumJoueurCourant(listeDesJoueurs.size() - 1);
-        }
-        return listeDesJoueurs.get(prochain);
-    }
+//    public Joueur getProchainJoueur()
+//    {
+//        int prochain = numJoueurCourant;
+//        if(sensHoraire)
+//            prochain++;
+//        else
+//            prochain--;
+//
+//        if(prochain > (listeDesJoueurs.size() - 1))
+//        {
+//            setNumJoueurCourant(0);
+//        }
+//        else if(prochain < 0)
+//        {
+//            setNumJoueurCourant(listeDesJoueurs.size() - 1);
+//        }
+//        return listeDesJoueurs.get(prochain);
+//    }
 
 
 
