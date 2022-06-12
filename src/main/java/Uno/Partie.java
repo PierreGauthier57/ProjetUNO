@@ -57,6 +57,11 @@ public class Partie {
         }
     }
 
+    public ArrayList<Joueur> getListeDesJoueurs()
+    {
+        return listeDesJoueurs;
+    }
+
     public void fini(Joueur joueur) throws tourException, unoException {
 
         if(listeDesJoueurs.get(getNumJoueurCourant()) != joueur)

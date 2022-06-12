@@ -43,6 +43,12 @@ public class Joueur
     {
         return Cartes.getCarteInList(main,typeCarte,Couleur);
     }
+
+    public void pioche() throws tourException, valideException {
+        Partie partie = Partie.getInstance();
+        partie.piocher(this);
+    }
+
     public void poser(Cartes carte) throws tourException, valideException {
         Partie partie = Partie.getInstance();
         partie.poser(carte, this);

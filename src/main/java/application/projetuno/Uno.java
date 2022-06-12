@@ -1,10 +1,14 @@
 package application.projetuno;
 
+import Carte.*;
+import Expert.*;
+import Parser.*;
+import Uno.*;
+import Exception.*;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -32,101 +36,56 @@ public class Uno extends Application {
     private static final int H_CANVAS = 130;
     private static final int L_CANVAS = 400;
     private static final int L_CARTE = 80;
-    private static final int ECART = 30;
+    private static final int ECART = 50;
+
     private Canvas canSabot;
+    private Partie partie = Partie.getInstance();
 
-    private ArrayList<String> listeCartes = new ArrayList<String>(); // Devrait disparaître en fonction des vos classes
-
+    private JoueurControleur J1 ;
+    private JoueurControleur J2 ;
+    private JoueurControleur J3 ;
+    private JoueurControleur J4 ;
 
     @Override
     public void start(Stage stage) throws IOException {
 
         try {
+
             BorderPane root = new BorderPane();
 
             Scene scene = new Scene(root);
             stage.setScene(scene);
 
+            JoueurControleur.initJoueurControleur(H_CANVAS,L_CANVAS,L_CARTE,ECART);
+            J1 = new JoueurControleur("Yann");
+            J2 = new JoueurControleur("Camille");
+            J3 = new JoueurControleur("Isabelle");
+            J4 = new JoueurControleur("Charlotte");
 
-            listeCartes.add("/carte_1_Bleu.png");
-            listeCartes.add("/carte_Passe_Jaune.png");
+            partie.initExpert(new ExpertCouleur(new ExpertNormale(new ExpertChangeSens(new ExpertPlus2(new ExpertPasser(null))))));
+            partie.ChoisirJeuDeCarte("jeux_test/JeuTest.csv", new ParserNormale(new ParserPlus2(new ParserPasser(new ParserCouleur(new ParserChangeSens(null))))));
+            partie.distributionCartePioche(5);
+            partie.InitHautTas();
 
-            VBox joueurNord = initJoueur("Yann");
-            root.setTop(joueurNord);
+            J1.updateMain();
+            J2.updateMain();
+            J3.updateMain();
+            J4.updateMain();
 
-            VBox joueurOuest = initJoueur("Camille");
-            root.setRight(joueurOuest);
-
-            VBox joueurSud = initJoueur("Isabelle");
-            root.setBottom(joueurSud);
-
-            VBox joueurEst = initJoueur("Charlotte");
-            root.setLeft(joueurEst);
-
+            root.setTop(J1.getVbox());
+            root.setRight(J2.getVbox());
+            root.setBottom(J3.getVbox());
+            root.setLeft(J4.getVbox());
 
             root.setCenter(initSabot());
 
             stage.show();
-
-        } catch (Exception e) {
+        }
+        catch (Exception e)
+        {
             e.printStackTrace();
         }
     }
-
-
-    private VBox initJoueur(String nom) {
-        VBox vBox = new VBox();
-        vBox.setAlignment(Pos.CENTER);
-
-        Label nomNord = initLabelNom(nom);
-
-
-        Canvas canMainNord = initMain(listeCartes/* paramètres ?*/);
-
-        HBox unoNord = initBoutonUno(canMainNord /* et d'autres paramètres ? */);
-
-        vBox.getChildren().addAll(nomNord, canMainNord, unoNord);
-        return vBox;
-
-    }
-
-
-    private HBox initBoutonUno(Canvas canMain /* et d'autres paramètres ? */) {
-        /* Cette partie est sans doute incomplète. Il y a sans doute d'autres actions à
-         * prévoir que piocher et dire uno !
-         */
-
-
-        HBox hBox = new HBox();
-        hBox.setAlignment(Pos.CENTER);
-        Button boutonUno = new Button("Uno !");
-
-        boutonUno.setOnAction(select -> {
-            System.out.println("Le joueur dit Uno !");
-        });
-
-        Button boutonPioche = new Button("Pioche");
-
-        boutonPioche.setOnAction(select -> {
-            System.out.println("Le joueur pioche");
-        });
-
-        hBox.getChildren().addAll(boutonUno, boutonPioche);
-
-        return hBox;
-    }
-
-
-    private Label initLabelNom(String nom) {
-        Label bidon = new Label("");
-        bidon.setFont(new Font("Arial", 30));
-
-        Label lNom = new Label(nom);
-        lNom.setFont(new Font("Arial", 30));
-
-        return lNom;
-    }
-
 
     private Canvas initSabot() {
 
@@ -136,6 +95,23 @@ public class Uno extends Application {
 
         canSabot.setOnMouseClicked(clic -> {
             System.out.println("Pioche!");
+
+            try
+            {
+                Partie.getInstance().getJoueurCourant().pioche();
+            }
+            catch (tourException e)
+            {
+                e.printStackTrace();
+            }
+            catch (valideException e)
+            {
+                e.printStackTrace();
+            }
+            J1.updateMain();
+            J2.updateMain();
+            J3.updateMain();
+            J4.updateMain();
             /* j'ai prévu l'évènement mais personnellement je ne l'utilise pas. J'utilise le bouton
              * prévu pour chaque joueur. Faites coimme vous voulez !
              */
@@ -154,56 +130,13 @@ public class Uno extends Application {
          * la manche. J'initialise cela en dur mais vous devrez changer cela en fonction
          * de vos classes
          */
+
         Image imageCarte = new Image(getClass().getResourceAsStream("/carte_6_Rouge.png"));
 
         canSabot.getGraphicsContext2D().drawImage(sabot, 0, 0);
         canSabot.getGraphicsContext2D().drawImage(imageCarte, 25, 20);
         canSabot.getGraphicsContext2D().drawImage(dos, 124, 20);
     }
-
-
-    private Canvas initMain(ArrayList<String> liste) {
-        Canvas canMain = new Canvas(L_CANVAS, H_CANVAS);
-
-        dessinerMain(liste, canMain);
-
-
-        canMain.setOnMouseClicked(clic -> {
-            int x = (int) clic.getX();
-            int nbCartes = liste.size();
-            int lMain = L_CARTE + ((nbCartes - 1) * ECART);
-            int pad = (L_CANVAS - lMain) / 2;
-
-            if (x >= pad && x <= pad + lMain) {
-                int num = (int) ((x - pad) / ECART);
-                num = Math.min(nbCartes - 1, num);
-                System.out.println("Le joueur a sélectionné la carte " + num);
-                /* sûrement à compléter */
-            }
-        });
-
-        return canMain;
-    }
-
-
-    private void dessinerMain(ArrayList<String> liste, Canvas canvas) {
-        /* liste est une liste de chaines de car. Mais vous devriez sans doute utiliser
-         * vos propres classes, pas des String !
-         */
-
-
-        canvas.getGraphicsContext2D().clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
-
-        int nbCartes = liste.size();
-        int lMain = L_CARTE + ((nbCartes - 1) * ECART);
-        int pad = (L_CANVAS - lMain) / 2;
-
-        for (int i = 0; i < nbCartes; i++) {
-            Image carte = new Image(getClass().getResourceAsStream(liste.get(i))); /* à adapter */
-            canvas.getGraphicsContext2D().drawImage(carte, pad + i * ECART, 0);
-        }
-    }
-
 
     public static void main(String[] args)
     {
