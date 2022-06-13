@@ -161,7 +161,32 @@ public class JoueurControleur {
             updateMain();
         });
 
-        boutons.getChildren().addAll(boutonUno, boutonPioche);
+        Button boutonTerminer = new Button("Terminer");
+
+        boutonTerminer.setOnAction(select -> {
+            System.out.println(joueur.getNom() + " à terminer");
+
+            try
+            {
+                joueur.fini();
+            }
+            catch (tourException e)
+            {
+                e.printStackTrace();
+            }
+            catch (valideException e)
+            {
+                e.printStackTrace();
+            }
+            catch (unoException e)
+            {
+                e.printStackTrace();
+            }
+
+            updateMain();
+        });
+
+        boutons.getChildren().addAll(boutonUno, boutonPioche,boutonTerminer);
         Vbox.getChildren().add(boutons);
         return boutons;
     }

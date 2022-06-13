@@ -112,9 +112,6 @@ public class Uno extends Application {
             J2.updateMain();
             J3.updateMain();
             J4.updateMain();
-            /* j'ai prévu l'évènement mais personnellement je ne l'utilise pas. J'utilise le bouton
-             * prévu pour chaque joueur. Faites coimme vous voulez !
-             */
         });
 
         return canSabot;

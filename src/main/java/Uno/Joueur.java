@@ -53,6 +53,12 @@ public class Joueur
         Partie partie = Partie.getInstance();
         partie.poser(carte, this);
     }
+
+    public void fini() throws tourException, valideException, unoException {
+        Partie partie = Partie.getInstance();
+        partie.fini(this);
+    }
+
     public Cartes getCarte(String typeCarte, Cartes.Color Couleur,int numero)
     {
         return Cartes.getCarteInList(main,typeCarte,Couleur,numero);
