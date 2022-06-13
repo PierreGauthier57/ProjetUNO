@@ -38,13 +38,13 @@ public class Uno extends Application {
     private static final int L_CARTE = 80;
     private static final int ECART = 50;
 
-    private Canvas canSabot;
     private Partie partie = Partie.getInstance();
 
-    private JoueurControleur J1 ;
-    private JoueurControleur J2 ;
-    private JoueurControleur J3 ;
-    private JoueurControleur J4 ;
+    private ArrayList<JoueurControleur> Liste = new ArrayList<JoueurControleur>();
+    private JoueurControleur J1;
+    private JoueurControleur J2;
+    private JoueurControleur J3;
+    private JoueurControleur J4;
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -56,11 +56,19 @@ public class Uno extends Application {
             Scene scene = new Scene(root);
             stage.setScene(scene);
 
+            SabotControleur.getSabot();
+
             JoueurControleur.initJoueurControleur(H_CANVAS,L_CANVAS,L_CARTE,ECART);
+
             J1 = new JoueurControleur("Yann");
             J2 = new JoueurControleur("Camille");
             J3 = new JoueurControleur("Isabelle");
             J4 = new JoueurControleur("Charlotte");
+
+            Liste.add(J1);
+            Liste.add(J2);
+            Liste.add(J3);
+            Liste.add(J4);
 
             partie.initExpert(new ExpertCouleur(new ExpertNormale(new ExpertChangeSens(new ExpertPlus2(new ExpertPasser(null))))));
             partie.ChoisirJeuDeCarte("jeux_test/JeuTest.csv", new ParserNormale(new ParserPlus2(new ParserPasser(new ParserCouleur(new ParserChangeSens(null))))));
@@ -77,7 +85,7 @@ public class Uno extends Application {
             root.setBottom(J3.getVbox());
             root.setLeft(J4.getVbox());
 
-            root.setCenter(initSabot());
+            root.setCenter(SabotControleur.getSabot().initSabot(Liste));
 
             stage.show();
         }
@@ -87,57 +95,8 @@ public class Uno extends Application {
         }
     }
 
-    private Canvas initSabot() {
-
-        canSabot = new Canvas();
-
-        dessinerSabot();
-
-        canSabot.setOnMouseClicked(clic -> {
-            System.out.println("Pioche!");
-
-            try
-            {
-                Partie.getInstance().getJoueurCourant().pioche();
-            }
-            catch (tourException e)
-            {
-                e.printStackTrace();
-            }
-            catch (valideException e)
-            {
-                e.printStackTrace();
-            }
-            J1.updateMain();
-            J2.updateMain();
-            J3.updateMain();
-            J4.updateMain();
-        });
-
-        return canSabot;
-    }
-
-    private void dessinerSabot() {
-        Image sabot = new Image(getClass().getResourceAsStream("/Sabot.png"));
-        Image dos = new Image(getClass().getResourceAsStream("/carte_dos.png"));
-        canSabot.setWidth(sabot.getWidth());
-        canSabot.setHeight(sabot.getHeight());
-
-        /* normalement, il faut retourner la première carte de la pioche pour amorcer
-         * la manche. J'initialise cela en dur mais vous devrez changer cela en fonction
-         * de vos classes
-         */
-
-        Image imageCarte = new Image(getClass().getResourceAsStream("/carte_6_Rouge.png"));
-
-        canSabot.getGraphicsContext2D().drawImage(sabot, 0, 0);
-        canSabot.getGraphicsContext2D().drawImage(imageCarte, 25, 20);
-        canSabot.getGraphicsContext2D().drawImage(dos, 124, 20);
-    }
-
     public static void main(String[] args)
     {
         launch(args);
-
     }
 }

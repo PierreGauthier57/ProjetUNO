@@ -158,6 +158,7 @@ public class JoueurControleur {
                 e.printStackTrace();
             }
 
+            SabotControleur.getSabot().dessinerSabot();
             updateMain();
         });
 
@@ -169,6 +170,7 @@ public class JoueurControleur {
             try
             {
                 joueur.poser(getcarteSelect());
+                carteSelect = null;
             }
             catch (tourException e)
             {
@@ -180,7 +182,7 @@ public class JoueurControleur {
                 System.out.println("PUNITION PAS VALIDE");
             }
 
-
+            SabotControleur.getSabot().dessinerSabot();
             updateMain();
         });
 
@@ -206,6 +208,7 @@ public class JoueurControleur {
                 e.printStackTrace();
             }
 
+            SabotControleur.getSabot().dessinerSabot();
             updateMain();
         });
 
