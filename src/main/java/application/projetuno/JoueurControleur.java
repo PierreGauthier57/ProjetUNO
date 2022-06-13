@@ -10,6 +10,7 @@ import javafx.scene.layout.VBox;
 import Carte.*;
 import Uno.*;
 import Exception.*;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
 import java.util.ArrayList;
@@ -97,6 +98,13 @@ public class JoueurControleur {
         Vbox.getChildren().add(this.nom);
     }
 
+    /*
+    public void CouleurNom(Color color)
+    {
+        nom.setTextFill(color);
+    }
+     */
+
     private void setBoutons(HBox boutons)
     {
         this.boutons = boutons;
@@ -157,9 +165,7 @@ public class JoueurControleur {
             {
                 e.printStackTrace();
             }
-
             SabotControleur.getSabot().dessinerSabot();
-            updateMain();
         });
 
         Button boutonPoser = new Button("Poser");
@@ -181,9 +187,7 @@ public class JoueurControleur {
                 Partie.getInstance().punition(joueur,true,2);
                 System.out.println("PUNITION PAS VALIDE");
             }
-
             SabotControleur.getSabot().dessinerSabot();
-            updateMain();
         });
 
         Button boutonTerminer = new Button("Terminer");
@@ -194,6 +198,7 @@ public class JoueurControleur {
             try
             {
                 joueur.fini();
+                Partie.getInstance().getJoueurCourant().peutJouer();
             }
             catch (tourException e)
             {
@@ -207,9 +212,7 @@ public class JoueurControleur {
             {
                 e.printStackTrace();
             }
-
             SabotControleur.getSabot().dessinerSabot();
-            updateMain();
         });
 
         boutons.getChildren().addAll(boutonUno, boutonPioche,boutonTerminer,boutonPoser);

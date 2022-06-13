@@ -64,6 +64,13 @@ public class Joueur
         return Cartes.getCarteInList(main,typeCarte,Couleur,numero);
     }
 
+    public void peutJouer()
+    {
+        Partie partie = Partie.getInstance();
+        partie.peutJouer(this);
+    }
+
+
     public String getNom() {
         return nom;
     }
