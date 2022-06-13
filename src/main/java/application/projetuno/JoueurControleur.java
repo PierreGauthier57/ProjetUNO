@@ -161,6 +161,29 @@ public class JoueurControleur {
             updateMain();
         });
 
+        Button boutonPoser = new Button("Poser");
+
+        boutonPoser.setOnAction(select -> {
+            System.out.println(joueur.getNom() + " à poser");
+
+            try
+            {
+                joueur.poser(getcarteSelect());
+            }
+            catch (tourException e)
+            {
+                e.printStackTrace();
+            }
+            catch (valideException e)
+            {
+                Partie.getInstance().punition(joueur,true,2);
+                System.out.println("PUNITION PAS VALIDE");
+            }
+
+
+            updateMain();
+        });
+
         Button boutonTerminer = new Button("Terminer");
 
         boutonTerminer.setOnAction(select -> {
@@ -186,7 +209,7 @@ public class JoueurControleur {
             updateMain();
         });
 
-        boutons.getChildren().addAll(boutonUno, boutonPioche,boutonTerminer);
+        boutons.getChildren().addAll(boutonUno, boutonPioche,boutonTerminer,boutonPoser);
         Vbox.getChildren().add(boutons);
         return boutons;
     }
