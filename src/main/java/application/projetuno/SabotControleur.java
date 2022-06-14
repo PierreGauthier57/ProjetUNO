@@ -10,6 +10,8 @@ import java.util.ArrayList;
 
 public class SabotControleur {
 
+    private ArrayList<JoueurControleur> ListeJoueur;
+
     private Canvas canSabot;
 
     private static volatile SabotControleur Sabot = null;
@@ -35,6 +37,8 @@ public class SabotControleur {
         canSabot = new Canvas();
 
         dessinerSabot();
+
+        ListeJoueur = Liste;
 
         canSabot.setOnMouseClicked(clic -> {
             System.out.println("Pioche!");
@@ -106,6 +110,12 @@ public class SabotControleur {
         for (int i = 0; i < Partie.getInstance().getNbPioche(); i++)
         {
             canSabot.getGraphicsContext2D().drawImage(dos, 124 +  i*0.25, 25 -  i * 0.1);
+        }
+
+        if(ListeJoueur != null)
+        for (JoueurControleur J : ListeJoueur)
+        {
+            J.updateMain();
         }
     }
 }
