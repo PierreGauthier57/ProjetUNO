@@ -73,8 +73,6 @@ public class Partie {
             getHautTas().effet();
         }
         effet = false;
-        cartePoser = 0;
-        cartePiocher = 0;
         prochainJoueur();
     }
 
@@ -356,6 +354,9 @@ public class Partie {
         {
             setNumJoueurCourant(listeDesJoueurs.size() - 1);
         }
+        
+        cartePoser = 0;
+        cartePiocher = 0;
     }
 
     public Joueur getProchainJoueur()

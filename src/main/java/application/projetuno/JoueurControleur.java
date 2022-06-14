@@ -42,7 +42,6 @@ public class JoueurControleur {
     private HBox boutons ;
     private Cartes carteSelect ;
     private int num;
-    private boolean aJouer;
 
     public Cartes getcarteSelect() {
         return carteSelect;
@@ -168,17 +167,30 @@ public class JoueurControleur {
 
             try {
                 joueur.pioche();
-                aJouer = true;
             }
             catch (tourException e)
             {
-               System.out.println("CE N'EST PAS TON TOUR / PUNITION");
-               Partie.getInstance().punition(joueur,true,2);
+               System.out.println("TU PEUX PAS JOUEUR / PUNITION");
+                if(Partie.getInstance().getJoueurCourant().equals(joueur))
+                {
+                    Partie.getInstance().punition(joueur,true,2);
+                }
+                else
+                {
+                    Partie.getInstance().punition(joueur,false,2);
+                }
             }
             catch (valideException e)
             {
                 System.out.println("CE N'EST PAS UNE CARTE VALIDE / PUNITION");
-                Partie.getInstance().punition(joueur,true,2);
+                if(Partie.getInstance().getJoueurCourant().equals(joueur))
+                {
+                    Partie.getInstance().punition(joueur,true,2);
+                }
+                else
+                {
+                    Partie.getInstance().punition(joueur,false,2);
+                }
             }
             SabotControleur.getSabot().dessinerSabot();
         });
@@ -191,18 +203,31 @@ public class JoueurControleur {
             try
             {
                 joueur.poser(getcarteSelect());
-                aJouer = true;
                 carteSelect = null;
             }
             catch (tourException e)
             {
-                System.out.println("CE N'EST PAS TON TOUR / PUNITION");
-                Partie.getInstance().punition(joueur,true,2);
+                System.out.println("TU PEUX PAS JOUEUR / PUNITION");
+                if(Partie.getInstance().getJoueurCourant().equals(joueur))
+                {
+                    Partie.getInstance().punition(joueur,true,2);
+                }
+                else
+                {
+                    Partie.getInstance().punition(joueur,false,2);
+                }
             }
             catch (valideException e)
             {
                 System.out.println("CE N'EST PAS UNE CARTE VALIDE / PUNITION");
-                Partie.getInstance().punition(joueur,true,2);
+                if(Partie.getInstance().getJoueurCourant().equals(joueur))
+                {
+                    Partie.getInstance().punition(joueur,true,2);
+                }
+                else
+                {
+                    Partie.getInstance().punition(joueur,false,2);
+                }
             }
             SabotControleur.getSabot().dessinerSabot();
         });
@@ -220,16 +245,26 @@ public class JoueurControleur {
             catch (tourException e)
             {
                 System.out.println("CE N'EST PAS TON TOUR / PUNITION");
-                Partie.getInstance().punition(joueur,true,2);
-            }
-            catch (valideException e)
-            {
-                System.out.println("CE N'EST PAS UNE CARTE VALIDE / PUNITION");
-                Partie.getInstance().punition(joueur,true,2);
+                if(Partie.getInstance().getJoueurCourant().equals(joueur))
+                {
+                    Partie.getInstance().punition(joueur,true,2);
+                }
+                else
+                {
+                    Partie.getInstance().punition(joueur,false,2);
+                }
             }
             catch (unoException e)
             {
-                e.printStackTrace();
+                System.out.println("TU PEUX PAS DIRE UNO / PUNITION");
+                if(Partie.getInstance().getJoueurCourant().equals(joueur))
+                {
+                    Partie.getInstance().punition(joueur,true,2);
+                }
+                else
+                {
+                    Partie.getInstance().punition(joueur,false,2);
+                }
             }
             SabotControleur.getSabot().dessinerSabot();
         });
