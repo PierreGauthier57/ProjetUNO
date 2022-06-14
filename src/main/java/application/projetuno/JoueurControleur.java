@@ -41,6 +41,7 @@ public class JoueurControleur {
     private HBox boutons ;
     private Cartes carteSelect ;
     private int num;
+    private boolean aJouer;
 
     public Cartes getcarteSelect() {
         return carteSelect;
@@ -89,7 +90,20 @@ public class JoueurControleur {
         this.nom = nom;
         Vbox.getChildren().add(this.nom);
     }
-
+    public void setNomC(Label nom)
+    {
+        nom.setFont(new Font("Arial", 60));
+        Vbox.getChildren().remove(this.nom);
+        this.nom = nom;
+        Vbox.getChildren().add(this.nom);
+    }
+    public void setNomPC(Label nom)
+    {
+        nom.setFont(new Font("Arial", 30));
+        Vbox.getChildren().remove(this.nom);
+        this.nom = nom;
+        Vbox.getChildren().add(this.nom);
+    }
     public void setNom(String nom)
     {
         Vbox.getChildren().remove(this.nom);
@@ -148,14 +162,17 @@ public class JoueurControleur {
 
             try {
                 joueur.pioche();
+                aJouer = true;
             }
             catch (tourException e)
             {
-                e.printStackTrace();
+               System.out.println("CE N'EST PAS TON TOUR / PUNITION");
+               Partie.getInstance().punition(joueur,true,2);
             }
             catch (valideException e)
             {
-                e.printStackTrace();
+                System.out.println("CE N'EST PAS UNE CARTE VALIDE / PUNITION");
+                Partie.getInstance().punition(joueur,true,2);
             }
 
             SabotControleur.getSabot().dessinerSabot();
@@ -170,16 +187,18 @@ public class JoueurControleur {
             try
             {
                 joueur.poser(getcarteSelect());
+                aJouer = true;
                 carteSelect = null;
             }
             catch (tourException e)
             {
-                e.printStackTrace();
+                System.out.println("CE N'EST PAS TON TOUR / PUNITION");
+                Partie.getInstance().punition(joueur,true,2);
             }
             catch (valideException e)
             {
+                System.out.println("CE N'EST PAS UNE CARTE VALIDE / PUNITION");
                 Partie.getInstance().punition(joueur,true,2);
-                System.out.println("PUNITION PAS VALIDE");
             }
 
             SabotControleur.getSabot().dessinerSabot();
@@ -193,15 +212,24 @@ public class JoueurControleur {
 
             try
             {
-                joueur.fini();
+                if(aJouer){
+                    joueur.fini();
+                    aJouer =false;
+                }
+                else{
+                    throw new valideException("");
+                }
+
             }
             catch (tourException e)
             {
-                e.printStackTrace();
+                System.out.println("CE N'EST PAS TON TOUR / PUNITION");
+                Partie.getInstance().punition(joueur,true,2);
             }
             catch (valideException e)
             {
-                e.printStackTrace();
+                System.out.println("CE N'EST PAS UNE CARTE VALIDE / PUNITION");
+                Partie.getInstance().punition(joueur,true,2);
             }
             catch (unoException e)
             {
@@ -216,7 +244,6 @@ public class JoueurControleur {
         Vbox.getChildren().add(boutons);
         return boutons;
     }
-
     private Label initLabelNom(String nom) {
 
         Label lNom = new Label(nom);

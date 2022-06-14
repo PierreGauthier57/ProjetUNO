@@ -358,24 +358,24 @@ public class Partie {
         }
     }
 
-//    public Joueur getProchainJoueur()
-//    {
-//        int prochain = numJoueurCourant;
-//        if(sensHoraire)
-//            prochain++;
-//        else
-//            prochain--;
-//
-//        if(prochain > (listeDesJoueurs.size() - 1))
-//        {
-//            setNumJoueurCourant(0);
-//        }
-//        else if(prochain < 0)
-//        {
-//            setNumJoueurCourant(listeDesJoueurs.size() - 1);
-//        }
-//        return listeDesJoueurs.get(prochain);
-//    }
+    public Joueur getProchainJoueur()
+    {
+        int prochain = numJoueurCourant;
+        if(sensHoraire)
+            prochain++;
+        else
+            prochain--;
+
+        if(prochain > (listeDesJoueurs.size() - 1))
+        {
+            setNumJoueurCourant(0);
+        }
+        else if(prochain < 0)
+        {
+            setNumJoueurCourant(listeDesJoueurs.size() - 1);
+        }
+        return listeDesJoueurs.get(prochain);
+   }
 
 
 
