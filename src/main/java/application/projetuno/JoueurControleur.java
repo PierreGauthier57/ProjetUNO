@@ -112,12 +112,10 @@ public class JoueurControleur {
         Vbox.getChildren().add(this.nom);
     }
 
-    /*
     public void CouleurNom(Color color)
     {
         nom.setTextFill(color);
     }
-     */
 
     private void setBoutons(HBox boutons)
     {
@@ -271,7 +269,16 @@ public class JoueurControleur {
         return canMain;
     }
 
-    public void updateMain() {
+    public void updateMain()
+    {
+        if(Partie.getInstance().getJoueurCourant().equals(joueur))
+        {
+            CouleurNom(Color.RED);
+        }
+        else
+        {
+            CouleurNom(Color.BLACK);
+        }
         dessinerMain(joueur.getMain(), canMain);
     }
 
