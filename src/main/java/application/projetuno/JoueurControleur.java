@@ -42,11 +42,12 @@ public class JoueurControleur {
     private HBox boutons ;
     private Cartes carteSelect ;
     private int num;
+    private boolean Ajouer;
+
 
     public Cartes getcarteSelect() {
         return carteSelect;
     }
-
     public Canvas getCanMain() {
         return canMain;
     }
@@ -157,7 +158,17 @@ public class JoueurControleur {
 
         boutonUno.setOnAction(select -> {
             System.out.println(joueur.getNom() + " à dit Uno !");
-            joueur.setUno(true);
+            try {
+                Partie.getInstance().uno(joueur);
+            } catch (unoException e) {
+                System.out.println("Ce nest pas un uno");
+                Partie.getInstance().punition(joueur,true,2);
+            } catch (tourException e) {
+                System.out.println("Ce nest pas ton tour");
+                Partie.getInstance().punition(joueur,false,2);
+            }
+
+            SabotControleur.getSabot().dessinerSabot();
         });
 
         Button boutonPioche = new Button("Pioche");
@@ -203,6 +214,8 @@ public class JoueurControleur {
             try
             {
                 joueur.poser(getcarteSelect());
+                if(joueur.getUno())
+                    System.out.println("BRAVOOOOOO "+ joueur.getNom() + " A GAGNE");
                 carteSelect = null;
             }
             catch (tourException e)
@@ -265,6 +278,7 @@ public class JoueurControleur {
                 {
                     Partie.getInstance().punition(joueur,false,2);
                 }
+
             }
             SabotControleur.getSabot().dessinerSabot();
         });

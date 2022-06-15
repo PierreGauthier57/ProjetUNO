@@ -8,6 +8,7 @@ import Uno.Partie;
 
 public class Joueur
 {
+    private boolean Ajouer = false;
     private String nom ;
     private ArrayList<Cartes> main = new ArrayList<Cartes>();
     private boolean uno = false;
@@ -19,6 +20,12 @@ public class Joueur
     }
     public void setUno(boolean uno) {
         this.uno = uno;
+    }
+
+    public boolean getAjouer(){ return Ajouer;}
+
+    public void setAjouer(boolean ajouer) {
+        this.Ajouer  = ajouer;
     }
 
     public boolean getUno(){
@@ -54,7 +61,7 @@ public class Joueur
         partie.poser(carte, this);
     }
 
-    public void fini() throws tourException, unoException {
+    public void fini() throws tourException, unoException{
         Partie partie = Partie.getInstance();
         partie.fini(this);
     }

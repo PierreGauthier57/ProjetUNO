@@ -62,7 +62,7 @@ public class Partie {
         return listeDesJoueurs;
     }
 
-    public void fini(Joueur joueur) throws tourException, unoException {
+    public void fini(Joueur joueur) throws tourException, unoException{
 
         if(listeDesJoueurs.get(getNumJoueurCourant()) != joueur)
             throw new tourException("Ce n'est pas ton tour");
@@ -87,12 +87,17 @@ public class Partie {
         }
     }
 
-    public void uno(Joueur joueur) throws unoException {
+    public void uno(Joueur joueur) throws unoException,tourException {
         if(joueur != getJoueurCourant()){
-            throw new unoException("Ce n'est pas ton tour ! PUNITION");
+            throw new tourException("Ce n'est pas ton tour ! PUNITION");
         }
-        if(joueur.getNbCarte()==1)
+        if(joueur.getNbCarte()==1){
             joueur.setUno(true);
+        }
+        else{
+            throw new unoException("Il te reste plus d'une carte");
+        }
+
     }
 
     public boolean PiocheVide() {
