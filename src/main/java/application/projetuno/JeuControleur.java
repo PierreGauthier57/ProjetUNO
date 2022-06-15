@@ -4,9 +4,11 @@ import Carte.*;
 import Uno.*;
 import Exception.*;
 import javafx.geometry.Pos;
+import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -20,6 +22,8 @@ public class JeuControleur {
     private VBox Vbox ;
     private Canvas canSabot;
     private Label msg ;
+    private ImageView fond;
+    private Scene scene;
 
     private static volatile JeuControleur Jeu = null;
 
@@ -55,8 +59,10 @@ public class JeuControleur {
         return canSabot;
     }
 
-    public VBox initSabot(ArrayList<JoueurControleur> Liste) {
+    public VBox initSabot(ArrayList<JoueurControleur> Liste,ImageView fond,Scene scene) {
 
+        this.fond = fond;
+        this.scene = scene;
         Vbox = new VBox();
 
         Vbox.setAlignment(Pos.CENTER);
@@ -102,6 +108,10 @@ public class JeuControleur {
     }
 
     public void dessinerSabot() {
+
+        fond.setFitHeight(scene.getHeight());
+        fond.setFitWidth(scene.getWidth());
+
         Image sabot = new Image(getClass().getResourceAsStream("/Sabot.png"));
         Image dos = new Image(getClass().getResourceAsStream("/carte_dos.png"));
         canSabot.setWidth(sabot.getWidth());

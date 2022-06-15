@@ -5,6 +5,8 @@ import Parser.*;
 import Uno.*;
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -23,7 +25,7 @@ import javafx.scene.layout.BorderPane;
 public class Uno extends Application {
 
     private static final int H_CANVAS = 130;
-    private static final int L_CANVAS = 500;
+    private static final int L_CANVAS = 550;
     private static final int L_CARTE = 80;
     private static final int ECART = 45;
 
@@ -42,8 +44,16 @@ public class Uno extends Application {
 
             BorderPane root = new BorderPane();
 
+            Image image = new Image("/Fond.jpg",1920,1080,false,true);
+            ImageView imageView = new ImageView(image);
+            root.getChildren().add(imageView);
+
             Scene scene = new Scene(root);
             stage.setScene(scene);
+
+            imageView.setFitHeight(scene.getHeight());
+            imageView.setFitWidth(scene.getWidth());
+
 
             JeuControleur.getJeu();
 
@@ -74,7 +84,7 @@ public class Uno extends Application {
             root.setBottom(J3.getVbox());
             root.setLeft(J4.getVbox());
 
-            root.setCenter(JeuControleur.getJeu().initSabot(Liste));
+            root.setCenter(JeuControleur.getJeu().initSabot(Liste, imageView, scene));
 
             stage.show();
         }
