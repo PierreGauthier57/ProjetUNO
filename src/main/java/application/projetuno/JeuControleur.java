@@ -25,7 +25,7 @@ public class JeuControleur {
 
     private JeuControleur() {}
 
-    public static JeuControleur getSabot() {
+    public static JeuControleur getJeu() {
         if(Jeu == null)
             Jeu = new JeuControleur();
         return Jeu;

@@ -185,7 +185,7 @@ public class JoueurControleur {
                     Partie.getInstance().punition(joueur,false,2);
                 }
             }
-            JeuControleur.getSabot().dessinerSabot();
+            JeuControleur.getJeu().dessinerSabot();
         });
 
         Button boutonPioche = new Button("Pioche");
@@ -220,7 +220,7 @@ public class JoueurControleur {
                     Partie.getInstance().punition(joueur,false,2);
                 }
             }
-            JeuControleur.getSabot().dessinerSabot();
+            JeuControleur.getJeu().dessinerSabot();
         });
 
         Button boutonPoser = new Button("Poser");
@@ -259,7 +259,7 @@ public class JoueurControleur {
                     Partie.getInstance().punition(joueur,false,2);
                 }
             }
-            JeuControleur.getSabot().dessinerSabot();
+            JeuControleur.getJeu().dessinerSabot();
         });
 
         Button boutonTerminer = new Button("Terminer");
@@ -300,7 +300,7 @@ public class JoueurControleur {
                 System.out.println("Tu n'as pas jouer, PUNITION");
                 Partie.getInstance().punition(joueur,true, 2);
             }
-            JeuControleur.getSabot().dessinerSabot();
+            JeuControleur.getJeu().dessinerSabot();
         });
 
         boutons.getChildren().addAll(boutonUno, boutonPioche,boutonTerminer,boutonPoser);

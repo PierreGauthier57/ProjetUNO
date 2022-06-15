@@ -45,7 +45,7 @@ public class Uno extends Application {
             Scene scene = new Scene(root);
             stage.setScene(scene);
 
-            JeuControleur.getSabot();
+            JeuControleur.getJeu();
 
             JoueurControleur.initJoueurControleur(H_CANVAS,L_CANVAS,L_CARTE,ECART);
 
@@ -74,7 +74,7 @@ public class Uno extends Application {
             root.setBottom(J3.getVbox());
             root.setLeft(J4.getVbox());
 
-            root.setCenter(JeuControleur.getSabot().initSabot(Liste));
+            root.setCenter(JeuControleur.getJeu().initSabot(Liste));
 
             stage.show();
         }
