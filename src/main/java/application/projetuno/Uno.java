@@ -1,12 +1,9 @@
 package application.projetuno;
 
-import Carte.*;
 import Expert.*;
 import Parser.*;
 import Uno.*;
-import Exception.*;
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import java.io.IOException;
@@ -21,22 +18,14 @@ import java.util.ArrayList;
  * et décocher la case ...Xstart....
  */
 
-import javafx.geometry.Pos;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.image.Image;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
-import javafx.scene.text.Font;
 
 public class Uno extends Application {
 
     private static final int H_CANVAS = 130;
-    private static final int L_CANVAS = 400;
+    private static final int L_CANVAS = 500;
     private static final int L_CARTE = 80;
-    private static final int ECART = 50;
+    private static final int ECART = 45;
 
     private Partie partie = Partie.getInstance();
 
@@ -56,7 +45,7 @@ public class Uno extends Application {
             Scene scene = new Scene(root);
             stage.setScene(scene);
 
-            SabotControleur.getSabot();
+            JeuControleur.getSabot();
 
             JoueurControleur.initJoueurControleur(H_CANVAS,L_CANVAS,L_CARTE,ECART);
 
@@ -85,7 +74,7 @@ public class Uno extends Application {
             root.setBottom(J3.getVbox());
             root.setLeft(J4.getVbox());
 
-            root.setCenter(SabotControleur.getSabot().initSabot(Liste));
+            root.setCenter(JeuControleur.getSabot().initSabot(Liste));
 
             stage.show();
         }

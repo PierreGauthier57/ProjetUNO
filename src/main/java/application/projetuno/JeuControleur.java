@@ -3,28 +3,51 @@ package application.projetuno;
 import Carte.*;
 import Uno.*;
 import Exception.*;
+import javafx.geometry.Pos;
 import javafx.scene.canvas.Canvas;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 
 import java.util.ArrayList;
 
-public class SabotControleur {
+public class JeuControleur {
 
     private ArrayList<JoueurControleur> ListeJoueur;
 
+    private VBox Vbox ;
     private Canvas canSabot;
+    private Label msg ;
 
-    private static volatile SabotControleur Sabot = null;
+    private static volatile JeuControleur Jeu = null;
 
-    private SabotControleur()
-    {
+    private JeuControleur() {}
 
+    public static JeuControleur getSabot() {
+        if(Jeu == null)
+            Jeu = new JeuControleur();
+        return Jeu;
     }
 
-    public static SabotControleur getSabot() {
-        if(Sabot == null)
-            Sabot = new SabotControleur();
-        return Sabot;
+    private Label initLabelMsg(String Msg) {
+
+        Label lNom = new Label(Msg);
+        lNom.setFont(new Font("Arial", 25));
+
+        return lNom;
+    }
+
+    public void setMsg(String Msg)
+    {
+        msg.setText(Msg);
+    }
+
+    public void setMsg(String Msg, Color color)
+    {
+        msg.setText(Msg);
+        msg.setTextFill(color);
     }
 
     public Canvas getCanSabot()
@@ -32,27 +55,38 @@ public class SabotControleur {
         return canSabot;
     }
 
-    public Canvas initSabot(ArrayList<JoueurControleur> Liste) {
+    public VBox initSabot(ArrayList<JoueurControleur> Liste) {
+
+        Vbox = new VBox();
+
+        Vbox.setAlignment(Pos.CENTER);
 
         canSabot = new Canvas();
+        msg = initLabelMsg("Debut de la partie");
+        Vbox.getChildren().add(msg);
+        Vbox.setMinWidth(400);
+        Vbox.getChildren().add(canSabot);
 
         dessinerSabot();
 
         ListeJoueur = Liste;
 
         canSabot.setOnMouseClicked(clic -> {
-            System.out.println("Pioche!");
+
             try
             {
                 Partie.getInstance().getJoueurCourant().pioche();
+                setMsg(Partie.getInstance().getJoueurCourant().getNom() + " à Piocher",Color.BLACK);
             }
             catch (tourException e)
             {
+                setMsg(Partie.getInstance().getJoueurCourant().getNom() + " , " + e.getMessage(),Color.RED);
                 System.out.println(e);
                 Partie.getInstance().punition(Partie.getInstance().getJoueurCourant(),true,2);
             }
             catch (valideException e)
             {
+                setMsg(Partie.getInstance().getJoueurCourant().getNom() + " , " + e.getMessage(),Color.RED);
                 System.out.println(e);
                 Partie.getInstance().punition(Partie.getInstance().getJoueurCourant(),true,2);
             }
@@ -64,7 +98,7 @@ public class SabotControleur {
             dessinerSabot();
         });
 
-        return canSabot;
+        return Vbox;
     }
 
     public void dessinerSabot() {

@@ -48,6 +48,7 @@ public class JoueurControleur {
     public Cartes getcarteSelect() {
         return carteSelect;
     }
+
     public Canvas getCanMain() {
         return canMain;
     }
@@ -157,7 +158,6 @@ public class JoueurControleur {
         boutonUno.setOnAction(select -> {
             System.out.println(joueur.getNom() + " à dit Uno !");
             try {
-                setNomPC();
                 joueur.Uno();
             } catch (unoException e) {
 
@@ -185,7 +185,7 @@ public class JoueurControleur {
                     Partie.getInstance().punition(joueur,false,2);
                 }
             }
-            SabotControleur.getSabot().dessinerSabot();
+            JeuControleur.getSabot().dessinerSabot();
         });
 
         Button boutonPioche = new Button("Pioche");
@@ -220,7 +220,7 @@ public class JoueurControleur {
                     Partie.getInstance().punition(joueur,false,2);
                 }
             }
-            SabotControleur.getSabot().dessinerSabot();
+            JeuControleur.getSabot().dessinerSabot();
         });
 
         Button boutonPoser = new Button("Poser");
@@ -259,7 +259,7 @@ public class JoueurControleur {
                     Partie.getInstance().punition(joueur,false,2);
                 }
             }
-            SabotControleur.getSabot().dessinerSabot();
+            JeuControleur.getSabot().dessinerSabot();
         });
 
         Button boutonTerminer = new Button("Terminer");
@@ -300,7 +300,7 @@ public class JoueurControleur {
                 System.out.println("Tu n'as pas jouer, PUNITION");
                 Partie.getInstance().punition(joueur,true, 2);
             }
-            SabotControleur.getSabot().dessinerSabot();
+            JeuControleur.getSabot().dessinerSabot();
         });
 
         boutons.getChildren().addAll(boutonUno, boutonPioche,boutonTerminer,boutonPoser);
@@ -366,8 +366,8 @@ public class JoueurControleur {
 
     private void dessinerMain(ArrayList<Cartes> liste, Canvas canvas) {
 
-        L_CANVAS = ECART * (liste.size() + 1);
-        canvas.setWidth(L_CANVAS);
+        //L_CANVAS = ECART * (liste.size() + 1);
+        //canvas.setWidth(L_CANVAS);
 
         canvas.getGraphicsContext2D().clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
 
