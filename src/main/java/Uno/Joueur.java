@@ -58,7 +58,7 @@ public class Joueur
         partie.piocher(this);
     }
 
-    public void Uno() throws unoException
+    public void Uno() throws tourException,unoException
     {
         Partie partie = Partie.getInstance();
         partie.uno(this);

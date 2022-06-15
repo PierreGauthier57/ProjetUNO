@@ -293,11 +293,7 @@ public class Partie {
             if(EstValide(C,getHautTas()))
                 return true;
         }
-        if(joueur.getNbCarte() == 0)
-        {
-            prochainJoueur();
-        }
-        else if (cumulEffet != 0)
+        if (cumulEffet != 0)
         {
             punition(joueur,true,0);
         }
@@ -379,6 +375,11 @@ public class Partie {
         getJoueurCourant().setUno(false);
         cartePoser = 0;
         cartePiocher = 0;
+
+        if(getJoueurCourant().getNbCarte() == 0)
+        {
+            prochainJoueur();
+        }
     }
 
     public Joueur getProchainJoueur()

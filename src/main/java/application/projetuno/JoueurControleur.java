@@ -172,6 +172,18 @@ public class JoueurControleur {
                     System.out.println(e);
                     Partie.getInstance().punition(joueur,false,2);
                 }
+            } catch (tourException e) {
+                System.out.println(e);
+                if(Partie.getInstance().getJoueurCourant().equals(joueur))
+                {
+                    System.out.println(e);
+                    Partie.getInstance().punition(joueur,true,2);
+                }
+                else
+                {
+                    System.out.println(e);
+                    Partie.getInstance().punition(joueur,false,2);
+                }
             }
             SabotControleur.getSabot().dessinerSabot();
         });
