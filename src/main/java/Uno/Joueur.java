@@ -61,7 +61,7 @@ public class Joueur
         partie.poser(carte, this);
     }
 
-    public void fini() throws tourException, unoException{
+    public void fini() throws tourException, unoException, valideException {
         Partie partie = Partie.getInstance();
         partie.fini(this);
     }

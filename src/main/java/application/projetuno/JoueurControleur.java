@@ -279,6 +279,9 @@ public class JoueurControleur {
                     Partie.getInstance().punition(joueur,false,2);
                 }
 
+            } catch (valideException e) {
+                System.out.println("Tu n'as pas jouer, PUNITION");
+                Partie.getInstance().punition(joueur,true, 2);
             }
             SabotControleur.getSabot().dessinerSabot();
         });

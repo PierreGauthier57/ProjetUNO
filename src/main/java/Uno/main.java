@@ -89,6 +89,8 @@ public class main {
             e.printStackTrace();
         } catch (unoException e) {
             System.out.println(e);
+        } catch (valideException e) {
+            e.printStackTrace();
         }
 
         if (Bob != partie.getJoueurCourant()) {
@@ -141,6 +143,8 @@ public class main {
         } catch (tourException e) {
         } catch (unoException e) {
             System.out.println(e);
+        } catch (valideException e) {
+            e.printStackTrace();
         }
 
         if (Charles != partie.getJoueurCourant()) {
@@ -257,6 +261,8 @@ public class main {
             }
         } catch (unoException e) {
             System.out.println(e);
+        } catch (valideException e) {
+            e.printStackTrace();
         }
         System.out.println("-----------------------------------------------");
         System.out.println(1 - test5 + "/1 Test reussi pour le test 5");

@@ -62,17 +62,21 @@ public class Partie {
         return listeDesJoueurs;
     }
 
-    public void fini(Joueur joueur) throws tourException, unoException{
+    public void fini(Joueur joueur) throws tourException, unoException, valideException {
 
         if(listeDesJoueurs.get(getNumJoueurCourant()) != joueur)
             throw new tourException("Ce n'est pas ton tour");
         if(joueur.getNbCarte()==1 && joueur.getUno()==false)
             throw new unoException("Le joueur n'a pas dit uno : PENALITE");
+        if(!joueur.getAjouer()){
+            throw new valideException("Le joueur n'a pas jouer");
+        }
         if(getEffet())
         {
             getHautTas().effet();
         }
         effet = false;
+        joueur.setAjouer(false);
         prochainJoueur();
     }
 
@@ -261,6 +265,7 @@ public class Partie {
         if(cartePoser > 0 || cartePiocher >  0)
             throw new tourException("Tu a deja jouer");
         cartePiocher++;
+        joueur.setAjouer(true);
         piocheCarte(joueur);
     }
 
@@ -298,6 +303,7 @@ public class Partie {
             throw new IllegalArgumentException("il ne possede pas la carte( carte == null");
         if(!EstValide(carte,getHautTas()))
             throw new valideException("La carte n'est pas valide : PENALITE");
+        joueur.setAjouer(true);
         joueur.poseMainCarte(carte);
         cartePoser++;
         tas.add(carte);
