@@ -65,7 +65,9 @@ public class BobJoueCarteCouleurDiffMaisMêmeValeur {
             e.printStackTrace();
         }catch(unoException e) {
             System.out.println(e);
-        }
+        } catch (valideException e) {
+        e.printStackTrace();
+    }
 
         if(Bob != partie.getJoueurCourant()){
             System.out.println("Test 1.7 = Ce n'est pas le tour de Bob");
@@ -108,6 +110,8 @@ public class BobJoueCarteCouleurDiffMaisMêmeValeur {
         }
         catch(unoException e) {
             System.out.println(e);
+        } catch (valideException e) {
+            e.printStackTrace();
         }
 
         if(Charles != partie.getJoueurCourant()){

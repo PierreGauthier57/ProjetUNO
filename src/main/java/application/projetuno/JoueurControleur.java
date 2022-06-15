@@ -42,11 +42,12 @@ public class JoueurControleur {
     private HBox boutons ;
     private Cartes carteSelect ;
     private int num;
+    private boolean Ajouer;
+
 
     public Cartes getcarteSelect() {
         return carteSelect;
     }
-
     public Canvas getCanMain() {
         return canMain;
     }
@@ -218,6 +219,8 @@ public class JoueurControleur {
             try
             {
                 joueur.poser(getcarteSelect());
+                if(joueur.getUno())
+                    System.out.println("BRAVOOOOOO "+ joueur.getNom() + " A GAGNE");
                 carteSelect = null;
             }
             catch (tourException e)
@@ -280,6 +283,10 @@ public class JoueurControleur {
                 {
                     Partie.getInstance().punition(joueur,false,2);
                 }
+
+            } catch (valideException e) {
+                System.out.println("Tu n'as pas jouer, PUNITION");
+                Partie.getInstance().punition(joueur,true, 2);
             }
             SabotControleur.getSabot().dessinerSabot();
         });
