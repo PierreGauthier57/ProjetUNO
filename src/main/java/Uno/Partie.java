@@ -66,6 +66,8 @@ public class Partie {
 
         if(listeDesJoueurs.get(getNumJoueurCourant()) != joueur)
             throw new tourException("Ce n'est pas ton tour");
+        if((cartePoser == 0) && (cartePiocher == 0))
+            throw new tourException("tu n'a pas jouer");
         if(joueur.getNbCarte()==1 && joueur.getUno()==false)
             throw new unoException("Le joueur n'a pas dit uno : PENALITE");
         if(getEffet())
@@ -78,21 +80,31 @@ public class Partie {
 
     public void punition(Joueur joueur,boolean passeTour,int nbCarte){
 
-        for(int i = 0 ; i < (nbCarte) ; i++) {
+        System.out.println(cumulEffet);
+        for(int i = 0 ; i < (nbCarte + cumulEffet) ; i++) {
             joueur.ajouterMainCarte(pioche.get(0));
             pioche.remove(0);
         }
-        if( passeTour == true){
+
+        if( passeTour == true)
+        {
             prochainJoueur();
         }
+        cumulEffet = 0;
+        effet = false;
     }
 
     public void uno(Joueur joueur) throws unoException {
         if(joueur != getJoueurCourant()){
             throw new unoException("Ce n'est pas ton tour ! PUNITION");
         }
+
         if(joueur.getNbCarte()==1)
+        {
             joueur.setUno(true);
+        }
+        else
+            throw new unoException("Tu peux pas dire Uno ! PUNITION");
     }
 
     public boolean PiocheVide() {
@@ -276,10 +288,13 @@ public class Partie {
             if(EstValide(C,getHautTas()))
                 return true;
         }
-        if (cumulEffet != 0)
+        if(joueur.getNbCarte() == 0)
         {
-            punition(joueur,true,cumulEffet);
-            cumulEffet = 0;
+            prochainJoueur();
+        }
+        else if (cumulEffet != 0)
+        {
+            punition(joueur,true,0);
         }
         return false;
     }
@@ -354,7 +369,8 @@ public class Partie {
         {
             setNumJoueurCourant(listeDesJoueurs.size() - 1);
         }
-        
+
+        getJoueurCourant().setUno(false);
         cartePoser = 0;
         cartePiocher = 0;
     }

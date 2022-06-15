@@ -17,6 +17,8 @@ public class Joueur
             throw new IllegalArgumentException("Le nom ne peut pas être vide");
         this.nom=nom;
     }
+
+
     public void setUno(boolean uno) {
         this.uno = uno;
     }
@@ -47,6 +49,12 @@ public class Joueur
     public void pioche() throws tourException, valideException {
         Partie partie = Partie.getInstance();
         partie.piocher(this);
+    }
+
+    public void Uno() throws unoException
+    {
+        Partie partie = Partie.getInstance();
+        partie.uno(this);
     }
 
     public void poser(Cartes carte) throws tourException, valideException {

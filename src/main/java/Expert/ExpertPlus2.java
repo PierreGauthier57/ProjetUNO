@@ -21,6 +21,11 @@ public class ExpertPlus2  extends ExpertValide {
             else
                 return false;
         }
+        else if ((cartesTas instanceof Plus2))
+        {
+            Partie.getInstance().setEffet(true);
+            return true;
+        }
         else if((cartes.getCouleur() == cartesTas.getCouleur()))
         {
             Partie.getInstance().setEffet(true);

@@ -90,26 +90,24 @@ public class JoueurControleur {
         this.nom = nom;
         Vbox.getChildren().add(this.nom);
     }
-    public void setNomC(Label nom)
-    {
-        nom.setFont(new Font("Arial", 60));
-        Vbox.getChildren().remove(this.nom);
-        this.nom = nom;
-        Vbox.getChildren().add(this.nom);
-    }
-    public void setNomPC(Label nom)
-    {
-        nom.setFont(new Font("Arial", 30));
-        Vbox.getChildren().remove(this.nom);
-        this.nom = nom;
-        Vbox.getChildren().add(this.nom);
-    }
+
     public void setNom(String nom)
     {
         Vbox.getChildren().remove(this.nom);
         this.nom = initLabelNom(nom);
         Vbox.getChildren().add(this.nom);
     }
+
+    public void setNomC()
+    {
+        nom.setFont(new Font("Arial", 60));
+    }
+    public void setNomPC()
+    {
+        nom.setFont(new Font("Arial", 30));
+    }
+
+
 
     public void CouleurNom(Color color)
     {
@@ -157,7 +155,24 @@ public class JoueurControleur {
 
         boutonUno.setOnAction(select -> {
             System.out.println(joueur.getNom() + " à dit Uno !");
-            joueur.setUno(true);
+            try {
+                setNomPC();
+                joueur.Uno();
+            } catch (unoException e) {
+
+                System.out.println(e);
+                if(Partie.getInstance().getJoueurCourant().equals(joueur))
+                {
+                    System.out.println(e);
+                    Partie.getInstance().punition(joueur,true,2);
+                }
+                else
+                {
+                    System.out.println(e);
+                    Partie.getInstance().punition(joueur,false,2);
+                }
+            }
+            SabotControleur.getSabot().dessinerSabot();
         });
 
         Button boutonPioche = new Button("Pioche");
@@ -170,7 +185,7 @@ public class JoueurControleur {
             }
             catch (tourException e)
             {
-               System.out.println("TU PEUX PAS JOUEUR / PUNITION");
+                System.out.println(e);
                 if(Partie.getInstance().getJoueurCourant().equals(joueur))
                 {
                     Partie.getInstance().punition(joueur,true,2);
@@ -182,7 +197,7 @@ public class JoueurControleur {
             }
             catch (valideException e)
             {
-                System.out.println("CE N'EST PAS UNE CARTE VALIDE / PUNITION");
+                System.out.println(e);
                 if(Partie.getInstance().getJoueurCourant().equals(joueur))
                 {
                     Partie.getInstance().punition(joueur,true,2);
@@ -207,7 +222,7 @@ public class JoueurControleur {
             }
             catch (tourException e)
             {
-                System.out.println("TU PEUX PAS JOUEUR / PUNITION");
+                System.out.println(e);
                 if(Partie.getInstance().getJoueurCourant().equals(joueur))
                 {
                     Partie.getInstance().punition(joueur,true,2);
@@ -219,7 +234,7 @@ public class JoueurControleur {
             }
             catch (valideException e)
             {
-                System.out.println("CE N'EST PAS UNE CARTE VALIDE / PUNITION");
+                System.out.println(e);
                 if(Partie.getInstance().getJoueurCourant().equals(joueur))
                 {
                     Partie.getInstance().punition(joueur,true,2);
@@ -244,7 +259,7 @@ public class JoueurControleur {
             }
             catch (tourException e)
             {
-                System.out.println("CE N'EST PAS TON TOUR / PUNITION");
+                System.out.println(e);
                 if(Partie.getInstance().getJoueurCourant().equals(joueur))
                 {
                     Partie.getInstance().punition(joueur,true,2);
@@ -256,7 +271,7 @@ public class JoueurControleur {
             }
             catch (unoException e)
             {
-                System.out.println("TU PEUX PAS DIRE UNO / PUNITION");
+                System.out.println(e);
                 if(Partie.getInstance().getJoueurCourant().equals(joueur))
                 {
                     Partie.getInstance().punition(joueur,true,2);
@@ -332,13 +347,20 @@ public class JoueurControleur {
 
     private void dessinerMain(ArrayList<Cartes> liste, Canvas canvas) {
 
+        L_CANVAS = ECART * (liste.size() + 1);
+        canvas.setWidth(L_CANVAS);
+
         canvas.getGraphicsContext2D().clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+
 
         int nbCartes = liste.size();
         int lMain = L_CARTE + ((nbCartes - 1) * ECART);
         int pad = (L_CANVAS - lMain) / 2;
 
+
+
         for (int i = 0; i < nbCartes; i++) {
+            //System.out.println("Ok");
             Image carte = null;
             Cartes.Color couleur = liste.get(i).getCouleur();
             String color = null;

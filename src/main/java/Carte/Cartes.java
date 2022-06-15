@@ -30,7 +30,6 @@ public class Cartes {
                     return C;
                 }
             }
-
         }
         return null;
     }

@@ -48,11 +48,13 @@ public class SabotControleur {
             }
             catch (tourException e)
             {
-                e.printStackTrace();
+                System.out.println(e);
+                Partie.getInstance().punition(Partie.getInstance().getJoueurCourant(),true,2);
             }
             catch (valideException e)
             {
-                e.printStackTrace();
+                System.out.println(e);
+                Partie.getInstance().punition(Partie.getInstance().getJoueurCourant(),true,2);
             }
 
             for (JoueurControleur J : Liste)

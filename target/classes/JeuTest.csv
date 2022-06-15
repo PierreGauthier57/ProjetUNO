@@ -8,7 +8,6 @@ CarteSimple;Rouge;7
 CarteSimple;Vert;2
 CarteSimple;Bleu;2
 CarteSimple;Rouge;9
-CarteCouleur;
 CarteSimple;Jaune;1
 CartePlus2;Bleu
 CarteSimple;Rouge;2
@@ -61,11 +60,9 @@ CarteSimple;Jaune;0
 CartePasser;Jaune
 CarteSimple;Vert;2
 CarteSimple;Rouge;3
-CarteCouleur;
 CarteSimple;Jaune;8
 CarteSimple;Bleu;1
 CarteSimple;Vert;8
-CarteCouleur;
 CarteSimple;Rouge;0
 CarteSimple;Jaune;2
 CartePasser;Vert
@@ -81,7 +78,6 @@ CarteSimple;Rouge;6
 CarteSimple;Jaune;4
 CarteSimple;Jaune;9
 CarteSimple;Bleu;9
-CarteCouleur;
 CartePlus2;Rouge
 CarteSimple;Rouge;1
 CarteSimple;Bleu;0
