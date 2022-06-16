@@ -164,7 +164,7 @@ public class Partie {
      * @return false si la pioche et le tas sont vides.
      */
     public boolean verifierPioche(){
-        
+
         if(PiocheVide())
         {
             if(!TasVide())
@@ -184,7 +184,6 @@ public class Partie {
                 return false;
             }
         }
-        System.out.println("plein");
         return true;
     }
 

@@ -10,6 +10,11 @@ public class ExpertPasser extends ExpertValide {
 
     @Override
     public boolean expert(Cartes cartes, Cartes cartesTas) throws Exception {
+
+        if (Partie.getInstance().getCumulEffet() > 0)
+        {
+            return false;
+        }
         if((cartesTas instanceof Passer))
         {
             Partie.getInstance().setEffet(true);
