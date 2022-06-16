@@ -188,7 +188,7 @@ public class JoueurControleur {
             catch (valideException e)
             {
                 System.out.println(e);
-                Partie.getInstance().punition(joueur,false,2);
+                Partie.getInstance().punition(joueur,true,2);
                 JeuControleur.getJeu().setMsg(e.toString().substring(26),Color.RED);
             }
             JeuControleur.getJeu().dessinerSabot();
@@ -205,7 +205,7 @@ public class JoueurControleur {
                 JeuControleur.getJeu().setMsg("",Color.BLACK);
                 if(joueur.getNbCarte() == 0) {
                     System.out.println("BRAVOOOOOO " + joueur.getNom() + " A GAGNE");
-                    JeuControleur.getJeu().setMsg("BRAVO " + joueur.getNom(), Color.RED);
+                    JeuControleur.getJeu().setMsg("BRAVO " + joueur.getNom() + " A GAGNE", Color.RED);
                 }
                 else
                 {
