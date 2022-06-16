@@ -67,12 +67,9 @@ public class Partie {
         if(listeDesJoueurs.get(getNumJoueurCourant()) != joueur)
             throw new tourException("Ce n'est pas ton tour");
         if((cartePoser == 0) && (cartePiocher == 0))
-            throw new tourException("tu n'a pas jouer");
+            throw new valideException("tu n'a pas jouer");
         if(joueur.getNbCarte()==1 && joueur.getUno()==false)
             throw new unoException("Le joueur n'a pas dit uno : PENALITE");
-        if(!joueur.getAjouer()){
-            throw new valideException("Le joueur n'a pas jouer");
-        }
         if(getEffet())
         {
             getHautTas().effet();
@@ -270,7 +267,7 @@ public class Partie {
         if(!(listeDesJoueurs.get(numJoueurCourant) == joueur))
             throw new tourException("Ce n'est pas ton tour");
         if(cartePoser > 0 || cartePiocher >  0)
-            throw new tourException("Tu a deja jouer");
+            throw new valideException("Tu a deja jouer");
         cartePiocher++;
         joueur.setAjouer(true);
         piocheCarte(joueur);
@@ -304,12 +301,11 @@ public class Partie {
         if(!(listeDesJoueurs.get(numJoueurCourant) == joueur))
             throw new tourException("Ce n'est pas ton tour");
         if(cartePoser > 0 || cartePiocher > 0)
-            throw new tourException("Tu a deja jouer");
+            throw new valideException("Tu a deja jouer");
         if(carte == null)
             throw new IllegalArgumentException("il ne possede pas la carte( carte == null");
         if(!EstValide(carte,getHautTas()))
             throw new valideException("La carte n'est pas valide : PENALITE");
-        joueur.setAjouer(true);
         joueur.poseMainCarte(carte);
         cartePoser++;
         tas.add(carte);
