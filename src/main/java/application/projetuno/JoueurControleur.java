@@ -188,7 +188,7 @@ public class JoueurControleur {
             catch (valideException e)
             {
                 System.out.println(e);
-                Partie.getInstance().punition(joueur,false,2);
+                Partie.getInstance().punition(joueur,true,2);
                 JeuControleur.getJeu().setMsg(e.toString().substring(26),Color.RED);
             }
             JeuControleur.getJeu().dessinerSabot();
