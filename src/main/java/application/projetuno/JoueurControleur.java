@@ -177,7 +177,7 @@ public class JoueurControleur {
 
             try {
                 joueur.pioche();
-                JeuControleur.getJeu().setMsg("",Color.BLACK);
+                JeuControleur.getJeu().setMsg(joueur.getNom()+" à piocher !",Color.BLACK);
             }
             catch (tourException e)
             {
@@ -203,9 +203,13 @@ public class JoueurControleur {
             {
                 joueur.poser(getcarteSelect());
                 JeuControleur.getJeu().setMsg("",Color.BLACK);
-                if(joueur.getUno()) {
+                if(joueur.getNbCarte() == 0) {
                     System.out.println("BRAVOOOOOO " + joueur.getNom() + " A GAGNE");
                     JeuControleur.getJeu().setMsg("BRAVO " + joueur.getNom(), Color.RED);
+                }
+                else
+                {
+                    JeuControleur.getJeu().setMsg(joueur.getNom()+" à poser une carte !",Color.BLACK);
                 }
                 carteSelect = null;
             }
@@ -232,7 +236,7 @@ public class JoueurControleur {
             try
             {
                 joueur.fini();
-                JeuControleur.getJeu().setMsg("",Color.BLACK);
+                JeuControleur.getJeu().setMsg(joueur.getNom()+" à terminer !",Color.BLACK);
                 Partie.getInstance().getJoueurCourant().peutJouer();
             }
             catch (tourException e)
@@ -259,6 +263,7 @@ public class JoueurControleur {
                 {
                     Partie.getInstance().punition(joueur,false,2);
                 }
+                JeuControleur.getJeu().setMsg(e.toString().substring(26),Color.RED);
 
             } catch (valideException e) {
                 JeuControleur.getJeu().setMsg(e.toString().substring(26),Color.RED);
