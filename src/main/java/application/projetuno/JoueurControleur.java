@@ -205,7 +205,7 @@ public class JoueurControleur {
                 JeuControleur.getJeu().setMsg("",Color.BLACK);
                 if(joueur.getNbCarte() == 0) {
                     System.out.println("BRAVOOOOOO " + joueur.getNom() + " A GAGNÉ");
-                    JeuControleur.getJeu().setMsg("BRAVO " + joueur.getNom(), Color.GOLD);
+                    JeuControleur.getJeu().setMsg("BRAVO " + joueur.getNom() + " à GAGNÉ", Color.GOLD);
                 }
                 else
                 {

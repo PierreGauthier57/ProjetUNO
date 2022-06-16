@@ -5,6 +5,7 @@ import Exception.*;
 import Expert.*;
 import Parser.*;
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Partie {
     private boolean sensHoraire = true;
@@ -163,15 +164,22 @@ public class Partie {
      */
     public boolean verifierPioche(){
 
+        System.out.println("bon la pioche est ...");
         if(PiocheVide())
         {
+            System.out.println("vide");
             if(!TasVide())
             {
+                System.out.println("le tas n'st pas vide");
                 for (Cartes C : tas)
                 {
+                    System.out.println("nb carte");
                     pioche.add(C);
-                    tas.remove(C);
                 }
+                Collections.shuffle(pioche);
+                tas.clear();
+                InitHautTas();
+
                 return true;
             }
             else
@@ -179,6 +187,7 @@ public class Partie {
                 return false;
             }
         }
+        System.out.println("plein");
         return true;
     }
 
@@ -197,6 +206,7 @@ public class Partie {
     public void ChoisirJeuDeCarte(String nomFichier,ParserValide Parser)
     {
         FichierCarteCSV.initJeuCarte(nomFichier,pioche,Parser);
+        Collections.shuffle(pioche);
     }
     /**
      * la fonction ajoute un joueur au jeu.
