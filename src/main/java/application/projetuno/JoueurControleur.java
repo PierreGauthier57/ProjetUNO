@@ -95,9 +95,7 @@ public class JoueurControleur {
 
     public void setNom(String nom)
     {
-        Vbox.getChildren().remove(this.nom);
-        this.nom = initLabelNom(nom);
-        Vbox.getChildren().add(this.nom);
+        this.nom.setText(nom);
     }
 
     public void setNomC()
@@ -136,7 +134,7 @@ public class JoueurControleur {
 
         Vbox.setAlignment(Pos.CENTER);
 
-        setNom(name);
+        initLabelNom(name);
 
         newJoueur(name);
 
@@ -321,10 +319,10 @@ public class JoueurControleur {
     }
     private Label initLabelNom(String nom) {
 
-        Label lNom = new Label(nom);
-        lNom.setFont(new Font("Arial", 30));
-
-        return lNom;
+        this.nom = new Label(nom);
+        this.nom.setFont(new Font("Arial", 30));
+        Vbox.getChildren().add(this.nom);
+        return this.nom;
     }
 
     private Canvas initMain() {
