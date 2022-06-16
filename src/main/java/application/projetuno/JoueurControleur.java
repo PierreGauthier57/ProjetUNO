@@ -154,8 +154,10 @@ public class JoueurControleur {
         boutons.setAlignment(Pos.CENTER);
         boutons.setSpacing(2);
         boutons.setStyle("-fx-font-weight: bold;");
+
         boutons.setPadding(new Insets(5));
         Button boutonUno = new Button("Uno !");
+        boutonUno.setStyle("-fx-background-color: #b0cbf5;");
 
 
         boutonUno.setOnAction(select -> {
@@ -176,7 +178,7 @@ public class JoueurControleur {
         });
 
         Button boutonPioche = new Button("Pioche");
-
+        boutonPioche.setStyle("-fx-background-color: #b0cbf5;");
         boutonPioche.setOnAction(select -> {
             System.out.println(joueur.getNom() + " pioche");
 
@@ -200,7 +202,7 @@ public class JoueurControleur {
         });
 
         Button boutonPoser = new Button("Poser");
-
+        boutonPoser.setStyle("-fx-background-color: #b0cbf5;");
         boutonPoser.setOnAction(select -> {
             System.out.println(joueur.getNom() + " a posé");
 
@@ -234,7 +236,7 @@ public class JoueurControleur {
         });
 
         Button boutonTerminer = new Button("Terminer");
-
+        boutonTerminer.setStyle("-fx-background-color: #b0cbf5;");
         boutonTerminer.setOnAction(select -> {
             System.out.println(joueur.getNom() + " a terminé");
 
