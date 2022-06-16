@@ -105,7 +105,7 @@ public class Partie {
             joueur.setUno(true);
         }
         else
-            throw new unoException("Tu peux pas dire Uno ! PUNITION");
+            throw new unoException("Il te reste plus d'une carte! : PUNITION");
     }
 
     public boolean PiocheVide() {
@@ -265,9 +265,9 @@ public class Partie {
     public void piocher(Joueur joueur) throws valideException, tourException
     {
         if(!(listeDesJoueurs.get(numJoueurCourant) == joueur))
-            throw new tourException("Ce n'est pas ton tour");
+            throw new tourException("Ce n'est pas ton tour : PUNITION");
         if(cartePoser > 0 || cartePiocher >  0)
-            throw new valideException("Tu a deja jouer");
+            throw new valideException("Tu as déjà joué :PUNITION");
         cartePiocher++;
         joueur.setAjouer(true);
         piocheCarte(joueur);
@@ -299,13 +299,13 @@ public class Partie {
 
     public void poser(Cartes carte,Joueur joueur ) throws valideException,tourException{
         if(!(listeDesJoueurs.get(numJoueurCourant) == joueur))
-            throw new tourException("Ce n'est pas ton tour");
+            throw new tourException("Ce n'est pas ton tour : PUNITION");
         if(cartePoser > 0 || cartePiocher > 0)
-            throw new valideException("Tu a deja jouer");
+            throw new valideException("Tu as déjà joué : PUNITION");
         if(carte == null)
             throw new IllegalArgumentException("il ne possede pas la carte( carte == null");
         if(!EstValide(carte,getHautTas()))
-            throw new valideException("La carte n'est pas valide : PENALITE");
+            throw new valideException("La carte n'est pas valide : PUNITION");
         joueur.poseMainCarte(carte);
         cartePoser++;
         tas.add(carte);

@@ -157,32 +157,15 @@ public class JoueurControleur {
             System.out.println(joueur.getNom() + " à dit Uno !");
             try {
                 joueur.Uno();
-                JeuControleur.getJeu().setMsg("",Color.BLACK);
+                JeuControleur.getJeu().setMsg(joueur.getNom()+" a dit UNO!",Color.BLACK);
             } catch (unoException e) {
-
-                System.out.println(e);
-                if(Partie.getInstance().getJoueurCourant().equals(joueur))
-                {
                     System.out.println(e);
+                    JeuControleur.getJeu().setMsg(e.toString().substring(24),Color.RED);
                     Partie.getInstance().punition(joueur,true,2);
-                }
-                else
-                {
-                    System.out.println(e);
-                    Partie.getInstance().punition(joueur,false,2);
-                }
             } catch (tourException e) {
                 System.out.println(e);
-                if(Partie.getInstance().getJoueurCourant().equals(joueur))
-                {
-                    System.out.println(e);
-                    Partie.getInstance().punition(joueur,true,2);
-                }
-                else
-                {
-                    System.out.println(e);
-                    Partie.getInstance().punition(joueur,false,2);
-                }
+                JeuControleur.getJeu().setMsg(e.toString().substring(25),Color.RED);
+                Partie.getInstance().punition(joueur,false,2);
             }
             JeuControleur.getJeu().dessinerSabot();
         });
@@ -198,29 +181,15 @@ public class JoueurControleur {
             }
             catch (tourException e)
             {
-                System.out.println(e);
-                if(Partie.getInstance().getJoueurCourant().equals(joueur))
-                {
-                    Partie.getInstance().punition(joueur,true,2);
-                }
-                else
-                {
-                    Partie.getInstance().punition(joueur,false,2);
-                }
-                JeuControleur.getJeu().setMsg(e.toString().substring(24),Color.RED);
+
+                Partie.getInstance().punition(joueur,false,2);
+                JeuControleur.getJeu().setMsg(e.toString().substring(26),Color.RED);
             }
             catch (valideException e)
             {
                 System.out.println(e);
-                if(Partie.getInstance().getJoueurCourant().equals(joueur))
-                {
-                    Partie.getInstance().punition(joueur,true,2);
-                }
-                else
-                {
-                    Partie.getInstance().punition(joueur,false,2);
-                }
-                JeuControleur.getJeu().setMsg(e.toString().substring(24),Color.RED);
+                Partie.getInstance().punition(joueur,false,2);
+                JeuControleur.getJeu().setMsg(e.toString().substring(26),Color.RED);
             }
             JeuControleur.getJeu().dessinerSabot();
         });
@@ -243,28 +212,14 @@ public class JoueurControleur {
             catch (tourException e)
             {
                 System.out.println(e);
-                if(Partie.getInstance().getJoueurCourant().equals(joueur))
-                {
-                    Partie.getInstance().punition(joueur,true,2);
-                }
-                else
-                {
-                    Partie.getInstance().punition(joueur,false,2);
-                }
-                JeuControleur.getJeu().setMsg(e.toString().substring(24),Color.RED);
+                Partie.getInstance().punition(joueur,false,2);
+                JeuControleur.getJeu().setMsg(e.toString().substring(26),Color.RED);
             }
             catch (valideException e)
             {
                 System.out.println(e);
-                if(Partie.getInstance().getJoueurCourant().equals(joueur))
-                {
-                    Partie.getInstance().punition(joueur,true,2);
-                }
-                else
-                {
-                    Partie.getInstance().punition(joueur,false,2);
-                }
-                JeuControleur.getJeu().setMsg(e.toString().substring(24),Color.RED);
+                Partie.getInstance().punition(joueur,true,2);
+                JeuControleur.getJeu().setMsg(e.toString().substring(26),Color.RED);
             }
             JeuControleur.getJeu().dessinerSabot();
         });
@@ -291,7 +246,7 @@ public class JoueurControleur {
                 {
                     Partie.getInstance().punition(joueur,false,2);
                 }
-                JeuControleur.getJeu().setMsg("Ce n'est pas ton tour",Color.RED);
+                JeuControleur.getJeu().setMsg(e.toString().substring(26),Color.RED);
             }
             catch (unoException e)
             {
@@ -306,7 +261,7 @@ public class JoueurControleur {
                 }
 
             } catch (valideException e) {
-                JeuControleur.getJeu().setMsg("Tu n'as pas joué!",Color.RED);
+                JeuControleur.getJeu().setMsg(e.toString().substring(26),Color.RED);
                 System.out.println("Tu n'as pas jouer, PUNITION");
                 Partie.getInstance().punition(joueur,true, 2);
             }
