@@ -22,8 +22,6 @@ public class JeuControleur {
     private VBox Vbox ;
     private Canvas canSabot;
     private Label msg ;
-    private ImageView fond;
-    private Scene scene;
 
     private static volatile JeuControleur Jeu = null;
 
@@ -59,10 +57,8 @@ public class JeuControleur {
         return canSabot;
     }
 
-    public VBox initSabot(ArrayList<JoueurControleur> Liste,ImageView fond,Scene scene) {
+    public VBox initSabot(ArrayList<JoueurControleur> Liste) {
 
-        this.fond = fond;
-        this.scene = scene;
         Vbox = new VBox();
 
         Vbox.setAlignment(Pos.CENTER);
@@ -108,9 +104,6 @@ public class JeuControleur {
     }
 
     public void dessinerSabot() {
-
-        fond.setFitHeight(scene.getHeight());
-        fond.setFitWidth(scene.getWidth());
 
         Image sabot = new Image(getClass().getResourceAsStream("/Sabot.png"));
         Image dos = new Image(getClass().getResourceAsStream("/carte_dos.png"));

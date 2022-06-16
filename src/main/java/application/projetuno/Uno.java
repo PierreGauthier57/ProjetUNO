@@ -41,7 +41,6 @@ public class Uno extends Application {
     public void start(Stage stage) throws IOException {
 
         try {
-
             BorderPane root = new BorderPane();
 
             Image image = new Image("/Fond.jpg",1920,1080,false,true);
@@ -51,9 +50,8 @@ public class Uno extends Application {
             Scene scene = new Scene(root);
             stage.setScene(scene);
 
-            imageView.setFitHeight(scene.getHeight());
-            imageView.setFitWidth(scene.getWidth());
-
+            imageView.setFitHeight(900);
+            imageView.setFitWidth(1600);
 
             JeuControleur.getJeu();
 
@@ -84,7 +82,7 @@ public class Uno extends Application {
             root.setBottom(J3.getVbox());
             root.setLeft(J4.getVbox());
 
-            root.setCenter(JeuControleur.getJeu().initSabot(Liste, imageView, scene));
+            root.setCenter(JeuControleur.getJeu().initSabot(Liste));
 
             stage.show();
         }
