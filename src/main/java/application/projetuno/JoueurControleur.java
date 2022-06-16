@@ -186,7 +186,7 @@ public class JoueurControleur {
             {
 
                 Partie.getInstance().punition(joueur,false,2);
-                JeuControleur.getJeu().setMsg(e.toString().substring(26),Color.rgb(112, 17, 4));
+                JeuControleur.getJeu().setMsg(e.toString().substring(25),Color.rgb(112, 17, 4));
             }
             catch (valideException e)
             {
@@ -276,7 +276,7 @@ public class JoueurControleur {
             JeuControleur.getJeu().dessinerSabot();
         });
 
-        boutons.getChildren().addAll(boutonUno, boutonPioche,boutonTerminer,boutonPoser);
+        boutons.getChildren().addAll(boutonUno, boutonPioche,boutonPoser,boutonTerminer);
         Vbox.getChildren().add(boutons);
         return boutons;
     }
