@@ -44,7 +44,10 @@ public class Partie {
     public void setCartePoser(int cartePoser) {
         this.cartePoser = cartePoser;
     }
-
+    /**
+     * la fonction reinitialise toute les cartes du jeu.
+     *
+     */
     public void reinitialiseCarte()
     {
         setCartePiocher(0);
@@ -62,15 +65,21 @@ public class Partie {
     {
         return listeDesJoueurs;
     }
-
+    /**
+     * la fonction sert à faire finir de jouer un joueur.
+     * @param joueur le joueur qui fini son tour.
+     *@throws tourException si ce n'est pas le tour du joueur.
+     *@throws valideException si le joueur n'a déjà joué.
+     *@throws unoException si le joueur n'a pas dit uno avant de terminer et qu'il lui reste une carte.
+     */
     public void fini(Joueur joueur) throws tourException, unoException, valideException {
 
         if(listeDesJoueurs.get(getNumJoueurCourant()) != joueur)
-            throw new tourException("Ce n'est pas ton tour");
+            throw new tourException("Ce n'est pas ton tour : PUNITION");
         if((cartePoser == 0) && (cartePiocher == 0))
-            throw new valideException("tu n'a pas jouer");
+            throw new valideException("tu n'a pas jouer : PUNITION");
         if(joueur.getNbCarte()==1 && joueur.getUno()==false)
-            throw new unoException("Le joueur n'a pas dit uno : PENALITE");
+            throw new unoException("Le joueur n'a pas dit uno : PUNITION");
         if(getEffet())
         {
             getHautTas().effet();
@@ -79,7 +88,16 @@ public class Partie {
         joueur.setAjouer(false);
         prochainJoueur();
     }
-
+    /**
+     * la fonction punit un joueur en lui rajoutant nbCarte cartes et en passant son tour.
+     *
+     * @param joueur Le joueur à punir.
+     * @param nbCarte Le nombre de carte à lui donner
+     * @param passeTour un boolean qui renvoie vrai si on doit faire passer son tour au joueur et faux si non.
+     *@throws tourException si ce n'est pas le tour du joueur.
+     *@throws valideException si le joueur n'a déjà joué.
+     *@throws unoException si le joueur n'a pas dit uno avant de terminer et qu'il lui reste une carte.
+     */
     public void punition(Joueur joueur,boolean passeTour,int nbCarte){
 
         System.out.println(cumulEffet);
@@ -95,10 +113,15 @@ public class Partie {
         cumulEffet = 0;
         effet = false;
     }
-
+    /**
+     * la fonction fait dire Uno à un joueur.
+     * @param joueur Le joueur qui dit Uno.
+     *@throws tourException si ce n'est pas le tour du joueur.
+     *@throws unoException si le joueur a plus d'une carte.
+     */
     public void uno(Joueur joueur) throws unoException,tourException {
         if(joueur != getJoueurCourant()){
-            throw new tourException("Ce n'est pas ton tour ! PUNITION");
+            throw new tourException("Ce n'est pas ton tour! : PUNITION");
         }
 
         if(joueur.getNbCarte()==1)
@@ -108,7 +131,11 @@ public class Partie {
         else
             throw new unoException("Il te reste plus d'une carte! : PUNITION");
     }
-
+    /**
+     * la fonction test si la pioche est vide ou non.
+     * @return true si la pioche est vide.
+     * @return false si la pioche n'est pas vide.
+     */
     public boolean PiocheVide() {
 
         if(getNbPioche() == 0)
@@ -117,7 +144,11 @@ public class Partie {
         }
         return false;
     }
-
+    /**
+     * la fonction test si le tas est vide ou non.
+     * @return true si le tas est vide.
+     * @return false si le tas n'est pas vide.
+     */
     public boolean TasVide() {
 
         if(getNbTas() == 0)
@@ -126,7 +157,11 @@ public class Partie {
         }
         return false;
     }
-
+    /**
+     * la fonction verifie si la pioche est vide ou non et corrige le nombre de carte de la pioche si besoin.
+     * @return true si la pioche n'est pas vide.
+     * @return false si la pioche et le tas sont vides.
+     */
     public boolean verifierPioche(){
 
         System.out.println("bon la pioche est ...");
@@ -163,24 +198,39 @@ public class Partie {
 //        }
 //        //-----------------------------------------------------------------------code a finir car pas utile pour la soutenance
 //    }
-
+    /**
+     * la fonction choisi un jeu de carte pour jouer.
+     * @param Parser Un parser qui permet d'initialiser un jeu de cartes.4
+     * @param nomFichier L'adresse ou se trouve le jeu de cartes.
+     */
     public void ChoisirJeuDeCarte(String nomFichier,ParserValide Parser)
     {
         FichierCarteCSV.initJeuCarte(nomFichier,pioche,Parser);
         Collections.shuffle(pioche);
     }
-
+    /**
+     * la fonction ajoute un joueur au jeu.
+     * @param nom Nom du joueur à ajouter.
+     * @return le joueur à ajouter.
+     */
     public Joueur ajouterJoueur(String nom)
     {
         listeDesJoueurs.add(new Joueur(nom));
         return listeDesJoueurs.get(listeDesJoueurs.size() - 1);
     }
-
+    /**
+     * la fonction renvoie le joueur qui joue au moment t.
+     * @return le joueur courant
+     */
     public Joueur getJoueurCourant()
     {
         return listeDesJoueurs.get(numJoueurCourant);
     }
-
+    /**
+     * la fonction supprime un joueur au jeu.
+     * @param J Joueur à supprimer
+     * @throws IllegalArgumentException Si le joueur est null
+     */
     public void suprimerJoueur(Joueur J)
     {
         if (J == null)
@@ -195,7 +245,11 @@ public class Partie {
         }
         listeDesJoueurs.remove(J);
     }
-
+    /**
+     * la fonction supprime un joueur au jeu.
+     * @param numJ Numéro du joueur à supprimer
+     * @throws IllegalArgumentException Si le joueur est null
+     */
     public void suprimerJoueur(int numJ)
     {
         if ((numJ < 0) || (numJ > (listeDesJoueurs.size() - 1)))
@@ -209,7 +263,9 @@ public class Partie {
         }
         listeDesJoueurs.remove(numJ);
     }
-
+    /**
+     * la fonction initialise le haut du tas.
+     */
     public void InitHautTas() {
 
         if (!PiocheVide())
@@ -247,7 +303,11 @@ public class Partie {
     {
         return Cartes.getCarteInList(pioche,typeCarte,Couleur);
     }
-
+    /**
+     * la fonction distribue nbCarteParJ à chaque joueur.
+     * @param nbCarteParJ le nombres de cartes à distribuer à chaque joueur.
+     * @throws PiocheException Si le joueur est null
+     */
     public void distributionCartePioche(int nbCarteParJ)throws PiocheException {
 
         if(nbCarteParJ <= 0)
@@ -262,7 +322,10 @@ public class Partie {
             }
         }
     }
-
+    /**
+     * la fonction sert à faire piocher un joueur.
+     * @param joueur Le joueur qui pioche.
+     */
     private void piocheCarte(Joueur joueur)
     {
         if(verifierPioche())
@@ -271,28 +334,42 @@ public class Partie {
             pioche.remove(getHautpioche());
         }
     }
-
+    /**
+     * la fonction sert à faire piocher un joueur.
+     * @param joueur Le joueur qui pioche.
+     *@throws tourException si ce n'est pas le tour du joueur.
+     *@throws valideException si le joueur a déjà joué.
+     */
     public void piocher(Joueur joueur) throws valideException, tourException
     {
         if(!(listeDesJoueurs.get(numJoueurCourant) == joueur))
-            throw new tourException("Ce n'est pas ton tour : PUNITION");
+            throw new tourException("Ce n'est pas ton tour! : PUNITION");
         if(cartePoser > 0 || cartePiocher >  0)
-            throw new valideException("Tu as déjà joué :PUNITION");
+            throw new valideException("Tu as déjà joué! :PUNITION");
         cartePiocher++;
         joueur.setAjouer(true);
         piocheCarte(joueur);
     }
-
+    /**
+     * la fonction initialise l'expert.
+     */
     public void initExpert(ExpertValide Expert )
     {
         PremierExpert = Expert;
     }
-
+    /**
+     * la fonction inverse le sens du jeu.
+     */
     public void inverseSens()
     {
         sensHoraire = !sensHoraire;
     }
-
+    /**
+     * la fonction nous dis si un joueur peut jouer après une suite de carte qui a un cumul (+2).
+     * @param joueur Le joueur qui joue après la suite de cartes.
+     * @return faux si le joueur ne peux pas continuer la suite.
+     * @return vrai si le joueur peut continuer la suite.
+     */
     public boolean peutJouer(Joueur joueur )
     {
         for (Cartes C : joueur.getMain())
@@ -306,21 +383,34 @@ public class Partie {
         }
         return false;
     }
-
+    /**
+     * la fonction sert à faire poser la carte du joueur.
+     *
+     * @param carte La carte que le joueur va poser.
+     * @param joueur Le joueur qui pose la carte.
+     *@throws tourException si ce n'est pas le tour du joueur.
+     *@throws valideException si le joueur a déjà joué.
+     */
     public void poser(Cartes carte,Joueur joueur ) throws valideException,tourException{
         if(!(listeDesJoueurs.get(numJoueurCourant) == joueur))
-            throw new tourException("Ce n'est pas ton tour : PUNITION");
+            throw new tourException("Ce n'est pas ton tour! : PUNITION");
         if(cartePoser > 0 || cartePiocher > 0)
-            throw new valideException("Tu as déjà joué : PUNITION");
+            throw new valideException("Tu as déjà joué! : PUNITION");
         if(carte == null)
             throw new IllegalArgumentException("il ne possede pas la carte( carte == null");
         if(!EstValide(carte,getHautTas()))
-            throw new valideException("La carte n'est pas valide : PUNITION");
+            throw new valideException("La carte n'est pas valide! : PUNITION");
         joueur.poseMainCarte(carte);
         cartePoser++;
         tas.add(carte);
     }
-
+    /**
+     * la fonction verifie si une carte est valide, que ce soit par la couleur ou par le chiffre, via un expert.
+     * @param tas La carte au dessus du tas.
+     * @param carte La carte que le joueur va poser.
+     * @return vrai si la carte est valide.
+     * @return faux si la carte n'est pas valide.
+     */
     public boolean EstValide(Cartes carte,Cartes tas){
 
         try
@@ -361,7 +451,10 @@ public class Partie {
     public void setNumJoueurCourant(int numJoueurCourant) {
         this.numJoueurCourant = numJoueurCourant;
     }
-
+    /**
+     * la fonction declare le prochain joueur comme le joueur courant.
+     *
+     */
     public void prochainJoueur()
     {
         if(sensHoraire)
@@ -387,7 +480,10 @@ public class Partie {
             prochainJoueur();
         }
     }
-
+    /**
+     * la fonction renvoie le prochain joueur.
+     *
+     */
     public Joueur getProchainJoueur()
     {
         int prochain = numJoueurCourant;
