@@ -153,8 +153,10 @@ public class JoueurControleur {
         boutons = new HBox();
         boutons.setAlignment(Pos.CENTER);
         boutons.setSpacing(2);
+        boutons.setStyle("-fx-font-weight: bold;");
         boutons.setPadding(new Insets(5));
         Button boutonUno = new Button("Uno !");
+
 
         boutonUno.setOnAction(select -> {
             System.out.println(joueur.getNom() + " a dit Uno !");
