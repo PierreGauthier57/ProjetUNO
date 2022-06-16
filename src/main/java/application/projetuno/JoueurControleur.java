@@ -154,17 +154,17 @@ public class JoueurControleur {
         Button boutonUno = new Button("Uno !");
 
         boutonUno.setOnAction(select -> {
-            System.out.println(joueur.getNom() + " à dit Uno !");
+            System.out.println(joueur.getNom() + " a dit Uno !");
             try {
                 joueur.Uno();
                 JeuControleur.getJeu().setMsg(joueur.getNom()+" a dit UNO!",Color.BLACK);
             } catch (unoException e) {
                     System.out.println(e);
-                    JeuControleur.getJeu().setMsg(e.toString().substring(24),Color.RED);
+                    JeuControleur.getJeu().setMsg(e.toString().substring(24),Color.rgb(112, 17, 4));
                     Partie.getInstance().punition(joueur,true,2);
             } catch (tourException e) {
                 System.out.println(e);
-                JeuControleur.getJeu().setMsg(e.toString().substring(25),Color.RED);
+                JeuControleur.getJeu().setMsg(e.toString().substring(25),Color.rgb(112, 17, 4));
                 Partie.getInstance().punition(joueur,false,2);
             }
             JeuControleur.getJeu().dessinerSabot();
@@ -177,19 +177,19 @@ public class JoueurControleur {
 
             try {
                 joueur.pioche();
-                JeuControleur.getJeu().setMsg(joueur.getNom()+" à piocher !",Color.BLACK);
+                JeuControleur.getJeu().setMsg(joueur.getNom()+" a pioché !",Color.BLACK);
             }
             catch (tourException e)
             {
 
                 Partie.getInstance().punition(joueur,false,2);
-                JeuControleur.getJeu().setMsg(e.toString().substring(26),Color.RED);
+                JeuControleur.getJeu().setMsg(e.toString().substring(26),Color.rgb(112, 17, 4));
             }
             catch (valideException e)
             {
                 System.out.println(e);
                 Partie.getInstance().punition(joueur,true,2);
-                JeuControleur.getJeu().setMsg(e.toString().substring(26),Color.RED);
+                JeuControleur.getJeu().setMsg(e.toString().substring(26),Color.rgb(112, 17, 4));
             }
             JeuControleur.getJeu().dessinerSabot();
         });
@@ -197,15 +197,15 @@ public class JoueurControleur {
         Button boutonPoser = new Button("Poser");
 
         boutonPoser.setOnAction(select -> {
-            System.out.println(joueur.getNom() + " à poser");
+            System.out.println(joueur.getNom() + " a posé");
 
             try
             {
                 joueur.poser(getcarteSelect());
                 JeuControleur.getJeu().setMsg("",Color.BLACK);
                 if(joueur.getNbCarte() == 0) {
-                    System.out.println("BRAVOOOOOO " + joueur.getNom() + " A GAGNE");
-                    JeuControleur.getJeu().setMsg("BRAVO " + joueur.getNom(), Color.RED);
+                    System.out.println("BRAVOOOOOO " + joueur.getNom() + " A GAGNÉ");
+                    JeuControleur.getJeu().setMsg("BRAVO " + joueur.getNom(), Color.GOLD);
                 }
                 else
                 {
@@ -217,13 +217,13 @@ public class JoueurControleur {
             {
                 System.out.println(e);
                 Partie.getInstance().punition(joueur,false,2);
-                JeuControleur.getJeu().setMsg(e.toString().substring(26),Color.RED);
+                JeuControleur.getJeu().setMsg(e.toString().substring(26),Color.rgb(112, 17, 4));
             }
             catch (valideException e)
             {
                 System.out.println(e);
                 Partie.getInstance().punition(joueur,true,2);
-                JeuControleur.getJeu().setMsg(e.toString().substring(26),Color.RED);
+                JeuControleur.getJeu().setMsg(e.toString().substring(26),Color.rgb(112, 17, 4));
             }
             JeuControleur.getJeu().dessinerSabot();
         });
@@ -231,12 +231,12 @@ public class JoueurControleur {
         Button boutonTerminer = new Button("Terminer");
 
         boutonTerminer.setOnAction(select -> {
-            System.out.println(joueur.getNom() + " à terminer");
+            System.out.println(joueur.getNom() + " a terminé");
 
             try
             {
                 joueur.fini();
-                JeuControleur.getJeu().setMsg(joueur.getNom()+" à terminer !",Color.BLACK);
+                JeuControleur.getJeu().setMsg(joueur.getNom()+" a terminé !",Color.BLACK);
                 Partie.getInstance().getJoueurCourant().peutJouer();
             }
             catch (tourException e)
@@ -250,7 +250,7 @@ public class JoueurControleur {
                 {
                     Partie.getInstance().punition(joueur,false,2);
                 }
-                JeuControleur.getJeu().setMsg(e.toString().substring(26),Color.RED);
+                JeuControleur.getJeu().setMsg(e.toString().substring(26),Color.rgb(112, 17, 4));
             }
             catch (unoException e)
             {
@@ -263,10 +263,10 @@ public class JoueurControleur {
                 {
                     Partie.getInstance().punition(joueur,false,2);
                 }
-                JeuControleur.getJeu().setMsg(e.toString().substring(26),Color.RED);
+                JeuControleur.getJeu().setMsg(e.toString().substring(26),Color.rgb(112, 17, 4));
 
             } catch (valideException e) {
-                JeuControleur.getJeu().setMsg(e.toString().substring(26),Color.RED);
+                JeuControleur.getJeu().setMsg(e.toString().substring(26),Color.rgb(112, 17, 4));
                 System.out.println("Tu n'as pas jouer, PUNITION");
                 Partie.getInstance().punition(joueur,true, 2);
             }
@@ -312,7 +312,7 @@ public class JoueurControleur {
     {
         if(Partie.getInstance().getJoueurCourant().equals(joueur))
         {
-            CouleurNom(Color.RED);
+            CouleurNom(Color.ORANGERED);
         }
         else
         {
