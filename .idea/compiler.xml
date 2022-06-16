@@ -10,6 +10,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="JAVADOC" target="17" />
       <module name="ProjetUNO" target="17" />
     </bytecodeTargetLevel>
   </component>

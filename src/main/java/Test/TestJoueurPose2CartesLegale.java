@@ -7,7 +7,7 @@ import Uno.Joueur;
 import Uno.Partie;
 import Exception.*;
 
-public class TestJoueurPose2CartesLégale {
+public class TestJoueurPose2CartesLegale {
     public static void main(String[] args) {
 
         Partie partie = Partie.getInstance();

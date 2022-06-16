@@ -73,7 +73,7 @@ public class Joueur
     }
 
     /**
-     * la fonction fait dire Uno à un joueur.
+     * la fonction fait dire Uno a un joueur.
      *@throws tourException si ce n'est pas le tour du joueur.
      *@throws unoException si le joueur a plus d'une carte.
      */

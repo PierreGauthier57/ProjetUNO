@@ -7,7 +7,7 @@ import Uno.Joueur;
 import Uno.Partie;
 import Exception.*;
 
-public class BobJoueCarteCouleurDiffMaisMêmeValeur {
+public class BobJoueCarteCouleurDiffMaisMemeValeur {
     public static void main(String[] args) {
 
         Partie partie = Partie.getInstance();
