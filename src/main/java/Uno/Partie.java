@@ -102,8 +102,9 @@ public class Partie {
 
         System.out.println(cumulEffet);
         for(int i = 0 ; i < (nbCarte + cumulEffet) ; i++) {
-            joueur.ajouterMainCarte(pioche.get(0));
-            pioche.remove(0);
+            //joueur.ajouterMainCarte(pioche.get(0));
+            //pioche.remove(0);
+            piocheCarte(joueur);
         }
 
         if( passeTour == true)
@@ -163,17 +164,13 @@ public class Partie {
      * @return false si la pioche et le tas sont vides.
      */
     public boolean verifierPioche(){
-
-        System.out.println("bon la pioche est ...");
+        
         if(PiocheVide())
         {
-            System.out.println("vide");
             if(!TasVide())
             {
-                System.out.println("le tas n'st pas vide");
                 for (Cartes C : tas)
                 {
-                    System.out.println("nb carte");
                     pioche.add(C);
                 }
                 Collections.shuffle(pioche);
