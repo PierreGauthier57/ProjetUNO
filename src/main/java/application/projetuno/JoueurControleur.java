@@ -1,5 +1,6 @@
 package application.projetuno;
 
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
@@ -151,6 +152,8 @@ public class JoueurControleur {
          */
         boutons = new HBox();
         boutons.setAlignment(Pos.CENTER);
+        boutons.setSpacing(2);
+        boutons.setPadding(new Insets(5));
         Button boutonUno = new Button("Uno !");
 
         boutonUno.setOnAction(select -> {
