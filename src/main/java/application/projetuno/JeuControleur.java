@@ -4,11 +4,9 @@ import Carte.*;
 import Uno.*;
 import Exception.*;
 import javafx.geometry.Pos;
-import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -46,8 +44,7 @@ public class JeuControleur {
         msg.setText(Msg);
     }
 
-    public void setMsg(String Msg, Color color)
-    {
+    public void setMsg(String Msg, Color color) {
         msg.setText(Msg);
         msg.setTextFill(color);
     }
@@ -57,7 +54,7 @@ public class JeuControleur {
         return canSabot;
     }
 
-    public VBox initSabot(ArrayList<JoueurControleur> Liste) {
+    public VBox initJeu(ArrayList<JoueurControleur> Liste) {
 
         Vbox = new VBox();
 
@@ -69,7 +66,7 @@ public class JeuControleur {
         Vbox.setMinWidth(400);
         Vbox.getChildren().add(canSabot);
 
-        dessinerSabot();
+        dessinerJeu();
 
         ListeJoueur = Liste;
 
@@ -97,22 +94,15 @@ public class JeuControleur {
             {
                 J.updateMain();
             }
-            dessinerSabot();
+            dessinerJeu();
         });
 
         return Vbox;
     }
 
-    public void dessinerSabot() {
-
-        Image sabot = new Image(getClass().getResourceAsStream("/Sabot.png"));
-        Image dos = new Image(getClass().getResourceAsStream("/carte_dos.png"));
-        canSabot.setWidth(sabot.getWidth());
-        canSabot.setHeight(sabot.getHeight());
-
-        Cartes hautTas = Partie.getInstance().getHautTas();
-
-        Cartes.Color couleur = hautTas.getCouleur();
+    public Image getImageCartes(Cartes carte) {
+        Image imageCarte = null;
+        Cartes.Color couleur = carte.getCouleur();
         String color = null;
 
         switch (couleur) {
@@ -123,26 +113,33 @@ public class JeuControleur {
             case NOIR -> color = "Noir";
         }
 
-        Image imageCarte = null;
-
-        if (hautTas instanceof Normale) {
-            imageCarte  = new Image(getClass().getResourceAsStream("/carte_" + ((Normale) hautTas).getChiffre() + "_" + color + ".png"));
-        } else if (hautTas instanceof ChangeSens) {
+        if (carte instanceof Normale) {
+            imageCarte  = new Image(getClass().getResourceAsStream("/carte_" + ((Normale) carte).getChiffre() + "_" + color + ".png"));
+        } else if (carte instanceof ChangeSens) {
             imageCarte  = new Image(getClass().getResourceAsStream("/carte_" + "Change_" + color + ".png"));
-        } else if (hautTas instanceof Plus2) {
+        } else if (carte instanceof Plus2) {
             imageCarte  = new Image(getClass().getResourceAsStream("/carte_" + "Plus2_" + color + ".png"));
-        } else if (hautTas instanceof Couleur) {
+        } else if (carte instanceof Couleur) {
             imageCarte  = new Image(getClass().getResourceAsStream("/carte_" + "Change_Couleur" + ".png"));
-        } else if (hautTas instanceof Passer) {
+        } else if (carte instanceof Passer) {
             imageCarte  = new Image(getClass().getResourceAsStream("/carte_" + "Passe_" + color + ".png"));
         }
 
+        return imageCarte;
+    }
+
+    public void dessinerJeu() {
+
+        Image sabot = new Image(getClass().getResourceAsStream("/Sabot.png"));
+        Image dos = new Image(getClass().getResourceAsStream("/carte_dos.png"));
+        canSabot.setWidth(sabot.getWidth());
+        canSabot.setHeight(sabot.getHeight());
         canSabot.getGraphicsContext2D().drawImage(sabot, 0, 0);
 
         if (Partie.getInstance().getNbTas() > 0)
         for (int i = 0; i < Partie.getInstance().getNbTas(); i++)
         {
-            canSabot.getGraphicsContext2D().drawImage(imageCarte, 25 + i*0.25, 25 - i * 0.1);
+            canSabot.getGraphicsContext2D().drawImage(getImageCartes(Partie.getInstance().getHautTas()), 25 + i*0.25, 25 - i * 0.1);
         }
 
         if (Partie.getInstance().getNbPioche() > 0)

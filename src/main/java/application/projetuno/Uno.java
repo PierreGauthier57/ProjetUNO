@@ -67,8 +67,8 @@ public class Uno extends Application {
             Liste.add(J3);
             Liste.add(J4);
 
-            partie.initExpert(new ExpertCouleur(new ExpertNormale(new ExpertChangeSens(new ExpertPlus2(new ExpertPasser(null))))));
-            partie.ChoisirJeuDeCarte("jeux_test/JeuTest.csv", new ParserNormale(new ParserPlus2(new ParserPasser(new ParserCouleur(new ParserChangeSens(null))))));
+            partie.initExpert(new ExpertCouleur(new ExpertNormale(new ExpertPlus2(new ExpertPasser(null)))));
+            partie.ChoisirJeuDeCarte("jeux_test/JeuTest.csv", new ParserNormale(new ParserPlus2(new ParserPasser(null))));
             partie.distributionCartePioche(5);
             partie.InitHautTas();
 
@@ -82,7 +82,7 @@ public class Uno extends Application {
             root.setBottom(J3.getVbox());
             root.setLeft(J4.getVbox());
 
-            root.setCenter(JeuControleur.getJeu().initSabot(Liste));
+            root.setCenter(JeuControleur.getJeu().initJeu(Liste));
 
             stage.show();
         }

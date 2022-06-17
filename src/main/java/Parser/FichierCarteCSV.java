@@ -11,8 +11,7 @@ import Exception.*;
 
 public class FichierCarteCSV {
 
-    public static void initJeuCarte(String nomFichier, ArrayList<Cartes> cartes, ParserValide parser)
-    {
+    public static void initJeuCarte(String nomFichier, ArrayList<Cartes> cartes, ParserValide parser) {
         if (nomFichier == null)
             throw new IllegalArgumentException("Erreur : Le fichier est null");
 
@@ -65,8 +64,7 @@ public class FichierCarteCSV {
 
     }
 
-    public static Cartes.Color getColor(String ligne) throws ColorException
-    {
+    public static Cartes.Color getColor(String ligne) throws ColorException {
         try {
             String buffer = ligne.split(";")[1];
             Cartes.Color couleur;
@@ -93,8 +91,7 @@ public class FichierCarteCSV {
         }
     }
 
-    public static int getNumber(String ligne) throws NumberException
-    {
+    public static int getNumber(String ligne) throws NumberException {
         try
         {
             String buffer = ligne.split(";")[2];

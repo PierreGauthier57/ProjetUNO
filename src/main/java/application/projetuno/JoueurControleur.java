@@ -43,8 +43,6 @@ public class JoueurControleur {
     private HBox boutons ;
     private Cartes carteSelect ;
     private int num;
-    private boolean Ajouer;
-
 
     public Cartes getcarteSelect() {
         return carteSelect;
@@ -77,7 +75,7 @@ public class JoueurControleur {
         this.canMain = canMain;
     }
 
-    public void setJoueur(Joueur joueur)
+    private void setJoueur(Joueur joueur)
     {
         this.joueur = joueur;
     }
@@ -87,8 +85,7 @@ public class JoueurControleur {
         joueur = Partie.getInstance().ajouterJoueur(nom);
     }
 
-    public void setNom(Label nom)
-    {
+    public void setNom(Label nom) {
         Vbox.getChildren().remove(this.nom);
         this.nom = nom;
         Vbox.getChildren().add(this.nom);
@@ -103,12 +100,11 @@ public class JoueurControleur {
     {
         nom.setFont(new Font("Arial", 60));
     }
+
     public void setNomPC()
     {
         nom.setFont(new Font("Arial", 30));
     }
-
-
 
     public void CouleurNom(Color color)
     {
@@ -174,7 +170,7 @@ public class JoueurControleur {
                 JeuControleur.getJeu().setMsg(e.toString().substring(25),Color.rgb(112, 17, 4));
                 Partie.getInstance().punition(joueur,false,2);
             }
-            JeuControleur.getJeu().dessinerSabot();
+            JeuControleur.getJeu().dessinerJeu();
         });
 
         Button boutonPioche = new Button("Pioche");
@@ -198,7 +194,7 @@ public class JoueurControleur {
                 Partie.getInstance().punition(joueur,true,2);
                 JeuControleur.getJeu().setMsg(e.toString().substring(26),Color.rgb(112, 17, 4));
             }
-            JeuControleur.getJeu().dessinerSabot();
+            JeuControleur.getJeu().dessinerJeu();
         });
 
         Button boutonPoser = new Button("Poser");
@@ -232,7 +228,7 @@ public class JoueurControleur {
                 Partie.getInstance().punition(joueur,true,2);
                 JeuControleur.getJeu().setMsg(e.toString().substring(26),Color.rgb(112, 17, 4));
             }
-            JeuControleur.getJeu().dessinerSabot();
+            JeuControleur.getJeu().dessinerJeu();
         });
 
         Button boutonTerminer = new Button("Terminer");
@@ -277,13 +273,14 @@ public class JoueurControleur {
                 System.out.println("Tu n'as pas jouer, PUNITION");
                 Partie.getInstance().punition(joueur,true, 2);
             }
-            JeuControleur.getJeu().dessinerSabot();
+            JeuControleur.getJeu().dessinerJeu();
         });
 
         boutons.getChildren().addAll(boutonUno, boutonPioche,boutonPoser,boutonTerminer);
         Vbox.getChildren().add(boutons);
         return boutons;
     }
+
     private Label initLabelNom(String nom) {
 
         this.nom = new Label(nom);
@@ -315,8 +312,7 @@ public class JoueurControleur {
         return canMain;
     }
 
-    public void updateMain()
-    {
+    public void updateMain() {
         if(Partie.getInstance().getJoueurCourant().equals(joueur))
         {
             CouleurNom(Color.ORANGERED);
@@ -342,81 +338,21 @@ public class JoueurControleur {
     }
 
     private void dessinerMain(ArrayList<Cartes> liste, Canvas canvas) {
-
         //L_CANVAS = ECART * (liste.size() + 1);
         //canvas.setWidth(L_CANVAS);
 
         canvas.getGraphicsContext2D().clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
 
-
         int nbCartes = liste.size();
         int lMain = L_CARTE + ((nbCartes - 1) * ECART);
         int pad = (L_CANVAS - lMain) / 2;
 
-
-
         for (int i = 0; i < nbCartes; i++) {
-            //System.out.println("Ok");
-            Image carte = null;
-            Cartes.Color couleur = liste.get(i).getCouleur();
-            String color = null;
-
-            switch (couleur)
-            {
-                case VERT -> color = "Vert";
-                case ROUGE -> color = "Rouge";
-                case BLEU -> color = "Bleu";
-                case JAUNE -> color = "Jaune";
-                case NOIR -> color = "Noir";
-            }
-
-            if(liste.get(i) instanceof Normale)
-            {
-                carte = new Image(getClass().getResourceAsStream("/carte_" + ((Normale) liste.get(i)).getChiffre() + "_" + color + ".png"));
-            }
-            else if(liste.get(i) instanceof ChangeSens)
-            {
-                carte = new Image(getClass().getResourceAsStream("/carte_" + "Change_" + color + ".png"));
-            }
-            else if(liste.get(i) instanceof Plus2)
-            {
-                carte = new Image(getClass().getResourceAsStream("/carte_" + "Plus2_" + color + ".png"));
-            }
-            else if(liste.get(i) instanceof Couleur)
-            {
-                carte = new Image(getClass().getResourceAsStream("/carte_" + "Change_Couleur" + ".png"));
-            }
-            else if(liste.get(i) instanceof Passer)
-            {
-                carte = new Image(getClass().getResourceAsStream("/carte_" + "Passe_" + color + ".png"));
-            }
-
+            Image carte = JeuControleur.getJeu().getImageCartes(liste.get(i));
             canvas.getGraphicsContext2D().drawImage(carte, pad + i * ECART, 0);
         }
         if (carteSelect != null) {
-            Image carte = null;
-            Cartes.Color couleur = carteSelect.getCouleur();
-            String color = null;
-
-            switch (couleur) {
-                case VERT -> color = "Vert";
-                case ROUGE -> color = "Rouge";
-                case BLEU -> color = "Bleu";
-                case JAUNE -> color = "Jaune";
-                case NOIR -> color = "Noir";
-            }
-
-            if (carteSelect instanceof Normale) {
-                carte = new Image(getClass().getResourceAsStream("/carte_" + ((Normale) carteSelect).getChiffre() + "_" + color + ".png"));
-            } else if (carteSelect instanceof ChangeSens) {
-                carte = new Image(getClass().getResourceAsStream("/carte_" + "Change_" + color + ".png"));
-            } else if (carteSelect instanceof Plus2) {
-                carte = new Image(getClass().getResourceAsStream("/carte_" + "Plus2_" + color + ".png"));
-            } else if (carteSelect instanceof Couleur) {
-                carte = new Image(getClass().getResourceAsStream("/carte_" + "Change_Couleur" + ".png"));
-            } else if (carteSelect instanceof Passer) {
-                carte = new Image(getClass().getResourceAsStream("/carte_" + "Passe_" + color + ".png"));
-            }
+            Image carte = JeuControleur.getJeu().getImageCartes(carteSelect);
             canvas.getGraphicsContext2D().drawImage(carte, pad + num * ECART, 0);
         }
     }

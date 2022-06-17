@@ -17,14 +17,6 @@ public class Normale extends Cartes{
         return chiffre;
     }
 
-    public boolean EstValide(int chiffre){
-        return true;
-    }
-    @Override
-    public Color getCouleur() {
-        return super.getCouleur();
-    }
-
     public void effet() {}
 
     @Override
