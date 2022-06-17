@@ -109,10 +109,10 @@ public class Partie {
 
         if( passeTour == true)
         {
+            effet = false;
             prochainJoueur();
         }
         cumulEffet = 0;
-        effet = false;
     }
     /**
      * la fonction fait dire Uno à un joueur.
